@@ -33,7 +33,7 @@ const UpdateCart = ({ product, quantity, totalChange }) => {
           progress: undefined,
           theme: "light",
         });
-        data?.totalPrice && totalChange(data?.totalPrice);
+        // data?.totalPrice && totalChange(data?.totalPrice);
         navigate("/cart");
       } else {
         toast.error(`${data?.message}`, {
