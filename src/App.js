@@ -12,6 +12,7 @@ import SearchProducts from "./pages/SearchProducts";
 import Profile from "./pages/profile/Profile";
 import ProductDetail from "./components/products/ProductDetail";
 import ListCart from "./pages/ListCart";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/search_products" element={<SearchProducts />} />
             <Route path="/product_details/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<ListCart />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/profile/*" element={<Profile />}></Route>
           </Routes>
         </Box>
