@@ -27,6 +27,7 @@ import User from "../User";
 import Address from "../Address";
 import CreateAddress from "../../components/address/CreateAddress";
 import OrderHistory from "../OrderHistory";
+import Brand from "../Brand";
 
 const drawerWidth = 240;
 
@@ -203,6 +204,7 @@ export default function Profile() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Routes>
+          <Route path="brand" element={<Brand />} />
           <Route path="wish_list" element={<WishList />} />
           <Route path="user" element={<User />} />
           <Route path="address" element={<Address />} />

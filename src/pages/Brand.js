@@ -44,6 +44,7 @@ const Brand = () => {
           <img
             src={`${BASE_URL}categories/brand_image/${row.brand_image}`}
             width="100%"
+            alt={`Thumbnail for ${row.brand_image} Brand`}
           />
         );
       },
