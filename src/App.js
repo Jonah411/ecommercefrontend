@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import LoginPage from "./pages/LoginPage";
 import ListProduct from "./pages/ListProduct";
 import SearchProducts from "./pages/SearchProducts";
+import Profile from "./pages/profile/Profile";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/category/:name" element={<ListProduct />} />
             <Route path="/search_products" element={<SearchProducts />} />
+            <Route path="/profile/*" element={<Profile />}></Route>
           </Routes>
         </Box>
       </Container>
