@@ -7,6 +7,7 @@ import MainHeader from "./layout/MainHeader";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import LoginPage from "./pages/LoginPage";
+import ListProduct from "./pages/ListProduct";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/category/:name" element={<ListProduct />} />
           </Routes>
         </Box>
       </Container>
