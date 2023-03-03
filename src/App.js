@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import MainHeader from "./layout/MainHeader";
 import Home from "./pages/Home";
+import Register from "./pages/Register";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Box sx={{ bgcolor: "#cfe8fc" }}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </Box>
       </Container>
