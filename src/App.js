@@ -11,6 +11,7 @@ import ListProduct from "./pages/ListProduct";
 import SearchProducts from "./pages/SearchProducts";
 import Profile from "./pages/profile/Profile";
 import ProductDetail from "./components/products/ProductDetail";
+import ListCart from "./pages/ListCart";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/category/:name" element={<ListProduct />} />
             <Route path="/search_products" element={<SearchProducts />} />
             <Route path="/product_details/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<ListCart />} />
             <Route path="/profile/*" element={<Profile />}></Route>
           </Routes>
         </Box>
