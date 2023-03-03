@@ -17,7 +17,7 @@ import { BASE_URL } from "../constants/ConstaltsVariables";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const { data: categoriesData } = useGetCategoriesQuery("data", {
+  const { data: categoriesData } = useGetCategoriesQuery(undefined, {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
@@ -54,7 +54,7 @@ export default function Navbar() {
 
     setState({ ...state, [anchor]: open });
   };
-
+  console.log(categoriesData);
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
