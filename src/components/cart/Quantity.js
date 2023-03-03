@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 const Quantity = ({ quantityChange, quantityValue }) => {
   const [quantity, setQuantity] = useState(quantityValue ? quantityValue : 1);
   useEffect(() => {
-    setQuantity(quantityValue ? quantityValue : 1);
+    setQuantity(quantityValue && quantityValue);
   }, [quantityValue]);
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value, 10);
     setQuantity(newQuantity);
   };
   useEffect(() => {
-    quantityChange(quantity);
+    if (quantity) {
+      quantityChange(quantity);
+    }
   }, [quantity, quantityChange]);
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ const Quantity = ({ quantityChange, quantityValue }) => {
         id="quantity"
         name="quantity"
         min="1"
-        value={quantity}
+        value={quantity && quantity}
         onChange={handleQuantityChange}
         className="form-control"
       />
