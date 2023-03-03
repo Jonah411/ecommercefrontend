@@ -4,11 +4,17 @@ import { BASE_URL } from "../../constants/ConstaltsVariables";
 const baseQuery = fetchBaseQuery({
   baseUrl: `${BASE_URL}`,
   credentials: "include",
+  mode: "cors",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().ecommerceadmin.token;
 
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set(
+        "authorization",
+        `Bearer ${token}`,
+        "Content-Type",
+        "application/json"
+      );
     }
     return headers;
   },
