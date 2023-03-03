@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import ListProduct from "./pages/ListProduct";
 import SearchProducts from "./pages/SearchProducts";
 import Profile from "./pages/profile/Profile";
+import ProductDetail from "./components/products/ProductDetail";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/category/:name" element={<ListProduct />} />
             <Route path="/search_products" element={<SearchProducts />} />
+            <Route path="/product_details/:id" element={<ProductDetail />} />
             <Route path="/profile/*" element={<Profile />}></Route>
           </Routes>
         </Box>
