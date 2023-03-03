@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import { useGetMenusQuery } from "../../feature/profileReducer/authProfile";
 import WishList from "../WishList";
+import User from "../User";
 
 const drawerWidth = 240;
 
@@ -200,6 +201,7 @@ export default function Profile() {
         <DrawerHeader />
         <Routes>
           <Route path="wish_list" element={<WishList />} />
+          <Route path="user" element={<User />} />
         </Routes>
       </Box>
     </Box>
