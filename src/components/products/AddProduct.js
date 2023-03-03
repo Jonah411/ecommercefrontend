@@ -12,7 +12,7 @@ import Stack from "@mui/material/Stack";
 import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
 import {
-  useAddproductMutation,
+  useAddproductdataMutation,
   useGetAllBrandsQuery,
   useGetCategoriesQuery,
 } from "../../feature/profileReducer/authProfile";
@@ -30,8 +30,8 @@ const style = {
 };
 
 const AddProduct = () => {
-  const [addproduct, { data, error, isSuccess, isError }] =
-    useAddproductMutation();
+  const [addproductdata, { data, error, isSuccess, isError }] =
+    useAddproductdataMutation();
   const { data: parentData } = useGetCategoriesQuery("data", {
     refetchOnMountOrArgChange: true,
     skip: false,
@@ -144,7 +144,7 @@ const AddProduct = () => {
         });
       }
 
-      addproduct(formData);
+      addproductdata(formData);
     }
   }, [
     formError,
@@ -152,7 +152,7 @@ const AddProduct = () => {
     isSubmit,
     productImage,
     productGallery,
-    addproduct,
+    addproductdata,
   ]);
   useEffect(() => {
     if (isSuccess) {
