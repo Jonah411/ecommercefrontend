@@ -48,7 +48,7 @@ const UpdateCart = ({ product, quantity, totalChange }) => {
         });
       }
     }
-  }, [isSuccess, data, totalChange, navigate]);
+  }, [isSuccess, data, navigate]);
   return (
     <>
       <Button
