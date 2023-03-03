@@ -67,7 +67,7 @@ const BuyCart = ({ product }) => {
             <p>
               {" "}
               Quantity:
-              <Quantity quantityChange={quantityChange} />
+              <Quantity quantityChange={quantityChange} quantityValue={1} />
             </p>
             <p>
               Total:

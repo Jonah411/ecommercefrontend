@@ -116,7 +116,7 @@ const Checkout = () => {
               <div className="card-header">CheckOut Details</div>
               <div className="card-body">
                 {productData?.map((data) => (
-                  <div>
+                  <div key={data?.product?._id}>
                     <p className="fw-bold">{data?.product?.name}</p>
                     <div className="d-flex justify-content-between">
                       <p>{data?.product?.price}</p>

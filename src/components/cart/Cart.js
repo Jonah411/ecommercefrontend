@@ -10,30 +10,31 @@ const Cart = ({ product, productIndex, changeTotal }) => {
   //   refetchOnMountOrArgChange: true,
   //   skip: false,
   // });
+
   const [cart, setCart] = useState();
+  const [totalPrice, setToatalPrice] = useState();
   const [quantity, setQuantity] = useState(0);
-  const [totalPrice, setToatalPrice] = useState(0);
   useEffect(() => {
-    setCart(product?.product);
-    setQuantity(product?.quantity);
+    setCart(product && product?.product);
   }, [product]);
-
   useEffect(() => {
-    if (quantity) {
-      let total = parseFloat(Number((cart?.price * quantity).toFixed(2)));
-      setToatalPrice(total);
-    }
-  }, [quantity, cart?.price]);
+    let total = parseFloat(
+      Number(
+        (cart?.price * (quantity ? quantity : product?.quantity)).toFixed(2)
+      )
+    );
+    setToatalPrice(total);
+  }, [product, quantity, cart?.price]);
 
-  const quantityChange = (data) => {
-    setQuantity(data);
-  };
   const totalChange = (data) => {
     let change = {
       totalPrice: data,
-      quantity: quantity,
+      quantity: product?.quantity,
     };
     changeTotal(change);
+  };
+  const quantityChange = (data) => {
+    setQuantity(data);
   };
   return (
     <div className="container border p-2">
@@ -66,8 +67,8 @@ const Cart = ({ product, productIndex, changeTotal }) => {
                   <div className="d-grid">
                     <p>Quantity:</p>
                     <Quantity
+                      quantityValue={product?.quantity}
                       quantityChange={quantityChange}
-                      quantityValue={quantity}
                     />
                   </div>
                 </div>
@@ -87,7 +88,7 @@ const Cart = ({ product, productIndex, changeTotal }) => {
                 productIndex={productIndex}
               />
               <UpdateCart
-                quantity={quantity}
+                quantity={quantity ? quantity : product?.quantity}
                 product={product}
                 totalChange={totalChange}
               />

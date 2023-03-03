@@ -1,25 +1,33 @@
 import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import { useUpdateCartMutation } from "../../feature/profileReducer/authProfile";
 import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
-import { useNavigate } from "react-router-dom";
 
 const UpdateCart = ({ product, quantity, totalChange }) => {
   const user = useSelector(getLoginDetails);
-  const navigate = useNavigate();
   const [updateCart, { data, isSuccess }] = useUpdateCartMutation();
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleUpdate = () => {
-    let data = {
-      userId: user?.id,
-      productId: product?.product?._id,
-      quantity: quantity,
-    };
-    updateCart(data);
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setIsSubmit(true);
   };
+
+  useEffect(() => {
+    if (isSubmit && updateCart) {
+      let data = {
+        userId: user && user?.id,
+        productId: product && product?.product?._id,
+        quantity: quantity && quantity,
+      };
+      console.log(data);
+      updateCart(data);
+    }
+  }, [isSubmit, product, quantity, user, updateCart]);
+
   useEffect(() => {
     if (isSuccess) {
       if (data?.status === true) {
@@ -34,7 +42,7 @@ const UpdateCart = ({ product, quantity, totalChange }) => {
           theme: "light",
         });
         data?.totalPrice && totalChange(data?.totalPrice);
-        navigate("/cart");
+        setIsSubmit(false);
       } else {
         toast.error(`${data?.message}`, {
           position: "top-center",
@@ -46,15 +54,18 @@ const UpdateCart = ({ product, quantity, totalChange }) => {
           progress: undefined,
           theme: "light",
         });
+        setIsSubmit(false);
       }
     }
-  }, [isSuccess, data, totalChange, navigate]);
+  }, [isSuccess, data, totalChange]);
+
   return (
     <>
       <Button
         variant="contained"
-        disabled={product?.quantity === quantity}
-        onClick={handleUpdate}
+        onClick={(e) => {
+          handleUpdate(e);
+        }}
       >
         Update
       </Button>
