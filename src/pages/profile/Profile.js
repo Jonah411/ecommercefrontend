@@ -24,6 +24,9 @@ import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import { useGetMenusQuery } from "../../feature/profileReducer/authProfile";
 import WishList from "../WishList";
 import User from "../User";
+import Address from "../Address";
+import CreateAddress from "../../components/address/CreateAddress";
+import OrderHistory from "../OrderHistory";
 
 const drawerWidth = 240;
 
@@ -202,6 +205,9 @@ export default function Profile() {
         <Routes>
           <Route path="wish_list" element={<WishList />} />
           <Route path="user" element={<User />} />
+          <Route path="address" element={<Address />} />
+          <Route path="add_address" element={<CreateAddress />} />
+          <Route path="order_history" element={<OrderHistory />} />
         </Routes>
       </Box>
     </Box>
