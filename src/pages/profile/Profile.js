@@ -29,6 +29,7 @@ import CreateAddress from "../../components/address/CreateAddress";
 import OrderHistory from "../OrderHistory";
 import Brand from "../Brand";
 import Categories from "../Categories";
+import Product from "../Product";
 
 const drawerWidth = 240;
 
@@ -208,6 +209,7 @@ export default function Profile() {
           <Route path="brand" element={<Brand />} />
           <Route path="wish_list" element={<WishList />} />
           <Route path="categories" element={<Categories />} />
+          <Route path="product" element={<Product />} />
           <Route path="user" element={<User />} />
           <Route path="address" element={<Address />} />
           <Route path="add_address" element={<CreateAddress />} />
