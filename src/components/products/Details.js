@@ -46,7 +46,11 @@ const Details = ({ details }) => {
             />
           </Stack>
           <Typography variant="body2" color="text.secondary">
-            {`${productDetails?.description}`}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              dangerouslySetInnerHTML={{ __html: productDetails?.description }}
+            />
           </Typography>
         </CardContent>
         <CardActions>

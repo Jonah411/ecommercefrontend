@@ -10,7 +10,7 @@ import { BASE_URL } from "../constants/ConstaltsVariables";
 import AddProduct from "../components/products/AddProduct";
 
 const Product = () => {
-  const { data: productsData } = useGetAllProductsQuery("data", {
+  const { data: productsData } = useGetAllProductsQuery(undefined, {
     refetchOnMountOrArgChange: true,
     skip: false,
   });

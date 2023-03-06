@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -16,6 +16,7 @@ import {
   useGetAllBrandsQuery,
   useGetCategoriesQuery,
 } from "../../feature/profileReducer/authProfile";
+import JoditEditor from "jodit-react";
 
 const style = {
   position: "absolute",
@@ -117,7 +118,16 @@ const AddProduct = () => {
       setFormValues({ ...formValues, [name]: value });
     }
   };
+  const editor = useRef(null);
+  // const [content, setContent] = useState("");
 
+  // const config = useMemo(
+  //   {
+  //     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+  //     placeholder: "Start typings...",
+  //   },
+  //   []
+  // );
   const handleSave = () => {
     setIsSubmit(true);
     setFormError(validation(formValues));
@@ -225,7 +235,7 @@ const AddProduct = () => {
             >
               {formError.name}
             </Typography>
-            <TextField
+            {/* <TextField
               fullWidth
               id="standard-basic"
               label="Description"
@@ -244,7 +254,23 @@ const AddProduct = () => {
               sx={{ flexGrow: 1, mb: 1.5 }}
             >
               {formError.description}
-            </Typography>
+            </Typography> */}
+            <JoditEditor
+              ref={editor}
+              // value={content}
+              //config={config}
+              tabIndex={1} // tabIndex of textarea
+              //onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+              onChange={(e) => {
+                let data = {
+                  target: {
+                    name: "description",
+                    value: e,
+                  },
+                };
+                handleChange(data);
+              }}
+            />
             <TextField
               fullWidth
               id="standard-basic"
