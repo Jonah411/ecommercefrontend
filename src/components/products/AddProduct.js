@@ -12,7 +12,7 @@ import Stack from "@mui/material/Stack";
 import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
 import {
-  useAddproductdataMutation,
+  useCreateProductMutation,
   useGetAllBrandsQuery,
   useGetCategoriesQuery,
 } from "../../feature/profileReducer/authProfile";
@@ -28,12 +28,14 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  overflowY: "scroll",
+  height: "auto",
 };
 
 const AddProduct = () => {
-  const [addproductdata, { data, error, isSuccess, isError }] =
-    useAddproductdataMutation();
-  const { data: parentData } = useGetCategoriesQuery("data", {
+  const [createProduct, { data, error, isSuccess, isError }] =
+    useCreateProductMutation();
+  const { data: parentData } = useGetCategoriesQuery(undefined, {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
@@ -147,14 +149,19 @@ const AddProduct = () => {
     if (Object.keys(formError).length === 0 && isSubmit) {
       var formData = new FormData();
       formData.append("json_data", JSON.stringify(formValues));
-      formData.append("product_image", productImage?.product_image[0]);
-      if (productGallery?.product_gallery) {
-        Array.from(productGallery?.product_gallery).forEach((item) => {
+      formData.append(
+        "product_image",
+        productImage?.product_image && productImage?.product_image[0]
+      );
+      if (productGallery) {
+        Array.from(
+          productGallery?.product_gallery && productGallery?.product_gallery
+        ).forEach((item) => {
           formData.append("product_gallery", item);
         });
       }
 
-      addproductdata(formData);
+      createProduct(formData);
     }
   }, [
     formError,
@@ -162,7 +169,7 @@ const AddProduct = () => {
     isSubmit,
     productImage,
     productGallery,
-    addproductdata,
+    createProduct,
   ]);
   useEffect(() => {
     if (isSuccess) {
@@ -271,6 +278,15 @@ const AddProduct = () => {
                 handleChange(data);
               }}
             />
+            <Typography
+              variant="p"
+              noWrap
+              component="div"
+              justifyContent="center"
+              sx={{ flexGrow: 1, mb: 1.5 }}
+            >
+              {formError?.description}
+            </Typography>
             <TextField
               fullWidth
               id="standard-basic"

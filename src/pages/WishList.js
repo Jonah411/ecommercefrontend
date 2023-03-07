@@ -30,7 +30,7 @@ const WishList = () => {
   const columns = [
     {
       name: "Product Name",
-      selector: (row) => row.product.name,
+      selector: (row) => row?.product?.name,
       sortable: true,
       wrap: true,
       maxWidth: "170px",
@@ -40,10 +40,10 @@ const WishList = () => {
       selector: (row) => {
         return (
           <img
-            src={`${BASE_URL}categories/product_image/image/${row.product.product_image}`}
+            src={`${BASE_URL}categories/product_image/image/${row?.product?.product_image}`}
             className="img-thumbnail"
             width="100%"
-            alt={` ${row.product.product_image?.name} wishlist`}
+            alt={` ${row?.product?.product_image?.name} wishlist`}
           />
         );
       },
@@ -53,7 +53,7 @@ const WishList = () => {
     },
     {
       name: "Product Price",
-      selector: (row) => row.product.price,
+      selector: (row) => row?.product?.price,
       sortable: true,
       wrap: true,
       maxWidth: "170px",

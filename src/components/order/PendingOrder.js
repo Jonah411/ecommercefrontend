@@ -29,9 +29,9 @@ const PendingOrder = () => {
           return (
             <div>
               <img
-                src={`${BASE_URL}categories/product_image/image/${data.product.product_image}`}
+                src={`${BASE_URL}categories/product_image/image/${data?.product?.product_image}`}
                 width="30%"
-                alt={`Thumbnail for ${data.product.product_image} Order`}
+                alt={`Thumbnail for ${data?.product?.product_image} Order`}
               />
             </div>
           );
@@ -47,7 +47,7 @@ const PendingOrder = () => {
         row.items?.map((data) => {
           return (
             <div>
-              <p>{data.product.name}</p>
+              <p>{data?.product?.name}</p>
             </div>
           );
         }),
@@ -62,7 +62,7 @@ const PendingOrder = () => {
         row.items?.map((data) => {
           return (
             <div>
-              <p>{data.product.price}</p>
+              <p>{data?.product?.price}</p>
             </div>
           );
         }),
@@ -77,7 +77,7 @@ const PendingOrder = () => {
         row.items?.map((data) => {
           return (
             <div>
-              <p>{data.quantity}</p>
+              <p>{data?.quantity}</p>
             </div>
           );
         }),
@@ -88,14 +88,14 @@ const PendingOrder = () => {
     },
     {
       name: "Total Price",
-      selector: (row) => row.totalPrice,
+      selector: (row) => row?.totalPrice,
       sortable: true,
       wrap: true,
       maxWidth: "200px",
     },
     {
       name: "Create Date",
-      selector: (row) => row.createdAt,
+      selector: (row) => row?.createdAt,
       sortable: true,
       wrap: true,
       maxWidth: "170px",

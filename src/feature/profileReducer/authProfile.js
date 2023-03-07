@@ -16,9 +16,9 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
         body: patch,
       }),
     }),
-    addproductdata: builder.mutation({
+    createProduct: builder.mutation({
       query: (data) => ({
-        url: "/api/product/add",
+        url: "/api/product/create",
         method: "POST",
         body: data,
       }),
@@ -215,7 +215,7 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
 export const {
   useAuthRegisterMutation,
   useAddCategoriesMutation,
-  useAddproductdataMutation,
+  useCreateProductMutation,
   useGetMenusQuery,
   useGetParentCategoriesQuery,
   useGetCategoriesQuery,
