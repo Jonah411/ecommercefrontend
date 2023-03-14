@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Quantity = ({ quantityChange, quantityValue }) => {
-  const [quantity, setQuantity] = useState(0);
+const Quantity = ({ quantityValue, onQuantityChange }) => {
+  const [quantity, setQuantity] = useState(quantityValue);
   useEffect(() => {
     setQuantity(quantityValue);
   }, [quantityValue]);
+
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value, 10);
     setQuantity(newQuantity);
+    onQuantityChange(newQuantity);
   };
-
-  useEffect(() => {
-    if (quantity) {
-      quantityChange(quantity);
-    }
-  }, [quantity, quantityChange]);
 
   const handleIncrement = (e) => {
     e.preventDefault();
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    onQuantityChange(newQuantity);
   };
 
   const handleDecrement = (e) => {
     e.preventDefault();
     if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      onQuantityChange(newQuantity);
     }
   };
 
@@ -40,7 +40,7 @@ const Quantity = ({ quantityChange, quantityValue }) => {
         min="1"
         value={quantity}
         onChange={handleQuantityChange}
-        className="form-control"
+        className="form-control custom-input"
       />
       <button onClick={handleIncrement} className="btn btn-secondary">
         +

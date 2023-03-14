@@ -6,7 +6,61 @@
   height: 40vmin;
   pointer-events: none;
 }
+.custom-input {
+  max-width: 80px;
+  padding: 5px;
+}
+.font-heading {
+  font-size: 1.5rem;
+}
+.table-design {
+  color: gray;
+  border-spacing: 0;
+  width: 100%;
+  margin: 0 0 1.41575em;
+  border-collapse: collapse;
+}
+.title-design {
+  font-family: "Source Sans Pro", "HelveticaNeue-Light", "Helvetica Neue Light",
+    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #484c51;
+  line-height: 1.214;
+  letter-spacing: -1px;
+}
+.table-body-design {
+  background-color: #fdfdfd;
+}
+.btn-coupon {
+  background-color: #61dafb;
+  width: 100%;
+  border-color: #61dafb;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0.6180469716em 1.41575em;
+  text-decoration: none;
+  font-weight: 600;
+  text-shadow: none;
+  display: inline-block;
+}
+.coupon {
+  display: flex;
+  gap: 10px;
+}
+.actions-table {
+  background-color: #fbfbfb;
+}
+.total-h2 {
+  color: #484c51;
+  font-size: 1.618em;
+}
 
+.table-total {
+  width: 300px;
+}
+
+.table-child {
+  vertical-align: middle;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

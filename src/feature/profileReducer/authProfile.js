@@ -144,7 +144,7 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
     }),
     updateCart: builder.mutation({
       query: (patch) => ({
-        url: `/api/cart/${patch.userId}/${patch.productId}`,
+        url: `/api/cart/${patch.userId}`,
         method: "PUT",
         body: patch,
       }),
@@ -209,6 +209,13 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
         url: `/api/dashboard/menu/roll/${id}`,
       }),
     }),
+    applycoupon: builder.mutation({
+      query: (patch) => ({
+        url: `/api/coupon`,
+        method: "POST",
+        body: patch,
+      }),
+    }),
   }),
 });
 
@@ -248,4 +255,5 @@ export const {
   useAddMenuMutation,
   useDeleteMenuMutation,
   useRemoveUserMutation,
+  useApplycouponMutation,
 } = authCouponApi;

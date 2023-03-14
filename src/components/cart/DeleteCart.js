@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import { useDeleteCartMutation } from "../../feature/profileReducer/authProfile";
 import { toast } from "react-toastify";
+import { AiFillDelete } from "react-icons/ai";
 
 const DeleteCart = ({ cartData }) => {
   const user = useSelector(getLoginDetails);
@@ -12,7 +13,7 @@ const DeleteCart = ({ cartData }) => {
   const deleteCartList = (cartData) => {
     let deleteId = {
       productid: cartData,
-      userid: user.id,
+      userid: user?.id,
     };
     deleteCart(deleteId);
   };
@@ -31,7 +32,7 @@ const DeleteCart = ({ cartData }) => {
         });
         setTimeout(() => {
           window.location.reload();
-        }, 100);
+        }, 300);
       } else {
         toast.error(`${data?.message}`, {
           position: "top-center",
@@ -48,7 +49,7 @@ const DeleteCart = ({ cartData }) => {
   }, [isSuccess, data, navigate]);
   return (
     <button className="btn btn-danger" onClick={() => deleteCartList(cartData)}>
-      Delete
+      <AiFillDelete />
     </button>
   );
 };

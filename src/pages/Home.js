@@ -8,6 +8,8 @@ import Banner from "../components/design/Banner";
 import ProductList from "../components/products/ProductList";
 import { useSelector } from "react-redux";
 import { getLoginDetails } from "../feature/loginReducer/loginReducer";
+import SliderCard from "../components/design/SliderCard";
+import SliderBrand from "../components/design/SliderBrand";
 
 const Home = () => {
   const user = useSelector(getLoginDetails);
@@ -35,6 +37,12 @@ const Home = () => {
   return (
     <div>
       <Banner />
+      <div className="container">
+        <SliderCard />
+      </div>
+      <div className="container">
+        <SliderBrand />
+      </div>
       <div className="text-center mt-2">
         <Typography gutterBottom variant="h5" component="div">
           All Products

@@ -30,6 +30,36 @@ const AuthCart = ({ cartData, totalPrice }) => {
     <div className="container p-3">
       <div className="card mt-2">
         <div className="card-body">
+          <div className="card mb-2 d-none d-sm-none d-md-block">
+            <div className="card-header text-center">
+              <div className="row">
+                <div className="col-12 col-sm-12 col-md-2">
+                  <div className="d-flex">
+                    <p className="fw-bold">Product</p>
+                  </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-10">
+                  <div className="row">
+                    <div className="col-12 col-sm-12 col-md-4">
+                      <div className="d-flex">
+                        <p className="fw-bold">Name</p>
+                      </div>
+                    </div>
+                    <div className="col-12 col-sm-12 col-md-4">
+                      <div className="d-flex">
+                        <p className="fw-bold">Price</p>
+                      </div>
+                    </div>
+                    <div className="col-12 col-sm-12 col-md-4">
+                      <div className="d-grid">
+                        <p className="fw-bold">Quantity</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           {cartValue &&
             cartValue?.map((data, index) => (
               <Cart

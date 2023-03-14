@@ -11,9 +11,10 @@ import ListProduct from "./pages/ListProduct";
 import SearchProducts from "./pages/SearchProducts";
 import Profile from "./pages/profile/Profile";
 import ProductDetail from "./components/products/ProductDetail";
-import ListCart from "./pages/ListCart";
 import Checkout from "./pages/Checkout";
 import ListBrand from "./components/brand/ListBrand";
+import "./App.css";
+import CartDashboard from "./components/cart/CartDashboard";
 
 const App = () => {
   return (
@@ -28,7 +29,7 @@ const App = () => {
             <Route path="/category/:name" element={<ListProduct />} />
             <Route path="/search_products" element={<SearchProducts />} />
             <Route path="/product_details/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<ListCart />} />
+            <Route path="/cart" element={<CartDashboard />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/brand/:name" element={<ListBrand />} />
             <Route path="/profile/*" element={<Profile />}></Route>

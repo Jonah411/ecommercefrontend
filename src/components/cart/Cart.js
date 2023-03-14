@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { BASE_URL } from "../../constants/ConstaltsVariables";
 
 import DeleteCart from "./DeleteCart";
@@ -53,19 +54,21 @@ const Cart = ({ product, productIndex, changeTotal }) => {
               <div className="row">
                 <div className="col-12 col-sm-12 col-md-4">
                   <div className="d-flex">
-                    <p>Name:</p>
-                    <p className="ms-2 fw-bold">{cart?.name}</p>
+                    <p className="d-md-none">Name:</p>
+                    <Link className="ms-2 fw-bold" variant="link">
+                      {cart?.name}
+                    </Link>
                   </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-4">
                   <div className="d-flex">
-                    <p>Price:</p>
+                    <p className="d-md-none">Price:</p>
                     <p className="ms-2 fw-bold">{cart?.price}</p>
                   </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-4">
                   <div className="d-grid">
-                    <p>Quantity:</p>
+                    <p className="d-md-none">Quantity:</p>
                     <Quantity
                       quantityValue={product?.quantity}
                       quantityChange={quantityChange}
@@ -78,9 +81,9 @@ const Cart = ({ product, productIndex, changeTotal }) => {
         </div>
         <div className="card-footer">
           <div>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-end gap-2">
               <div className="d-flex">
-                <p>Total:</p>
+                <p>SubTotal:</p>
                 <p className="ms-2 fw-bold">{totalPrice}</p>
               </div>
               <DeleteCart
