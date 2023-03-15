@@ -4,8 +4,10 @@ import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
 
 const CouponCart = ({ cartId, totalPriceChange }) => {
-  const [applycoupon, { data, isSuccess, error, isError }] =
-    useApplycouponMutation();
+  const [
+    applycoupon,
+    { data: couponData, isSuccess: couponSuccess, error, isError },
+  ] = useApplycouponMutation();
   const init = { couponCode: "" };
   const [couponForm, setCouponForm] = useState(init);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -29,16 +31,16 @@ const CouponCart = ({ cartId, totalPriceChange }) => {
   useEffect(() => {
     if (Object.keys(couponError).length === 0 && isSubmit) {
       let data = {
-        cartId: cartId,
+        cartId: cartId && cartId,
         couponCode: couponForm?.couponCode,
       };
       applycoupon(data);
     }
   }, [couponError, isSubmit, couponForm, cartId, applycoupon]);
   useEffect(() => {
-    if (isSuccess) {
-      if (data?.status === true) {
-        toast.success(`${data?.message}`, {
+    if (couponSuccess) {
+      if (couponData?.status === true) {
+        toast.success(`${couponData?.message}`, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -48,7 +50,7 @@ const CouponCart = ({ cartId, totalPriceChange }) => {
           progress: undefined,
           theme: "light",
         });
-        totalPriceChange(data?.totalPrice);
+        couponData && totalPriceChange(couponData?.totalPrice);
       }
     }
     if (isError) {
@@ -63,7 +65,7 @@ const CouponCart = ({ cartId, totalPriceChange }) => {
         theme: "light",
       });
     }
-  }, [isSuccess, data, error, isError, totalPriceChange]);
+  }, [couponSuccess, couponData, error, isError]);
   return (
     <>
       <div className="coupon ">

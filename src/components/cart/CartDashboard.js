@@ -175,7 +175,7 @@ const CartDashboard = () => {
       <div className="cart-collaterals d-flex justify-content-end">
         <div className="cart_totals">
           <h2 className="total-h2">Cart Totals</h2>
-          <table cellSpacing="0" className="table-light table">
+          <table cellSpacing="0" className="table-light table bordered">
             <tbody>
               <tr className="cart-subtotal">
                 <th className="p-4 table-secondary table-total table-child">
