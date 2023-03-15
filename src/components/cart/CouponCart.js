@@ -65,7 +65,7 @@ const CouponCart = ({ cartId, totalPriceChange }) => {
         theme: "light",
       });
     }
-  }, [couponSuccess, couponData, error, isError]);
+  }, [couponSuccess, couponData, error, isError, totalPriceChange]);
   return (
     <>
       <div className="coupon ">
