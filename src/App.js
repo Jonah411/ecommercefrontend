@@ -11,10 +11,10 @@ import ListProduct from "./pages/ListProduct";
 import SearchProducts from "./pages/SearchProducts";
 import Profile from "./pages/profile/Profile";
 import ProductDetail from "./components/products/ProductDetail";
-import Checkout from "./pages/Checkout";
 import ListBrand from "./components/brand/ListBrand";
 import "./App.css";
 import CartDashboard from "./components/cart/CartDashboard";
+import CheckoutDashboard from "./components/checkout/CheckoutDashboard";
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
             <Route path="/search_products" element={<SearchProducts />} />
             <Route path="/product_details/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<CartDashboard />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<CheckoutDashboard />} />
             <Route path="/brand/:name" element={<ListBrand />} />
             <Route path="/profile/*" element={<Profile />}></Route>
           </Routes>

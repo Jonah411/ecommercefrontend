@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import {
   useGetAllCartQuery,
@@ -10,6 +10,7 @@ import CartProduct from "./CartProduct";
 import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
 import CouponCart from "./CouponCart";
+import Breadcrumb from "../common/Breadcrumb";
 
 const CartDashboard = () => {
   const auth = useSelector(getLoginDetails);
@@ -17,6 +18,7 @@ const CartDashboard = () => {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
+  const navigate = useNavigate();
   const [updateCart, { data, isSuccess }] = useUpdateCartMutation();
   const [cart, setCart] = useState([]);
   const [isCartDirty, setIsCartDirty] = useState(false);
@@ -93,16 +95,7 @@ const CartDashboard = () => {
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">
-        <nav aria-label="breadcrumb">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <Link to="/">Home</Link>
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              cart
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumb title={"Cart"} />
       </div>
       <div className="mt-2 mb-3">
         <h1 className="title-design">Cart</h1>
@@ -209,7 +202,14 @@ const CartDashboard = () => {
                   style={{ background: "#fbfbfb" }}
                 >
                   <div className="d-grid">
-                    <button className="btn btn-secondary p-3">Checkout</button>
+                    <button
+                      className="btn btn-secondary p-3"
+                      onClick={() =>
+                        navigate("/checkout", { state: { totalValue } })
+                      }
+                    >
+                      Checkout
+                    </button>
                   </div>
                 </td>
               </tr>

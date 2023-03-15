@@ -1,3 +1,9 @@
+body {
+  font-family: "Source Sans Pro", "HelveticaNeue-Light", "Helvetica Neue Light",
+    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  line-height: 1.618;
+  text-rendering: optimizeLegibility;
+}
 .App {
   text-align: center;
 }
@@ -30,6 +36,31 @@
 .table-body-design {
   background-color: #fdfdfd;
 }
+.checkout-table {
+  border-spacing: 0;
+  width: 100%;
+  margin: 0 0 1.41575em;
+  border-collapse: separate;
+}
+.checkout-table th {
+  width: 45%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  padding: 1.41575em;
+  vertical-align: middle;
+  font-weight: 600;
+  background-color: #f8f8f8;
+}
+.checkout-table td {
+  width: 45%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  padding: 1em 1.41575em;
+  text-align: left;
+  vertical-align: top;
+  background-color: #fdfdfd;
+  color: #60646c;
+}
 .btn-coupon {
   background-color: #61dafb;
   width: 100%;
@@ -60,6 +91,38 @@
 
 .table-child {
   vertical-align: middle;
+}
+
+.alert-ecommerce {
+  margin-bottom: 2.617924em;
+  margin-left: 0;
+  border-radius: 2px;
+  background-color: #3d9cd2 !important;
+  color: #ffffff !important;
+  clear: both;
+  border-left: 0.6180469716em solid rgba(0, 0, 0, 0.15);
+  padding: 1em 2em 1em 3.5em;
+  position: relative;
+  list-style: none outside;
+}
+.alert-ecommerce-logo {
+  display: inline-block;
+  position: absolute;
+  top: 1.3em;
+  left: 1.5em;
+  color: #fff;
+}
+.code-checkout {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.place-order {
+  padding: 1.41575em;
+  margin-bottom: 0;
+  float: none;
+  width: 100%;
+  margin-top: 2.617924em;
+  background-color: #fafafa;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
