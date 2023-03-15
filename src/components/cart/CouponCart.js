@@ -50,7 +50,7 @@ const CouponCart = ({ cartId, totalPriceChange }) => {
           progress: undefined,
           theme: "light",
         });
-        couponData && totalPriceChange(couponData?.totalPrice);
+        setIsSubmit(false);
       }
     }
     if (isError) {
@@ -65,7 +65,10 @@ const CouponCart = ({ cartId, totalPriceChange }) => {
         theme: "light",
       });
     }
-  }, [couponSuccess, couponData, error, isError, totalPriceChange]);
+  }, [couponSuccess, couponData, isError, error]);
+  useEffect(() => {
+    totalPriceChange(couponData?.totalPrice && couponData?.totalPrice);
+  }, [couponData, totalPriceChange]);
   return (
     <>
       <div className="coupon ">
