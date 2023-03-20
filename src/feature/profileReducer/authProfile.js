@@ -151,7 +151,7 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
     }),
     addOrder: builder.mutation({
       query: (patch) => ({
-        url: `/api/order/createorder`,
+        url: `/api/order/addorder`,
         method: "POST",
         body: patch,
       }),
