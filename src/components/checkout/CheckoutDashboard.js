@@ -23,7 +23,7 @@ const CheckoutDashboard = () => {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
-  const [addOrder, { data, isSuccess }] = useAddOrderMutation();
+  const [addOrder] = useAddOrderMutation();
   const location = useLocation();
   const [codeView, setCodeView] = useState(false);
   const totalPrice = location?.state?.totalValue;
