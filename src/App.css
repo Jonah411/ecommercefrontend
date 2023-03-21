@@ -143,6 +143,71 @@ body {
   border: #df2c38 1px solid;
   border-left: 0.3180469716em solid #df2c38;
 }
+.slider {
+  height: 15rem;
+  color: #fafafa;
+}
+.home-banner-design {
+  padding: 80px 20px 80px 20px;
+}
+.home-banner-design-text {
+  padding: 40px 40px 80px 40px;
+  color: #625454;
+}
+.home-banner {
+  position: relative;
+  height: 80vh;
+  background-image: linear-gradient(180deg, #008aff, #ff137d),
+    url("https://s3.us-west-2.amazonaws.com/cobbcounty.org.if-us-west-2/prod/s3fs-public/2021-03/Medicine-Pills-Pile-1500w.jpg");
+  background-size: cover;
+  background-blend-mode: screen;
+  -webkit-animation: slidein 100s;
+  animation: slidein 100s;
+
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    background-position: top;
+    background-size: 3000px;
+  }
+  to {
+    background-position: -100px 0px;
+    background-size: 2750px;
+  }
+}
+
+@keyframes slidein {
+  from {
+    background-position: top;
+    background-size: 3000px;
+  }
+  to {
+    background-position: -100px 0px;
+    background-size: 2750px;
+  }
+}
+
+.wave-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.banner-image {
+  width: 100%;
+  height: 40vh;
+}
+.custom-indicators li {
+  background-color: red; /* Change this to the desired color */
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

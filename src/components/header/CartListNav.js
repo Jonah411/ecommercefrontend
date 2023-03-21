@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/ConstaltsVariables";
 
 const CartListNav = ({ price, cart }) => {
+  const navigate = useNavigate();
   return (
     <div className="cart-content">
       <div className="cart-content-body">
@@ -33,7 +35,15 @@ const CartListNav = ({ price, cart }) => {
           </span>
         </div>
         <div className="d-grid gap-2">
-          <button className="btn btn-primary">View Cart</button>
+          <button
+            className="btn btn-primary"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/cart");
+            }}
+          >
+            View Cart
+          </button>
           <button className="btn btn-secondary">Checkout</button>
         </div>
       </div>

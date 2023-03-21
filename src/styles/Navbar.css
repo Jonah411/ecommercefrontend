@@ -7,13 +7,16 @@ a {
 .search-header {
   background-color: #2c2d33;
   /* height: 10rem; */
-  padding-top: 1.618em;
+  /* padding-top: 1.618em; */
   padding-bottom: 1.618em;
   background-position: center center;
   position: relative;
   z-index: 999;
   border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
+/* .main_nav_header {
+  padding-bottom: 1.618em;
+} */
 .link-text {
   color: #9aa0a7;
 }

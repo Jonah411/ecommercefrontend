@@ -26,7 +26,7 @@ const Navbar = () => {
   const [showMedia, setShowMedia] = useState(false);
   return (
     <div className="search-header">
-      <nav className="main_nav">
+      <nav className="main_nav main_nav_header">
         <div
           className="logo"
           onClick={(e) => {
