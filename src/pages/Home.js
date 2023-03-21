@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Typography from "@mui/material/Typography";
 import {
   useGetAllProductsQuery,
   useGetWishListQuery,
@@ -8,7 +7,6 @@ import Banner from "../components/design/Banner";
 import ProductList from "../components/products/ProductList";
 import { useSelector } from "react-redux";
 import { getLoginDetails } from "../feature/loginReducer/loginReducer";
-import SliderCard from "../components/design/SliderCard";
 import SliderBrand from "../components/design/SliderBrand";
 
 const Home = () => {
@@ -37,16 +35,16 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <div className="container">
+      {/* <div className="container">
         <SliderCard />
-      </div>
+      </div> */}
       <div className="container">
         <SliderBrand />
       </div>
       <div className="text-center mt-2">
-        <Typography gutterBottom variant="h5" component="div">
+        <p className="fw-600 text-center text-muted font-heading">
           All Products
-        </Typography>
+        </p>
       </div>
 
       <div className="container p-3">

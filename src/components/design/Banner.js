@@ -94,6 +94,7 @@ function Banner() {
                   focusRipple
                   style={{
                     width: "100%",
+                    height: "400px",
                   }}
                   onClick={(e) => {
                     e.preventDefault();

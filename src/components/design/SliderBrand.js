@@ -30,7 +30,6 @@ const SliderBrand = () => {
 
     setSlidesData(slides);
   }, [brands, navigate]);
-  console.log(brands);
   return (
     <div className="mt-3 mb-3">
       <p className="fw-600 text-center text-muted font-heading">

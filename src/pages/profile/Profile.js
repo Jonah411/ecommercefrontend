@@ -19,8 +19,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getLoginDetails,
+  logoutDetails,
+} from "../../feature/loginReducer/loginReducer";
 import { useGetMenusQuery } from "../../feature/profileReducer/authProfile";
 import WishList from "../WishList";
 import User from "../User";
@@ -101,6 +104,7 @@ const Drawer = styled(MuiDrawer, {
 export default function Profile() {
   const user = useSelector(getLoginDetails);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data } = useGetMenusQuery(user?.id, {
     refetchOnMountOrArgChange: true,
     skip: false,
@@ -114,6 +118,10 @@ export default function Profile() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const userLogout = () => {
+    dispatch(logoutDetails());
+    navigate("/");
   };
   return (
     <Box sx={{ display: "flex" }}>
@@ -150,6 +158,14 @@ export default function Profile() {
                 }}
               >
                 Home
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  userLogout();
+                }}
+              >
+                Logout
               </Button>
             </Stack>
           </Box>
