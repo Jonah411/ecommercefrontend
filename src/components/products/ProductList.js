@@ -26,13 +26,12 @@ const ProductList = ({ productData, title, routeList, wishListData }) => {
       </div>
       <div className="row">
         {products?.map((data, index) => {
-          const truncatedDescription = data.description.replace(
-            /((\S+\s*){1,150})(.*)/,
-            "$1..."
-          );
+          // const truncatedDescription = data.description.replace(
+          //   /((\S+\s*){1,150})(.*)/,
+          //   "$1..."
+          // );
           return (
             <div className="col-12 col-sm-12 col-md-6 col-lg-3" key={data._id}>
-              {" "}
               <Card sx={{ maxWidth: 345 }} className="mt-2">
                 <WishListIcon
                   image={data.product_image}
@@ -74,13 +73,13 @@ const ProductList = ({ productData, title, routeList, wishListData }) => {
                       />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
-                      <Typography
+                      {/* <Typography
                         variant="body2"
                         color="text.secondary"
                         dangerouslySetInnerHTML={{
                           __html: truncatedDescription,
                         }}
-                      />
+                      /> */}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

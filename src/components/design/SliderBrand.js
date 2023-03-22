@@ -32,9 +32,10 @@ const SliderBrand = () => {
   }, [brands, navigate]);
   return (
     <div className="mt-3 mb-3">
-      <p className="fw-600 text-center text-muted font-heading">
-        Product Brand
-      </p>
+      <div className="home-section">
+        <p className=" font-heading">Product Brand</p>
+      </div>
+
       <ReactCardSlider slides={slidesData && slidesData} />
     </div>
   );

@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
+import {
+  getLoginDetails,
+  removecheckoutDetails,
+} from "../../feature/loginReducer/loginReducer";
 import {
   useGetAllCartQuery,
   useUpdateCartMutation,
@@ -19,6 +22,7 @@ const CartDashboard = () => {
     skip: false,
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [updateCart, { data, isSuccess }] = useUpdateCartMutation();
   const [cart, setCart] = useState([]);
   const [isCartDirty, setIsCartDirty] = useState(false);
@@ -192,7 +196,7 @@ const CartDashboard = () => {
                         {totalValue ? totalValue : cartData?.totalPrice}
                       </bdi>
                     </span>
-                  </strong>{" "}
+                  </strong>
                 </td>
               </tr>
               <tr>
@@ -204,9 +208,10 @@ const CartDashboard = () => {
                   <div className="d-grid">
                     <button
                       className="btn btn-secondary p-3"
-                      onClick={() =>
-                        navigate("/checkout", { state: { totalValue } })
-                      }
+                      onClick={() => {
+                        dispatch(removecheckoutDetails());
+                        navigate("/checkout", { state: { totalValue } });
+                      }}
                     >
                       Checkout
                     </button>

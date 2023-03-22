@@ -44,6 +44,9 @@ const ecommerceadmin = createSlice({
     checkoutDetails: (state, { payload }) => {
       state.checkOut = payload;
     },
+    removecheckoutDetails: (state, { payload }) => {
+      state.checkOut = null;
+    },
   },
 });
 
@@ -55,6 +58,7 @@ export const {
   hideProductDetails,
   addCartDetails,
   checkoutDetails,
+  removecheckoutDetails,
 } = ecommerceadmin.actions;
 export const getLoginDetails = (state) => state?.ecommerceadmin?.loginlist;
 export const getLoginDetailsUser = (state) => state?.ecommerceadmin?.user;
@@ -65,4 +69,6 @@ export const getPriceProductDetails = (state) =>
   state?.ecommerceadmin?.priceProduct;
 export const getAddCartDetails = (state) => state?.ecommerceadmin?.addCart;
 export const getCheckoutDetails = (state) => state?.ecommerceadmin?.checkOut;
+export const getRemoveCheckoutDetails = (state) =>
+  state?.ecommerceadmin?.checkOut;
 export default ecommerceadmin.reducer;

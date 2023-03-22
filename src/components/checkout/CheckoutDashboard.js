@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import Breadcrumb from "../common/Breadcrumb";
 import { FaExclamationCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
+import {
+  getLoginDetails,
+  getCheckoutDetails,
+} from "../../feature/loginReducer/loginReducer";
 import {
   useAddOrderMutation,
   useGetAllCartQuery,
@@ -23,6 +26,7 @@ const CheckoutDashboard = () => {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
+  const singleProduct = useSelector(getCheckoutDetails);
   const [addOrder] = useAddOrderMutation();
   const location = useLocation();
   const [codeView, setCodeView] = useState(false);
@@ -120,6 +124,7 @@ const CheckoutDashboard = () => {
     };
     addOrder(patch);
   };
+  console.log(singleProduct, cartData);
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">
@@ -209,7 +214,7 @@ const CheckoutDashboard = () => {
             </div>
             <div className="col-12 col-sm-12 col-md-6">
               <ProductCheckout
-                cartData={cartData}
+                cartData={singleProduct ? singleProduct : cartData}
                 totalValue={totalValue}
                 totalPrice={totalPrice}
               />
@@ -257,7 +262,6 @@ const CheckoutDashboard = () => {
             stripeKey={STRIPE_PUBLISHABLE} // your Stripe API publishable key
           />
         </Modal.Body>
-        <Modal.Footer>kkkk</Modal.Footer>
       </Modal>
     </div>
   );

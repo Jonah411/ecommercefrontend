@@ -13,6 +13,7 @@ import "./App.css";
 import CartDashboard from "./components/cart/CartDashboard";
 import CheckoutDashboard from "./components/checkout/CheckoutDashboard";
 import Navbar from "./components/header/Navbar";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/brand/:name" element={<ListBrand />} />
         <Route path="/profile/*" element={<Profile />}></Route>
       </Routes>
+      <Footer />
     </Router>
   );
 };

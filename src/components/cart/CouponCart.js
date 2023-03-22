@@ -3,7 +3,7 @@ import { useApplycouponMutation } from "../../feature/profileReducer/authProfile
 import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
 
-const CouponCart = ({ cartId, totalPriceChange }) => {
+const CouponCart = ({ cartId, totalPriceChange, totalPrice }) => {
   const [
     applycoupon,
     { data: couponData, isSuccess: couponSuccess, error, isError },
@@ -33,10 +33,11 @@ const CouponCart = ({ cartId, totalPriceChange }) => {
       let data = {
         cartId: cartId && cartId,
         couponCode: couponForm?.couponCode,
+        totalProductPrice: totalPrice && totalPrice,
       };
       applycoupon(data);
     }
-  }, [couponError, isSubmit, couponForm, cartId, applycoupon]);
+  }, [couponError, isSubmit, couponForm, cartId, totalPrice, applycoupon]);
   useEffect(() => {
     if (couponSuccess) {
       if (couponData?.status === true) {

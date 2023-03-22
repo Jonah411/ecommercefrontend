@@ -3,6 +3,7 @@ body {
     "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 1.618;
   text-rendering: optimizeLegibility;
+  background-color: #e7e6e6;
 }
 .App {
   text-align: center;
@@ -12,12 +13,25 @@ body {
   height: 40vmin;
   pointer-events: none;
 }
+.home-section {
+  padding: 40px 20px 40px 20px;
+  color: #625454;
+}
 .custom-input {
   max-width: 80px;
   padding: 5px;
 }
 .font-heading {
-  font-size: 1.5rem;
+  font-size: 2rem;
+}
+.font-heading::after {
+  background-color: #625454;
+  bottom: -10px;
+  height: 5px;
+  width: 40px;
+  position: relative;
+  content: "";
+  display: block;
 }
 .table-design {
   color: gray;
@@ -235,5 +249,69 @@ body {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+.footer-design {
+  position: relative;
+  height: 80vh;
+  background-color: #282c34;
+}
+.wave-footer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.footer-copy {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1f2228;
+  padding: 10px;
+}
+.footer-content {
+  color: #fff;
+  position: absolute;
+  top: 230px;
+  left: 0;
+  width: 100%;
+  padding: 40px;
+}
+.footer-title {
+  padding: 30px;
+}
+.footer-about {
+  padding: 30px;
+}
+@media only screen and (min-width: 1200px) {
+}
+@media only screen and (max-width: 1199px) and (min-width: 992px) {
+}
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+}
+@media only screen and (max-width: 767px) and (min-width: 576px) {
+  .footer-design {
+    height: 160vh;
+  }
+  .footer-content {
+    top: 100px;
+    padding: 10px;
+  }
+  .home-banner {
+    height: 220vh;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .footer-design {
+    height: 150vh;
+  }
+  .footer-content {
+    top: 100px;
+  }
+  .home-banner {
+    height: 150vh;
+  }
+  .slider {
+    height: 20rem;
   }
 }

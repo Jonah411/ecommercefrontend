@@ -1,9 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/ConstaltsVariables";
+import { removecheckoutDetails } from "../../feature/loginReducer/loginReducer";
 
 const CartListNav = ({ price, cart }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div className="cart-content">
       <div className="cart-content-body">
@@ -44,7 +47,16 @@ const CartListNav = ({ price, cart }) => {
           >
             View Cart
           </button>
-          <button className="btn btn-secondary">Checkout</button>
+          <button
+            className="btn btn-secondary"
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(removecheckoutDetails());
+              navigate("/checkout");
+            }}
+          >
+            Checkout
+          </button>
         </div>
       </div>
     </div>
