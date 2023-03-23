@@ -108,6 +108,7 @@ const AddBrand = () => {
         theme: "light",
       });
       setTimeout(() => {
+        window.location.reload();
         handleClose();
       }, 2001);
     }

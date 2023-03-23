@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useAddloginMutation } from "../feature/loginReducer/authLogin";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AlertToast from "../components/common/AlertToast";
 import jwt_decode from "jwt-decode";
@@ -88,7 +88,6 @@ const LoginPage = () => {
   }, [isError, data]);
   return (
     <div>
-      {" "}
       <Box display="flex" width={500} height={120}>
         <Box m="auto"></Box>
       </Box>
@@ -159,6 +158,9 @@ const LoginPage = () => {
               >
                 Login
               </Button>
+              <p>
+                New customer? <Link to="/register">Start here</Link>.
+              </p>
             </Box>
           </CardContent>
         </Card>

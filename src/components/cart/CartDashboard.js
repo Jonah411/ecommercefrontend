@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import {
   getLoginDetails,
   removecheckoutDetails,
@@ -14,6 +15,7 @@ import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
 import CouponCart from "./CouponCart";
 import Breadcrumb from "../common/Breadcrumb";
+import AlertCoupon from "../design/AlertCoupon";
 
 const CartDashboard = () => {
   const auth = useSelector(getLoginDetails);
@@ -172,6 +174,7 @@ const CartDashboard = () => {
       <div className="cart-collaterals d-flex justify-content-end">
         <div className="cart_totals">
           <h2 className="total-h2">Cart Totals</h2>
+          {totalValue && <AlertCoupon />}
           <table cellSpacing="0" className="table-light table bordered">
             <tbody>
               <tr className="cart-subtotal">

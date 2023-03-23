@@ -56,6 +56,9 @@ body {
   margin: 0 0 1.41575em;
   border-collapse: separate;
 }
+.product-font {
+  font-size: 12px;
+}
 .checkout-table th {
   width: 45%;
   overflow-wrap: anywhere;
@@ -118,6 +121,9 @@ body {
   padding: 1em 2em 1em 3.5em;
   position: relative;
   list-style: none outside;
+}
+.alert-ecommerce-success {
+  background-color: #0d4901 !important;
 }
 .danger-alert-ecommerce {
   margin-bottom: 2.617924em;

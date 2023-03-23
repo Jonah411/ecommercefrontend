@@ -38,8 +38,9 @@ const Details = ({ details }) => {
               Price: {productDetails?.price}
             </Typography>
             <Rating
-              name="simple-controlled"
-              value={productDetails?.rating_star}
+              name="read-only"
+              value={parseInt(productDetails?.rating_star)}
+              readOnly
               // onChange={(event, newValue) => {
               //   setValue(newValue);
               // }}

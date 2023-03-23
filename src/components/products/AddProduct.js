@@ -184,6 +184,8 @@ const AddProduct = () => {
         theme: "light",
       });
       setTimeout(() => {
+        setIsSubmit(false);
+        window.location.reload();
         handleClose();
       }, 2001);
     }

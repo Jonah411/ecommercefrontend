@@ -16,6 +16,7 @@ import { useLocation } from "react-router-dom";
 import BillingAddressCheckout from "./BillingAddressCheckout";
 import StripeCheckout from "react-stripe-checkout";
 import Modal from "react-bootstrap/Modal";
+import AlertCoupon from "../design/AlertCoupon";
 
 const STRIPE_PUBLISHABLE =
   "pk_test_51LDlCzSJVnTGa9XXqnB5DaHKrB7FgaXDTKnM0cGXo6cEVoCovGFjPOzL7DdqI9oYhMZ9LOLU8t1y5f44IHtVHnjv00DYLJzAf6";
@@ -124,7 +125,7 @@ const CheckoutDashboard = () => {
     };
     addOrder(patch);
   };
-  console.log(singleProduct, cartData);
+  console.log(totalPrice);
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">
@@ -218,6 +219,7 @@ const CheckoutDashboard = () => {
                 totalValue={totalValue}
                 totalPrice={totalPrice}
               />
+              {(totalPrice || totalValue) && <AlertCoupon />}
               <div className="">
                 <div className="alert-ecommerce">
                   <p className="m-0">
@@ -227,6 +229,7 @@ const CheckoutDashboard = () => {
                   </p>
                 </div>
               </div>
+
               <div className="place-order">
                 <div className="d-grid">
                   <button

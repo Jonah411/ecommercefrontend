@@ -32,6 +32,9 @@ const UpdateBanner = ({ toggle, banner_id }) => {
         progress: undefined,
         theme: "light",
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2001);
     }
     if (isError) {
       toast.error(error?.data?.msg, {

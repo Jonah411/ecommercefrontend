@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { checkoutDetails } from "../../feature/loginReducer/loginReducer";
 import CouponCart from "../cart/CouponCart";
+import AlertCoupon from "../design/AlertCoupon";
 
 const BuyCart = ({ product }) => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const BuyCart = ({ product }) => {
   return (
     <div className="d-flex justify-content-end">
       <Button color="error" variant="contained" onClick={handleShow}>
-        Buy Product
+        <span className="product-font">Buy Product</span>
       </Button>
 
       <Modal
@@ -89,7 +90,6 @@ const BuyCart = ({ product }) => {
           <div>
             <p> Price: {productData?.price}</p>
             <p>
-              {" "}
               Quantity:
               <Quantity
                 onQuantityChange={(newQuantity) =>
@@ -108,6 +108,7 @@ const BuyCart = ({ product }) => {
             <div className="cart-collaterals d-flex justify-content-end">
               <div className="cart_totals">
                 <h2 className="total-h2">Totals</h2>
+                {totalValue && <AlertCoupon />}
                 <table cellSpacing="0" className="table-light table bordered">
                   <tbody>
                     <tr className="cart-subtotal">

@@ -40,11 +40,7 @@ const ProductList = ({ productData, title, routeList, wishListData }) => {
                   routeList={routeList}
                   wishListData={wishListData}
                 />
-                <CardActionArea
-                  onClick={() => {
-                    navigate(`/product_details/${data._id}`);
-                  }}
-                >
+                <CardActionArea>
                   {/* <CardMedia
                     sx={{ height: 140 }}
                     image={`${BASE_URL}categories/product_image/image/${data.product_image}`}
@@ -88,9 +84,17 @@ const ProductList = ({ productData, title, routeList, wishListData }) => {
                   <Stack
                     direction="row"
                     justifyContent="space-between"
-                    spacing={3}
+                    spacing={1}
                   >
                     <AddCart productId={data._id} />
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => {
+                        navigate(`/product_details/${data._id}`);
+                      }}
+                    >
+                      <span className="product-font">PRODUCT DETAILS</span>
+                    </button>
                     <Stack direction="row" justifyContent="end" spacing={3}>
                       <BuyCart product={data} />
                     </Stack>

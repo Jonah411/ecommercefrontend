@@ -112,9 +112,11 @@ const AddCategories = () => {
         progress: undefined,
         theme: "light",
       });
+      setIsSubmit(false);
       setTimeout(() => {
+        window.location.reload();
         handleClose();
-      }, 2001);
+      }, 201);
     }
     if (isError) {
       toast.error(error?.data?.msg, {

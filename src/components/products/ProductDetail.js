@@ -8,6 +8,7 @@ import {
 } from "../../feature/profileReducer/authProfile";
 import Details from "./Details";
 import ImageGalleryDetails from "./ImageGallery";
+import ProductPath from "./ProductPath";
 
 const ProductDetail = () => {
   const user = useSelector(getLoginDetails);
@@ -42,8 +43,12 @@ const ProductDetail = () => {
       setWishList(wishListDatas?.data);
     }
   }, [wishListDatas]);
+  const path = ["Home", "Products", products?.name];
   return (
     <div className="container">
+      <div className="p-3 mb-3 mb-3">
+        <ProductPath pathList={path} />
+      </div>
       <div className="row">
         <div className="col-12 col-sm-6">
           <ImageGalleryDetails

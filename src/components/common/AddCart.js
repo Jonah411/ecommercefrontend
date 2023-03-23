@@ -63,7 +63,7 @@ const AddCart = ({ productId }) => {
   return (
     <>
       <Button variant="contained" onClick={() => handleClick()} key={productId}>
-        Add Cart
+        <span className="product-font">Add Cart</span>
       </Button>
       <AlertToast />
     </>
