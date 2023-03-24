@@ -9,6 +9,9 @@ import {
 import Details from "./Details";
 import ImageGalleryDetails from "./ImageGallery";
 import ProductPath from "./ProductPath";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import RatingAndReviewsForm from "./RatingAndReviewsForm";
 
 const ProductDetail = () => {
   const user = useSelector(getLoginDetails);
@@ -49,17 +52,59 @@ const ProductDetail = () => {
       <div className="p-3 mb-3 mb-3">
         <ProductPath pathList={path} />
       </div>
-      <div className="row">
-        <div className="col-12 col-sm-6">
-          <ImageGalleryDetails
-            images={products?.product_gallery}
-            wishListData={wishList}
-            productId={id}
-          />
+      <div className="mb-3">
+        <div className="row">
+          <div className="col-12 col-sm-6">
+            <ImageGalleryDetails
+              images={products?.product_gallery}
+              wishListData={wishList}
+              productId={id}
+            />
+          </div>
+          <div className="col-12 col-sm-6">
+            <Details details={products} />
+          </div>
         </div>
-        <div className="col-12 col-sm-6">
-          <Details details={products} />
-        </div>
+      </div>
+      <div className="container mt-3 mb-2 ">
+        <Tabs
+          defaultActiveKey="profile"
+          id="justify-tab-example"
+          className="mb-3 product-feedback"
+          justify
+        >
+          <Tab
+            eventKey="home"
+            title="Ratings & Reviews"
+            className="product-feedback"
+          >
+            <RatingAndReviewsForm details={products} />
+          </Tab>
+          <Tab
+            eventKey="profile"
+            title="Feedback Form"
+            className="product-feedback"
+            disabled
+          >
+            swd
+          </Tab>
+          <Tab
+            eventKey="longer-tab"
+            title="Questions and Answers"
+            className="product-feedback"
+            disabled
+          >
+            john
+          </Tab>
+          <Tab
+            eventKey="contact"
+            title="Contact"
+            className="product-feedback"
+            disabled
+          >
+            jonah
+          </Tab>
+        </Tabs>
       </div>
     </div>
   );

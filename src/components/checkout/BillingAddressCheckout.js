@@ -1,13 +1,12 @@
 import React from "react";
 
-const BillingAddressCheckout = ({ handleChandeBilling, billingError }) => {
+const BillingAddressCheckout = ({
+  handleChandeBilling,
+  billingError,
+  billingForm,
+}) => {
   return (
     <div className="mt-3">
-      <div className="container-fluid p-0">
-        <div className="heading">
-          <h3 style={{ color: "#484c51" }}>Billing Address</h3>
-        </div>
-      </div>
       <div className="mt-3 mb-3">
         <form>
           <div className="row">
@@ -23,6 +22,7 @@ const BillingAddressCheckout = ({ handleChandeBilling, billingError }) => {
                     : "form-control form-billing"
                 }
                 name="first_name"
+                value={billingForm?.first_name}
                 onChange={handleChandeBilling}
               />
             </div>
@@ -37,6 +37,7 @@ const BillingAddressCheckout = ({ handleChandeBilling, billingError }) => {
                     ? "form-control form-billing form-billing-error"
                     : "form-control form-billing"
                 }
+                value={billingForm?.last_name}
                 name="last_name"
                 onChange={handleChandeBilling}
               />
@@ -118,6 +119,7 @@ const BillingAddressCheckout = ({ handleChandeBilling, billingError }) => {
                   : "form-control form-billing"
               }
               name="email"
+              value={billingForm?.email}
               onChange={handleChandeBilling}
             />
           </div>
@@ -137,7 +139,7 @@ const BillingAddressCheckout = ({ handleChandeBilling, billingError }) => {
             />
           </div>
           <div className="heading">
-            <h3 style={{ color: "#484c51" }}>Addtional Information</h3>
+            <h5 style={{ color: "#484c51" }}>Addtional Information</h5>
           </div>
           <div className="mb-3">
             <label className="form-label">

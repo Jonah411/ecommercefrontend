@@ -13,10 +13,10 @@ import {
 import CouponCart from "../cart/CouponCart";
 import ProductCheckout from "./ProductCheckout";
 import { useLocation } from "react-router-dom";
-import BillingAddressCheckout from "./BillingAddressCheckout";
 import StripeCheckout from "react-stripe-checkout";
 import Modal from "react-bootstrap/Modal";
 import AlertCoupon from "../design/AlertCoupon";
+import CheckoutDetails from "./CheckoutDetails";
 
 const STRIPE_PUBLISHABLE =
   "pk_test_51LDlCzSJVnTGa9XXqnB5DaHKrB7FgaXDTKnM0cGXo6cEVoCovGFjPOzL7DdqI9oYhMZ9LOLU8t1y5f44IHtVHnjv00DYLJzAf6";
@@ -42,20 +42,20 @@ const CheckoutDashboard = () => {
   };
 
   const init = {
-    first_name: "",
-    last_name: "",
+    first_name: auth ? auth?.first_name : "",
+    last_name: auth ? auth?.last_name : "",
     company_name: "",
     street_name: "",
     apartment_name: "",
     town_city: "",
     post_code: "",
-    email: "",
+    email: auth ? auth?.email : "",
     phone_number: "",
     additional_inform: "",
   };
   const [billingForm, setBillingForm] = useState(init);
   const [billingSubmit, setBillingSubmit] = useState(false);
-  const [billingError, setBillingError] = useState({});
+  const [billingError, setBillingError] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -63,10 +63,32 @@ const CheckoutDashboard = () => {
     const { name, value } = e.target;
     setBillingForm({ ...billingForm, [name]: value });
   };
+
+  const shippingInit = { shipping_check: false };
+  const [shippingDetails, setShippingDetails] = useState(shippingInit);
+  const [shippingSubmit, setShippingSubmit] = useState(false);
+  const [shippingError, setShippingError] = useState(null);
+  const handleShippingChange = (e) => {
+    const { name } = e.target;
+    setShippingDetails({
+      ...shippingDetails,
+      [name]: !shippingDetails?.shipping_check,
+    });
+  };
+
   const handleOrder = (e) => {
     e.preventDefault();
     setBillingSubmit(true);
     setBillingError(validate(billingForm));
+    setShippingSubmit(true);
+    setShippingError(shippingValidate(shippingDetails));
+  };
+  const shippingValidate = (value) => {
+    const error = {};
+    if (value.shipping_check === false) {
+      error.shipping_check = "Select Your Shipping Address";
+    }
+    return error;
   };
   const validate = (value) => {
     const error = {};
@@ -94,12 +116,16 @@ const CheckoutDashboard = () => {
     return error;
   };
   useEffect(() => {
-    if (Object.keys(billingError).length === 0 && billingSubmit) {
-      //console.log(cartData);
-
+    console.log(billingError);
+    if (
+      billingError &&
+      Object.keys(billingError).length === 0 &&
+      billingSubmit &&
+      shippingError &&
+      Object.keys(shippingError).length === 0 &&
+      shippingSubmit
+    ) {
       handleShow();
-
-      //console.log(patch);
     }
   }, [
     billingError,
@@ -109,6 +135,8 @@ const CheckoutDashboard = () => {
     totalPrice,
     totalValue,
     auth,
+    shippingError,
+    shippingSubmit,
   ]);
   const checkoutOrder = (token) => {
     let patch = {
@@ -125,7 +153,7 @@ const CheckoutDashboard = () => {
     };
     addOrder(patch);
   };
-  console.log(totalPrice);
+
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">
@@ -164,53 +192,67 @@ const CheckoutDashboard = () => {
           </div>
         </div>
       )}
-      {Object.keys(billingError).length !== 0 && (
+      {billingError && Object.keys(billingError).length !== 0 && (
         <div className="mt-2 mb-3">
           <div className="danger-alert-ecommerce">
             <p className="m-0">
               <span className="code-checkout-error">
-                {billingError.first_name}
+                {billingError?.first_name}
               </span>
             </p>
             <p className="m-0">
               <span className="code-checkout-error">
-                {billingError.last_name}
+                {billingError?.last_name}
               </span>
             </p>
             <p className="m-0">
               <span className="code-checkout-error">
-                {billingError.street_name}
+                {billingError?.street_name}
               </span>
             </p>
             <p className="m-0">
               <span className="code-checkout-error">
-                {billingError.town_city}
+                {billingError?.town_city}
               </span>
             </p>
             <p className="m-0">
               <span className="code-checkout-error">
-                {billingError.post_code}
+                {billingError?.post_code}
               </span>
             </p>
             <p className="m-0">
-              <span className="code-checkout-error">{billingError.email}</span>
+              <span className="code-checkout-error">{billingError?.email}</span>
             </p>
             <p className="m-0">
               <span className="code-checkout-error">
-                {billingError.phone_number}
+                {billingError?.phone_number}
               </span>
             </p>
           </div>
         </div>
       )}
-
+      {shippingError && Object.keys(shippingError).length !== 0 && (
+        <div className="mt-2 mb-3">
+          <div className="danger-alert-ecommerce">
+            <p className="m-0">
+              <span className="code-checkout-error">
+                {shippingError?.shipping_check}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
       <div className="mt-2 mb-3">
         <div className="container">
           <div className="row">
             <div className="col-12 col-sm-12 col-md-6">
-              <BillingAddressCheckout
+              <CheckoutDetails
                 handleChandeBilling={handleChandeBilling}
                 billingError={billingError}
+                billingForm={billingForm}
+                handleShippingChange={handleShippingChange}
+                shippingDetails={shippingDetails}
+                shippingError={shippingError}
               />
             </div>
             <div className="col-12 col-sm-12 col-md-6">

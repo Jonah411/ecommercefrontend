@@ -109,7 +109,99 @@ body {
 .table-child {
   vertical-align: middle;
 }
+.bg-success {
+  background-color: #0d4901;
+  padding: 10px;
+  color: #fff;
+  border-radius: 25%;
+}
+.bg-danger {
+  background-color: #d31212;
+  padding: 10px;
+  color: #fff;
+  border-radius: 25%;
+}
+.shipping-card {
+  position: relative;
+  height: 25vh;
+  background-color: #999999;
+  border: 2px solid #414040;
+}
+.shipping-card-error {
+  border: #df2c38 1px solid;
+  border-left: 0.3180469716em solid #df2c38;
+}
+.nav-link {
+  color: #625454;
+}
+.product-feedback {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  padding: 40px 20px 40px 20px;
+  color: #625454;
+}
 
+.rate-title::after {
+  background-color: #625454;
+  bottom: -10px;
+  height: 5px;
+  width: 40px;
+  position: relative;
+  content: "";
+  display: block;
+}
+.form-product {
+  background-color: #e7e6e6;
+  padding: 20px;
+}
+.review-page {
+  border: 1px solid #aeacac;
+  padding: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background-color: #f8f8f8;
+}
+.background-rating {
+  background-color: #f8f8f8;
+}
+.title-form {
+  font-weight: bold;
+  padding: 20px;
+}
+.title-question {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.start-title {
+  border: 1px solid #aeacac;
+}
+.rating-form {
+  border: 1px solid #aeacac;
+  padding: 20px;
+  margin-left: 10px;
+}
+.shipping-button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+}
+.shipping-input {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px;
+}
+.shipping-heading::after {
+  background-color: #625454;
+  bottom: -10px;
+  height: 5px;
+  width: 40px;
+  position: relative;
+  content: "";
+  display: block;
+  margin-bottom: 20px;
+}
 .alert-ecommerce {
   margin-bottom: 2.617924em;
   margin-left: 0;

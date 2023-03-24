@@ -14,6 +14,7 @@ import CartDashboard from "./components/cart/CartDashboard";
 import CheckoutDashboard from "./components/checkout/CheckoutDashboard";
 import Navbar from "./components/header/Navbar";
 import Footer from "./components/footer/Footer";
+import AddRatingReviews from "./components/rating-and-reviews/AddRatingReviews";
 
 const App = () => {
   return (
@@ -26,6 +27,10 @@ const App = () => {
         <Route path="/category/:name" element={<ListProduct />} />
         <Route path="/search_products" element={<SearchProducts />} />
         <Route path="/product_details/:id" element={<ProductDetail />} />
+        <Route
+          path="/product_details/:id/create-review"
+          element={<AddRatingReviews />}
+        />
         <Route path="/cart" element={<CartDashboard />} />
         <Route path="/checkout" element={<CheckoutDashboard />} />
         <Route path="/brand/:name" element={<ListBrand />} />
