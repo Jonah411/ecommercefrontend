@@ -232,7 +232,7 @@ const CartDashboard = () => {
                     style={{ background: "#fbfbfb" }}
                   >
                     <p className="text-success text-center m-0 p-2">
-                      Your total savings on this order{" "}
+                      Your total savings on this cart{" "}
                       {cartData?.totalPrice - totalValue}
                     </p>
                     <p className="text-muted text-center">
