@@ -31,12 +31,21 @@ const CheckoutDashboard = () => {
   const [addOrder] = useAddOrderMutation();
   const location = useLocation();
   const [codeView, setCodeView] = useState(false);
+
   const totalPrice = location?.state?.totalValue;
+  const couponValue = location?.state?.coupon;
   const couponView = (e) => {
     e.preventDefault();
     setCodeView(!codeView);
   };
   const [totalValue, setTotalValue] = useState(totalPrice);
+  const [coupon, setCoupon] = useState(couponValue);
+  useEffect(() => {
+    setCoupon(couponValue);
+  }, [couponValue]);
+  useEffect(() => {
+    setTotalValue(totalPrice);
+  }, [totalPrice]);
   const totalPriceChange = (data) => {
     setTotalValue(data);
   };
@@ -68,6 +77,7 @@ const CheckoutDashboard = () => {
   const [shippingDetails, setShippingDetails] = useState(shippingInit);
   const [shippingSubmit, setShippingSubmit] = useState(false);
   const [shippingError, setShippingError] = useState(null);
+
   const handleShippingChange = (e) => {
     const { name } = e.target;
     setShippingDetails({
@@ -153,7 +163,9 @@ const CheckoutDashboard = () => {
     };
     addOrder(patch);
   };
-
+  const couponChange = (data) => {
+    setCoupon(data);
+  };
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">
@@ -185,6 +197,7 @@ const CheckoutDashboard = () => {
                   <CouponCart
                     cartId={cartData?.carts?._id}
                     totalPriceChange={totalPriceChange}
+                    couponChange={couponChange}
                   />
                 </div>
               </div>
@@ -260,6 +273,7 @@ const CheckoutDashboard = () => {
                 cartData={singleProduct ? singleProduct : cartData}
                 totalValue={totalValue}
                 totalPrice={totalPrice}
+                coupon={coupon}
               />
               {(totalPrice || totalValue) && <AlertCoupon />}
               <div className="">
@@ -290,7 +304,7 @@ const CheckoutDashboard = () => {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {" "}

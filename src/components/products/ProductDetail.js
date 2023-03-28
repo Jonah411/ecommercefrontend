@@ -12,6 +12,7 @@ import ProductPath from "./ProductPath";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import RatingAndReviewsForm from "./RatingAndReviewsForm";
+import ProductDescription from "./ProductDescription";
 
 const ProductDetail = () => {
   const user = useSelector(getLoginDetails);
@@ -68,25 +69,24 @@ const ProductDetail = () => {
       </div>
       <div className="container mt-3 mb-2 ">
         <Tabs
-          defaultActiveKey="profile"
+          defaultActiveKey="descriptin"
           id="justify-tab-example"
           className="mb-3 product-feedback"
           justify
         >
           <Tab
-            eventKey="home"
+            eventKey="descriptin"
+            title="Product Description"
+            className="product-feedback"
+          >
+            <ProductDescription details={products} />
+          </Tab>
+          <Tab
+            eventKey="profile"
             title="Ratings & Reviews"
             className="product-feedback"
           >
             <RatingAndReviewsForm details={products} />
-          </Tab>
-          <Tab
-            eventKey="profile"
-            title="Feedback Form"
-            className="product-feedback"
-            disabled
-          >
-            swd
           </Tab>
           <Tab
             eventKey="longer-tab"
@@ -96,14 +96,14 @@ const ProductDetail = () => {
           >
             john
           </Tab>
-          <Tab
+          {/* <Tab
             eventKey="contact"
             title="Contact"
             className="product-feedback"
             disabled
           >
             jonah
-          </Tab>
+          </Tab> */}
         </Tabs>
       </div>
     </div>

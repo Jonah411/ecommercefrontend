@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,20 +15,7 @@ import {
   useGetCategoriesQuery,
 } from "../../feature/profileReducer/authProfile";
 import JoditEditor from "jodit-react";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  overflowY: "scroll",
-  height: "auto",
-};
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const [createProduct, { data, error, isSuccess, isError }] =
@@ -49,20 +34,20 @@ const AddProduct = () => {
       setBrands(brandData?.data);
     }
   }, [brandData]);
+  const navigate = useNavigate();
   useEffect(() => {
     if (parentData) {
       setParentCategories(parentData?.data);
     }
   }, [parentData]);
   const [parentCategories, setParentCategories] = useState([]);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
   const init = {
     name: "",
     description: "",
+    product_strength: "",
     price: "",
-    rating_star: "",
+    pack_size: "",
     categories: "",
     brand: "",
   };
@@ -121,15 +106,7 @@ const AddProduct = () => {
     }
   };
   const editor = useRef(null);
-  // const [content, setContent] = useState("");
 
-  // const config = useMemo(
-  //   {
-  //     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-  //     placeholder: "Start typings...",
-  //   },
-  //   []
-  // );
   const handleSave = () => {
     setIsSubmit(true);
     setFormError(validation(formValues));
@@ -185,8 +162,7 @@ const AddProduct = () => {
       });
       setTimeout(() => {
         setIsSubmit(false);
-        window.location.reload();
-        handleClose();
+        navigate("/profile/product");
       }, 2001);
     }
     if (isError) {
@@ -201,7 +177,7 @@ const AddProduct = () => {
         theme: "light",
       });
     }
-  }, [isSuccess, isError, data, error]);
+  }, [isSuccess, isError, data, error, navigate]);
   const listCategories = [];
   parentCategories.forEach((data) => {
     if (data.sub_categories) {
@@ -209,188 +185,163 @@ const AddProduct = () => {
     }
   });
   return (
-    <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Add
-      </Button>
-      <Modal
-        open={open}
-        hideBackdrop
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Products
-          </Typography>
-          <Box>
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Product Name"
-              variant="standard"
-              name="name"
-              type="text"
-              sx={{ flexGrow: 1, mb: 1.5 }}
-              onChange={handleChange}
-            />
-            <Typography
-              variant="p"
-              noWrap
-              component="div"
-              justifyContent="center"
-              sx={{ flexGrow: 1, mb: 1.5 }}
-            >
-              {formError.name}
-            </Typography>
-            {/* <TextField
-              fullWidth
-              id="standard-basic"
-              label="Description"
-              variant="standard"
-              name="description"
-              multiline
-              rows={4}
-              sx={{ flexGrow: 1, mb: 1.5 }}
-              onChange={handleChange}
-            />
-            <Typography
-              variant="p"
-              noWrap
-              component="div"
-              justifyContent="center"
-              sx={{ flexGrow: 1, mb: 1.5 }}
-            >
-              {formError.description}
-            </Typography> */}
-            <JoditEditor
-              ref={editor}
-              // value={content}
-              //config={config}
-              tabIndex={1} // tabIndex of textarea
-              //onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-              onChange={(e) => {
-                let data = {
-                  target: {
-                    name: "description",
-                    value: e,
-                  },
-                };
-                handleChange(data);
-              }}
-            />
-            <Typography
-              variant="p"
-              noWrap
-              component="div"
-              justifyContent="center"
-              sx={{ flexGrow: 1, mb: 1.5 }}
-            >
-              {formError?.description}
-            </Typography>
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Image"
-              variant="standard"
-              name="product_image"
-              type="file"
-              sx={{ flexGrow: 1, mb: 1.5 }}
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Image"
-              variant="standard"
-              name="product_gallery"
-              type="file"
-              inputProps={{
-                multiple: true,
-              }}
-              sx={{ flexGrow: 1, mb: 1.5 }}
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Price"
-              variant="standard"
-              name="price"
-              type="number"
-              sx={{ flexGrow: 1, mb: 1.5 }}
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Rating"
-              variant="standard"
-              name="rating_star"
-              type="number"
-              sx={{ flexGrow: 1, mb: 1.5 }}
-              onChange={handleChange}
-            />
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Categories</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Categories"
-                variant="standard"
-                name="categories"
-                onChange={handleChange}
-                defaultValue={formValues?.categories}
-              >
-                <MenuItem value={1}>Parent</MenuItem>
-                {listCategories?.map((data) => {
-                  return (
-                    <MenuItem value={data._id} key={data._id}>
-                      {data.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Brand</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Brand"
-                variant="standard"
-                name="brand"
-                onChange={handleChange}
-                defaultValue={formValues?.brand}
-              >
-                {brands?.map((data) => {
-                  return (
-                    <MenuItem value={data._id} key={data._id}>
-                      {data.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </Box>
+    <div className="form-product ">
+      <Typography id="modal-modal-title" variant="h6" component="h2">
+        Add Products
+      </Typography>
 
-          <Stack
-            spacing={2}
-            direction="row"
-            mt={2}
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Button variant="contained" onClick={handleSave}>
-              Save
-            </Button>
-            <Button variant="contained" onClick={handleClose} color="error">
-              close
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
+      <TextField
+        fullWidth
+        id="standard-basic"
+        label="Product Name"
+        variant="standard"
+        name="name"
+        type="text"
+        sx={{ flexGrow: 1, mb: 1.5 }}
+        onChange={handleChange}
+      />
+      <Typography
+        variant="p"
+        noWrap
+        component="div"
+        justifyContent="center"
+        sx={{ flexGrow: 1, mb: 1.5 }}
+      >
+        {formError.name}
+      </Typography>
+
+      <JoditEditor
+        ref={editor}
+        // value={content}
+        //config={config}
+        tabIndex={1} // tabIndex of textarea
+        //onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+        onChange={(e) => {
+          let data = {
+            target: {
+              name: "description",
+              value: e,
+            },
+          };
+          handleChange(data);
+        }}
+      />
+      <Typography
+        variant="p"
+        noWrap
+        component="div"
+        justifyContent="center"
+        sx={{ flexGrow: 1, mb: 1.5 }}
+      >
+        {formError?.description}
+      </Typography>
+      <TextField
+        fullWidth
+        id="standard-basic"
+        label="Product Strength"
+        variant="standard"
+        name="product_strength"
+        type="text"
+        sx={{ flexGrow: 1, mb: 1.5 }}
+        onChange={handleChange}
+      />
+      <TextField
+        fullWidth
+        id="standard-basic"
+        label="Strength"
+        variant="standard"
+        name="product_image"
+        type="file"
+        sx={{ flexGrow: 1, mb: 1.5 }}
+        onChange={handleChange}
+      />
+      <TextField
+        fullWidth
+        id="standard-basic"
+        label="Image"
+        variant="standard"
+        name="product_gallery"
+        type="file"
+        inputProps={{
+          multiple: true,
+        }}
+        sx={{ flexGrow: 1, mb: 1.5 }}
+        onChange={handleChange}
+      />
+      <TextField
+        fullWidth
+        id="standard-basic"
+        label="Price"
+        variant="standard"
+        name="price"
+        type="number"
+        sx={{ flexGrow: 1, mb: 1.5 }}
+        onChange={handleChange}
+      />
+      <TextField
+        fullWidth
+        id="standard-basic"
+        label="Pack Size"
+        variant="standard"
+        name="pack_size"
+        type="number"
+        sx={{ flexGrow: 1, mb: 1.5 }}
+        onChange={handleChange}
+      />
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Categories</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Categories"
+          variant="standard"
+          name="categories"
+          onChange={handleChange}
+          defaultValue={formValues?.categories}
+        >
+          <MenuItem value={1}>Parent</MenuItem>
+          {listCategories?.map((data) => {
+            return (
+              <MenuItem value={data._id} key={data._id}>
+                {data.name}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Brand</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Brand"
+          variant="standard"
+          name="brand"
+          onChange={handleChange}
+          defaultValue={formValues?.brand}
+        >
+          {brands?.map((data) => {
+            return (
+              <MenuItem value={data._id} key={data._id}>
+                {data.name}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+
+      <Stack
+        spacing={2}
+        direction="row"
+        mt={2}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Button variant="contained" onClick={handleSave}>
+          Save
+        </Button>
+      </Stack>
+
       <AlertToast />
     </div>
   );

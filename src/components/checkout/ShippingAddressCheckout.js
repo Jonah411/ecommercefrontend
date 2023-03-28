@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import { useGetAddressQuery } from "../../feature/profileReducer/authProfile";
+import Address from "../../pages/Address";
 
 const ShippingAddressCheckout = ({
   handleShippingChange,
@@ -14,7 +15,7 @@ const ShippingAddressCheckout = ({
     refetchOnMountOrArgChange: true,
     skip: false,
   });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <div
       className={
@@ -24,8 +25,9 @@ const ShippingAddressCheckout = ({
       }
     >
       <div className="">
-        <h5 className="text-light fw-bold shipping-heading">Main Address</h5>
-        <p className="text-light fw-bold m-0">
+        <Address />
+        <h5 className="text-light fw-bold shipping-heading">Address</h5>
+        <p className="text-light fw-bold m-0 mt-5">
           {addressData?.mainAddress?.name}
         </p>
         <p className="text-light fw-bold m-0">
@@ -38,7 +40,7 @@ const ShippingAddressCheckout = ({
           {addressData?.mainAddress?.country} - {addressData?.mainAddress?.zip}
         </p>
       </div>
-      <div className="shipping-button">
+      {/* <div className="shipping-button">
         <button
           className="btn btn-secondary"
           onClick={(e) => {
@@ -48,7 +50,7 @@ const ShippingAddressCheckout = ({
         >
           Change
         </button>
-      </div>
+      </div> */}
       <div
         className={
           shippingError?.shipping_check

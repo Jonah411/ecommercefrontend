@@ -25,6 +25,7 @@ const BuyCart = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setToatalPrice] = useState(0);
   const [totalValue, setTotalValue] = useState();
+  const [coupon, setCoupon] = useState();
   useEffect(() => {
     if (quantity) {
       let total = productData?.price * quantity;
@@ -63,7 +64,7 @@ const BuyCart = ({ product }) => {
     //   { type: "singleCart" },
     // ];
     dispatch(checkoutDetails(cartData));
-    navigate("/checkout", { state: { totalValue } });
+    navigate("/checkout", { state: { totalValue, coupon } });
   };
   const totalPriceChange = (data) => {
     setTotalValue(data);
@@ -71,8 +72,11 @@ const BuyCart = ({ product }) => {
   const handleQuantityChange = (newQuantity, index) => {
     setQuantity(newQuantity);
   };
+  const couponChange = (data) => {
+    setCoupon(data);
+  };
   return (
-    <div className="d-flex justify-content-end">
+    <>
       <Button color="error" variant="contained" onClick={handleShow}>
         <span className="product-font">Buy Product</span>
       </Button>
@@ -103,6 +107,7 @@ const BuyCart = ({ product }) => {
                 cartId={null}
                 totalPriceChange={totalPriceChange}
                 totalPrice={totalPrice}
+                couponChange={couponChange}
               />
             </p>
             <div className="cart-collaterals d-flex justify-content-end">
@@ -121,7 +126,20 @@ const BuyCart = ({ product }) => {
                         </span>
                       </td>
                     </tr>
-
+                    {totalValue && (
+                      <tr className="order-total">
+                        <th className="p-4 table-secondary table-total table-child">
+                          Coupon ({coupon?.code})
+                        </th>
+                        <td className="table-total table-child">
+                          <strong>
+                            <span className="cart-Price-amount amount">
+                              <bdi>- {totalPrice - totalValue}</bdi>
+                            </span>
+                          </strong>
+                        </td>
+                      </tr>
+                    )}
                     <tr className="order-total">
                       <th className="p-4 table-secondary table-total table-child">
                         Total
@@ -134,6 +152,23 @@ const BuyCart = ({ product }) => {
                         </strong>{" "}
                       </td>
                     </tr>
+                    {totalValue && (
+                      <tr>
+                        <td
+                          colSpan="2"
+                          className="actions-table"
+                          style={{ background: "#fbfbfb" }}
+                        >
+                          <p className="text-success text-center m-0 p-2">
+                            Your total savings on this order{" "}
+                            {totalPrice - totalValue}
+                          </p>
+                          <p className="text-muted text-center">
+                            {coupon && coupon?.description}
+                          </p>
+                        </td>
+                      </tr>
+                    )}
                     <tr>
                       <td
                         colSpan="2"
@@ -162,7 +197,7 @@ const BuyCart = ({ product }) => {
           </Button>
         </Modal.Footer> */}
       </Modal>
-    </div>
+    </>
   );
 };
 

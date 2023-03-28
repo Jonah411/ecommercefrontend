@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ProductCheckout = ({ cartData, totalValue, totalPrice }) => {
+const ProductCheckout = ({ cartData, totalValue, totalPrice, coupon }) => {
   const [cart, setCart] = useState([]);
   useEffect(() => {
     if (cartData?.carts?.items) {
@@ -29,7 +29,10 @@ const ProductCheckout = ({ cartData, totalValue, totalPrice }) => {
                       <td>
                         {data?.product?.name} * {data?.quantity}
                       </td>
-                      <td> {data?.product?.price * data?.quantity}</td>
+                      <td>
+                        {" "}
+                        {(data?.product?.price * data?.quantity).toFixed(1)}
+                      </td>
                     </tr>
                   );
                 })}
@@ -44,6 +47,23 @@ const ProductCheckout = ({ cartData, totalValue, totalPrice }) => {
                   </td>
                 </tr>
 
+                {(totalPrice || totalValue) && (
+                  <tr className="order-total">
+                    <th className="p-4 table-secondary table-total table-child">
+                      Coupon ({coupon?.code})
+                    </th>
+                    <td className="table-total table-child">
+                      <strong>
+                        <span className="cart-Price-amount amount">
+                          <bdi>
+                            -{" "}
+                            {cartData?.totalPrice - (totalPrice || totalValue)}
+                          </bdi>
+                        </span>
+                      </strong>
+                    </td>
+                  </tr>
+                )}
                 <tr className="order-total">
                   <th>Total</th>
                   <td>
@@ -51,15 +71,32 @@ const ProductCheckout = ({ cartData, totalValue, totalPrice }) => {
                       <span className="Price-amount amount">
                         <bdi>
                           {totalPrice
-                            ? totalPrice
+                            ? totalPrice.toFixed(1)
                             : totalValue
-                            ? totalValue
-                            : cartData?.totalPrice}
+                            ? totalValue.toFixed(1)
+                            : cartData?.totalPrice.toFixed(1)}
                         </bdi>
                       </span>
                     </strong>
                   </td>
                 </tr>
+                {(totalPrice || totalValue) && (
+                  <tr>
+                    <td
+                      colSpan="2"
+                      className="actions-table"
+                      style={{ background: "#fbfbfb" }}
+                    >
+                      <p className="text-success text-center m-0 p-2">
+                        Your total savings on this order{" "}
+                        {cartData?.totalPrice - (totalPrice || totalValue)}
+                      </p>
+                      <p className="text-muted text-center">
+                        {coupon && coupon?.description}
+                      </p>
+                    </td>
+                  </tr>
+                )}
               </tfoot>
             </table>
           </div>

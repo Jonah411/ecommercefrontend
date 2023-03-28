@@ -27,6 +27,7 @@ const CartDashboard = () => {
   const dispatch = useDispatch();
   const [updateCart, { data, isSuccess }] = useUpdateCartMutation();
   const [cart, setCart] = useState([]);
+  const [coupon, setCoupon] = useState();
   const [isCartDirty, setIsCartDirty] = useState(false);
   const [totalValue, setTotalValue] = useState();
   useEffect(() => {
@@ -98,6 +99,9 @@ const CartDashboard = () => {
   const totalPriceChange = (data) => {
     setTotalValue(data);
   };
+  const couponChange = (data) => {
+    setCoupon(data);
+  };
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">
@@ -154,6 +158,7 @@ const CartDashboard = () => {
                     <CouponCart
                       cartId={cartData?.carts?._id}
                       totalPriceChange={totalPriceChange}
+                      couponChange={couponChange}
                     />
                     <div>
                       <button
@@ -187,7 +192,20 @@ const CartDashboard = () => {
                   </span>
                 </td>
               </tr>
-
+              {totalValue && (
+                <tr className="order-total">
+                  <th className="p-4 table-secondary table-total table-child">
+                    Coupon ({coupon?.code})
+                  </th>
+                  <td className="table-total table-child">
+                    <strong>
+                      <span className="cart-Price-amount amount">
+                        <bdi>- {cartData?.totalPrice - totalValue}</bdi>
+                      </span>
+                    </strong>
+                  </td>
+                </tr>
+              )}
               <tr className="order-total">
                 <th className="p-4 table-secondary table-total table-child">
                   Total
@@ -196,12 +214,33 @@ const CartDashboard = () => {
                   <strong>
                     <span className="cart-Price-amount amount">
                       <bdi>
-                        {totalValue ? totalValue : cartData?.totalPrice}
+                        {totalValue
+                          ? totalValue.toFixed(1)
+                          : cartData && cartData.totalPrice
+                          ? cartData.totalPrice.toFixed(1)
+                          : (cartData?.totalPrice ?? 0).toFixed(1)}
                       </bdi>
                     </span>
                   </strong>
                 </td>
               </tr>
+              {totalValue && (
+                <tr>
+                  <td
+                    colSpan="2"
+                    className="actions-table"
+                    style={{ background: "#fbfbfb" }}
+                  >
+                    <p className="text-success text-center m-0 p-2">
+                      Your total savings on this order{" "}
+                      {cartData?.totalPrice - totalValue}
+                    </p>
+                    <p className="text-muted text-center">
+                      {coupon && coupon?.description}
+                    </p>
+                  </td>
+                </tr>
+              )}
               <tr>
                 <td
                   colSpan="2"
@@ -213,7 +252,9 @@ const CartDashboard = () => {
                       className="btn btn-secondary p-3"
                       onClick={() => {
                         dispatch(removecheckoutDetails());
-                        navigate("/checkout", { state: { totalValue } });
+                        navigate("/checkout", {
+                          state: { totalValue, coupon },
+                        });
                       }}
                     >
                       Checkout

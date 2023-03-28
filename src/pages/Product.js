@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { useGetAllProductsQuery } from "../feature/profileReducer/authProfile";
 import { BASE_URL } from "../constants/ConstaltsVariables";
-import AddProduct from "../components/products/AddProduct";
 
 const Product = () => {
   const { data: productsData } = useGetAllProductsQuery(undefined, {
@@ -27,15 +26,14 @@ const Product = () => {
       selector: (row) => row.name,
       sortable: true,
       wrap: true,
-      maxWidth: "170px",
     },
-    {
-      name: "Description",
-      selector: (row) => row.description,
-      sortable: true,
-      wrap: true,
-      maxWidth: "200px",
-    },
+    // {
+    //   name: "Description",
+    //   selector: (row) => row.description,
+    //   sortable: true,
+    //   wrap: true,
+    //   maxWidth: "200px",
+    // },
     {
       name: "Image",
       selector: (row) => {
@@ -49,14 +47,12 @@ const Product = () => {
       },
       sortable: true,
       wrap: true,
-      maxWidth: "200px",
     },
     {
       name: "Price",
       selector: (row) => row.price,
       sortable: true,
       wrap: true,
-      maxWidth: "200px",
     },
 
     {
@@ -84,7 +80,7 @@ const Product = () => {
     },
   ];
   return (
-    <div>
+    <div className="form-product ">
       <DataTable
         className="data-table-store"
         title={<p>Products List</p>}
@@ -109,7 +105,15 @@ const Product = () => {
         }
         actions={
           <Stack spacing={2} direction="row">
-            <AddProduct />
+            <button
+              className="btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/profile/add-product");
+              }}
+            >
+              Add
+            </button>
           </Stack>
         }
       />

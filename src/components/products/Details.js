@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { Grid, Rating } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import Rating from "@mui/material/Rating";
 import AddCart from "../common/AddCart";
 import BuyCart from "../common/BuyCart";
 
@@ -15,56 +10,70 @@ const Details = ({ details }) => {
   }, [details]);
   return (
     <div className="image-app p-2">
-      <Card>
-        <CardContent>
-          <Typography
-            sx={{ fontSize: 14 }}
-            variant="h5"
-            color="text.secondary"
-            gutterBottom
-          >
-            {productDetails?.name}
-          </Typography>
-          <Typography variant="h5" component="div"></Typography>
-
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={3}
-          >
-            {" "}
-            <Typography gutterBottom variant="h5" component="div">
-              Price: {productDetails?.price}
-            </Typography>
-            <Rating
-              name="read-only"
-              value={parseInt(productDetails?.rating_star)}
-              readOnly
-              // onChange={(event, newValue) => {
-              //   setValue(newValue);
-              // }}
-            />
-          </Stack>
-          <Typography variant="body2" color="text.secondary">
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              dangerouslySetInnerHTML={{ __html: productDetails?.description }}
-            />
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Grid container justifyContent="flex-end" spacing={2}>
-            <Grid item>
-              <AddCart productId={productDetails?._id} />
-            </Grid>
-            <Grid item>
-              <BuyCart product={productDetails} />
-            </Grid>
-          </Grid>
-        </CardActions>
-      </Card>
+      <div className="card">
+        <div className="card-body">
+          <div className="product-details">
+            <div className="product-tiltle">
+              <h5 className="text-muted"> {productDetails?.name}</h5>
+            </div>
+            <div className="d-flex justify-content-between">
+              <div className="product-price">
+                <p> Price: {productDetails?.price}</p>
+              </div>
+              <Rating
+                name="read-only"
+                value={parseInt(productDetails?.rating_star?.rating_radio)}
+                readOnly
+                // onChange={(event, newValue) => {
+                //   setValue(newValue);
+                // }}
+              />
+            </div>
+            <div className="product-field card">
+              <div className="d-flex justify-content-between">
+                <div className="product-price">
+                  <p> Strength: </p>
+                </div>
+                <div className="">{productDetails?.product_strength}</div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="product-price">
+                  <p> Pack Size: </p>
+                </div>
+                <div className="">{productDetails?.pack_size}</div>
+              </div>
+            </div>
+            <div className="product-field">
+              <div className="d-flex justify-content-between">
+                <div className="product-price">
+                  <p> Categories: </p>
+                </div>
+                <div className="">
+                  {productDetails?.categories?.parent_categories?.name}
+                </div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="product-price">
+                  <p>Sub Categories: </p>
+                </div>
+                <div className=""> {productDetails?.categories?.name}</div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="product-price">
+                  <p>Brand:</p>
+                </div>
+                <div className="">{productDetails?.brands?.name}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card-footer">
+          <div className="d-grid gap-2">
+            <AddCart productId={productDetails?._id} />
+            <BuyCart product={productDetails} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

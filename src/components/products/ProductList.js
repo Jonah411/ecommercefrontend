@@ -61,8 +61,9 @@ const ProductList = ({ productData, title, routeList, wishListData }) => {
                         Price: {data.price}
                       </Typography>
                       <Rating
-                        name="simple-controlled"
-                        value={data.rating_star}
+                        name="read-only"
+                        value={parseInt(data?.rating_star?.rating_radio)}
+                        readOnly
                         // onChange={(event, newValue) => {
                         //   setValue(newValue);
                         // }}

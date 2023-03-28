@@ -36,7 +36,9 @@ const SliderBrand = () => {
         <p className=" font-heading">Product Brand</p>
       </div>
 
-      <ReactCardSlider slides={slidesData && slidesData} />
+      <div className="d-flex justify-content-center">
+        <ReactCardSlider slides={slidesData && slidesData} />
+      </div>
     </div>
   );
 };

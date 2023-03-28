@@ -10,9 +10,9 @@ const CartListNav = ({ price, cart }) => {
   return (
     <div className="cart-content">
       <div className="cart-content-body">
-        {cart?.map((data) => {
+        {cart?.map((data, index) => {
           return (
-            <div className="d-flex justify-content-between mb-2">
+            <div className="d-flex justify-content-between mb-2" key={index}>
               <div>
                 <p className="text-light m-0">{data?.product?.name}</p>
                 <p className="text-muted m-0">

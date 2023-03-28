@@ -54,7 +54,7 @@ const ListBrand = () => {
   }, [wishListDatas]);
   return (
     <div>
-      {Object.keys(products).length === 0 ? (
+      {products && Object.keys(products).length === 0 ? (
         <Stack
           direction="row"
           justifyContent="center"

@@ -33,6 +33,7 @@ import OrderHistory from "../OrderHistory";
 import Brand from "../Brand";
 import Categories from "../Categories";
 import Product from "../Product";
+import AddProduct from "../../components/products/AddProduct";
 
 const drawerWidth = 240;
 
@@ -124,7 +125,7 @@ export default function Profile() {
     navigate("/");
   };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", background: "#e7e6e6" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -219,13 +220,14 @@ export default function Profile() {
         <Divider />
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, background: "#e7e6e6" }}>
         <DrawerHeader />
         <Routes>
           <Route path="brand" element={<Brand />} />
           <Route path="wish_list" element={<WishList />} />
           <Route path="categories" element={<Categories />} />
           <Route path="product" element={<Product />} />
+          <Route path="add-product" element={<AddProduct />} />
           <Route path="user" element={<User />} />
           <Route path="address" element={<Address />} />
           <Route path="add_address" element={<CreateAddress />} />

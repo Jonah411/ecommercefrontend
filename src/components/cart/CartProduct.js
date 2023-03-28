@@ -21,8 +21,8 @@ const CartProduct = ({ cartList, cartIndex, handleQuantityChange }) => {
           width={100}
         />
       </td>
-      <td className="table-light p-4 table-child">{cart?.product.name}</td>
-      <td className="table-light p-4 table-child">{cart?.product.price}</td>
+      <td className="table-light p-4 table-child">{cart?.product?.name}</td>
+      <td className="table-light p-4 table-child">{cart?.product?.price}</td>
       <td className="table-light p-4 table-child">
         {/* <Quantity
           quantityValue={cart?.quantity}
@@ -37,7 +37,7 @@ const CartProduct = ({ cartList, cartIndex, handleQuantityChange }) => {
         />
       </td>
       <td className="table-light p-4 table-child">
-        {cart.product.price * cart.quantity}
+        {(cart?.product?.price * cart?.quantity).toFixed(1)}
       </td>
     </>
   );

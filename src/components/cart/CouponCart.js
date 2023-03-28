@@ -3,11 +3,18 @@ import { useApplycouponMutation } from "../../feature/profileReducer/authProfile
 import { toast } from "react-toastify";
 import AlertToast from "../common/AlertToast";
 
-const CouponCart = ({ cartId, totalPriceChange, totalPrice }) => {
+const CouponCart = ({ cartId, totalPriceChange, totalPrice, couponChange }) => {
   const [
     applycoupon,
     { data: couponData, isSuccess: couponSuccess, error, isError },
   ] = useApplycouponMutation();
+  const [couponCode, setCouponCode] = useState();
+  useEffect(() => {
+    setCouponCode(couponData?.coupon);
+  }, [couponData]);
+  useEffect(() => {
+    couponChange(couponCode);
+  }, [couponCode, couponChange]);
   const init = { couponCode: "" };
   const [couponForm, setCouponForm] = useState(init);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -55,6 +62,7 @@ const CouponCart = ({ cartId, totalPriceChange, totalPrice }) => {
       }
     }
     if (isError) {
+      setIsSubmit(false);
       toast.error(`${error?.data?.message}`, {
         position: "top-center",
         autoClose: 5000,

@@ -216,6 +216,13 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
         body: patch,
       }),
     }),
+    createRatingReviews: builder.mutation({
+      query: (patch) => ({
+        url: `/api/rates/product`,
+        method: "Post",
+        body: patch,
+      }),
+    }),
   }),
 });
 
@@ -256,4 +263,5 @@ export const {
   useDeleteMenuMutation,
   useRemoveUserMutation,
   useApplycouponMutation,
+  useCreateRatingReviewsMutation,
 } = authCouponApi;
