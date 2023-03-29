@@ -30,7 +30,6 @@ const PaginatedItems = ({ itemsPerPage, itemslist }) => {
     // );
     setItemOffset(newOffset);
   };
-  console.log(items);
   return (
     <div>
       <Items currentItems={currentItems} />

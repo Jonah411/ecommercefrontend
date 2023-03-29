@@ -200,7 +200,9 @@ const CartDashboard = () => {
                   <td className="table-total table-child">
                     <strong>
                       <span className="cart-Price-amount amount">
-                        <bdi>- {cartData?.totalPrice - totalValue}</bdi>
+                        <bdi>
+                          - {(cartData?.totalPrice - totalValue).toFixed(1)}
+                        </bdi>
                       </span>
                     </strong>
                   </td>
@@ -233,7 +235,7 @@ const CartDashboard = () => {
                   >
                     <p className="text-success text-center m-0 p-2">
                       Your total savings on this cart{" "}
-                      {cartData?.totalPrice - totalValue}
+                      {(cartData?.totalPrice - totalValue).toFixed(1)}
                     </p>
                     <p className="text-muted text-center">
                       {coupon && coupon?.description}

@@ -57,7 +57,9 @@ const ProductCheckout = ({ cartData, totalValue, totalPrice, coupon }) => {
                         <span className="cart-Price-amount amount">
                           <bdi>
                             -{" "}
-                            {cartData?.totalPrice - (totalPrice || totalValue)}
+                            {(
+                              cartData?.totalPrice - (totalPrice || totalValue)
+                            ).toFixed(1)}
                           </bdi>
                         </span>
                       </strong>
@@ -89,7 +91,9 @@ const ProductCheckout = ({ cartData, totalValue, totalPrice, coupon }) => {
                     >
                       <p className="text-success text-center m-0 p-2">
                         Your total savings on this order{" "}
-                        {cartData?.totalPrice - (totalPrice || totalValue)}
+                        {(
+                          cartData?.totalPrice - (totalPrice || totalValue)
+                        ).toFixed(1)}
                       </p>
                       <p className="text-muted text-center">
                         {coupon && coupon?.description}

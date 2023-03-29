@@ -67,6 +67,15 @@ const Navbar = () => {
                   {auth ? auth?.first_name : "My Account"}
                 </Link>
               </li>
+              <li
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/products");
+                }}
+                className="ms-2"
+              >
+                <Link className="nav-link text-light link-text">Products</Link>
+              </li>
             </ul>
           )}
         </div>

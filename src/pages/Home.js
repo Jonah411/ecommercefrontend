@@ -3,11 +3,11 @@ import {
   useGetAllProductsQuery,
   useGetWishListQuery,
 } from "../feature/profileReducer/authProfile";
-import ProductList from "../components/products/ProductList";
 import { useSelector } from "react-redux";
 import { getLoginDetails } from "../feature/loginReducer/loginReducer";
 import SliderBrand from "../components/design/SliderBrand";
 import BannerDesign from "../components/design/BannerDesign";
+import ProductPagination from "../components/design/ProductPagination";
 
 const Home = () => {
   const user = useSelector(getLoginDetails);
@@ -70,14 +70,21 @@ const Home = () => {
         <div className="home-section">
           <p className="font-heading">All Products</p>
         </div>
-
-        <div className="container">
+        <div className="container mt-3 mb-3">
+          <ProductPagination
+            itemsPerPage={8}
+            itemslist={products}
+            wishListData={wishList}
+            listView={false}
+          />
+        </div>
+        {/* <div className="container">
           <ProductList
             productData={products}
             title="All"
             wishListData={wishList}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

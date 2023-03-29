@@ -133,6 +133,7 @@ const AddRatingReviews = () => {
         progress: undefined,
         theme: "light",
       });
+      setRateSubmit(false);
     }
   }, [isSuccess, isError, data, product, error, navigate]);
   return (
