@@ -5,10 +5,12 @@ import { MdFavorite } from "react-icons/md";
 import ButtonBase from "@mui/material/ButtonBase";
 import Stack from "@mui/material/Stack";
 import { BASE_URL } from "../../constants/ConstaltsVariables";
-import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import { useAddWishListMutation } from "../../feature/profileReducer/authProfile";
+import { toast } from "react-toastify";
+import CompareListIcon from "./CompareListIcon";
+import AlertToast from "./AlertToast";
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
@@ -75,7 +77,15 @@ const ImageMarked = styled("span")(({ theme }) => ({
 const WishListIcon = ({ image, productId, wishListData, routeList }) => {
   const [images, setImages] = useState();
   const user = useSelector(getLoginDetails);
-  const [addWishList, { data: wishListDatas }] = useAddWishListMutation();
+  const [
+    addWishList,
+    {
+      data: wishListDatas,
+      isSuccess: wishlistSuccess,
+      isError: wishlistIsError,
+      error: wishlistError,
+    },
+  ] = useAddWishListMutation();
 
   const [wishList, setWishList] = useState(wishListData);
   useEffect(() => {
@@ -92,6 +102,35 @@ const WishListIcon = ({ image, productId, wishListData, routeList }) => {
       setIconWishList(wishListDatas?.wishlist);
     }
   }, [wishListDatas]);
+  useEffect(() => {
+    if (wishlistSuccess) {
+      toast.success(wishListData?.msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 501);
+    }
+    if (wishlistIsError) {
+      toast.error(wishlistError?.data?.msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  }, [wishListData, wishlistSuccess, wishlistIsError, wishlistError]);
   return (
     <>
       <ImageButton
@@ -111,12 +150,50 @@ const WishListIcon = ({ image, productId, wishListData, routeList }) => {
         />
         <ImageBackdrop className="MuiImageBackdrop-root" />
         {user && (
-          <Image>
-            <Stack spacing={2}>
-              {iconWishList ? (
-                iconWishList?.find((icon) => icon.product._id === productId) ? (
-                  <Button
-                    variant="outlined"
+          <>
+            {" "}
+            <Image>
+              <Stack spacing={2}>
+                {iconWishList ? (
+                  iconWishList?.find(
+                    (icon) => icon.product._id === productId
+                  ) ? (
+                    <button
+                      className="btn btn-secondary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        let patch = {
+                          user: user.id,
+                          product: productId,
+                          wishList: 0,
+                        };
+                        addWishList(patch);
+                      }}
+                    >
+                      <MdFavorite />
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-secondary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        let patch = {
+                          user: user.id,
+                          product: productId,
+                          wishList: 1,
+                        };
+                        addWishList(patch);
+                      }}
+                    >
+                      <GrFavorite />
+                    </button>
+                  )
+                ) : wishList?.find(
+                    (icon) =>
+                      icon.product._id === productId && icon.wishlist === 1
+                  ) ? (
+                  <button
+                    className="btn btn-secondary"
                     onClick={(e) => {
                       e.preventDefault();
                       let patch = {
@@ -125,18 +202,13 @@ const WishListIcon = ({ image, productId, wishListData, routeList }) => {
                         wishList: 0,
                       };
                       addWishList(patch);
-                      // if (routeList) {
-                      //   navigate(`/${routeList.type}/${routeList.id}`);
-                      // } else {
-                      //   navigate("/");
-                      // }
                     }}
                   >
                     <MdFavorite />
-                  </Button>
+                  </button>
                 ) : (
-                  <Button
-                    variant="outlined"
+                  <button
+                    className="btn btn-secondary"
                     onClick={(e) => {
                       e.preventDefault();
                       let patch = {
@@ -145,69 +217,23 @@ const WishListIcon = ({ image, productId, wishListData, routeList }) => {
                         wishList: 1,
                       };
                       addWishList(patch);
-                      // if (routeList) {
-                      //   navigate(`/${routeList.type}/${routeList.id}`);
-                      // } else {
-                      //   navigate("/");
-                      // }
                     }}
                   >
                     <GrFavorite />
-                  </Button>
-                )
-              ) : wishList?.find(
-                  (icon) =>
-                    icon.product._id === productId && icon.wishlist === 1
-                ) ? (
-                <Button
-                  variant="outlined"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    let patch = {
-                      user: user.id,
-                      product: productId,
-                      wishList: 0,
-                    };
-                    addWishList(patch);
-                    // if (routeList) {
-                    //   navigate(`/${routeList.type}/${routeList.id}`);
-                    // } else {
-                    //   navigate("/");
-                    // }
-                  }}
-                >
-                  <MdFavorite />
-                </Button>
-              ) : (
-                <Button
-                  variant="outlined"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    let patch = {
-                      user: user.id,
-                      product: productId,
-                      wishList: 1,
-                    };
-                    addWishList(patch);
-                    // if (routeList) {
-                    //   navigate(`/${routeList.type}/${routeList.id}`);
-                    // } else {
-                    //   navigate("/");
-                    // }
-                  }}
-                >
-                  <GrFavorite />
-                </Button>
-              )}
-              {/* <Button variant="outlined">
-              <GrFavorite />
-            </Button> */}
-            </Stack>
+                  </button>
+                )}
+                {/* <Button variant="outlined">
+           <GrFavorite />
+         </Button> */}
+              </Stack>
 
-            <ImageMarked className="MuiImageMarked-root" />
-          </Image>
+              <ImageMarked className="MuiImageMarked-root" />
+            </Image>
+            <CompareListIcon productId={productId} />
+          </>
         )}
       </ImageButton>
+      <AlertToast />
     </>
   );
 };

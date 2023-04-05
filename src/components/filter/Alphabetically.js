@@ -58,11 +58,26 @@ export const BrandFilter = (value, brand) => {
     });
   return sortedItems;
 };
+export const BrandsFilter = (value, brand) => {
+  const sortedItems =
+    value &&
+    value?.filter((product) => {
+      return product.brands?.name === brand;
+    });
+  return sortedItems;
+};
 export const CategorieFilter = (value, categorie) => {
   const sortedItems =
     value &&
     value?.filter((product) => {
       return product.categories?.name === categorie?.name;
     });
+  return sortedItems;
+};
+
+export const categoriesFilter = (value, products) => {
+  const sortedItems = products?.filter((product) => {
+    return product?.categories?.name === value;
+  });
   return sortedItems;
 };

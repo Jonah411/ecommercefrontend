@@ -14,13 +14,11 @@ const BannerDesign = () => {
       setBanner(brannerData?.data);
     }
   }, [brannerData]);
-  console.log(banner);
   return (
     <div className="border">
       <Carousel
         interval={null}
         indicators={true}
-        indicatorClassName="custom-indicators"
         prevIcon={null}
         nextIcon={null}
       >

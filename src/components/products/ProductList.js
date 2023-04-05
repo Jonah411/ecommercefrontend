@@ -40,6 +40,7 @@ const ProductList = ({
                   ? "col-12 col-sm-12 col-md-12 col-lg-12"
                   : "col-12 col-sm-12 col-md-6 col-lg-3"
               }
+              key={data._id}
             >
               <div className="mt-2">
                 <div className="card">

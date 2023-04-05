@@ -20,8 +20,8 @@ const RatingAndReviewsForm = ({ details }) => {
         </div>
       </div>
       <div className="">
-        <Rating itemslist={details.rating_star} />
-        <PaginatedItems itemsPerPage={5} itemslist={details.rating_star} />,
+        <Rating itemslist={details?.rating_star} />
+        <PaginatedItems itemsPerPage={5} itemslist={details?.rating_star} />,
       </div>
     </div>
   );

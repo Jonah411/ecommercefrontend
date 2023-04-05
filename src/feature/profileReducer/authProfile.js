@@ -59,7 +59,7 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
     }),
     getProducts: builder.query({
       query: (data) => ({
-        url: `/api/product/${data.id}/${data.type}`,
+        url: `/api/product/${data.id}/${data.type}/${data && data.user}`,
       }),
     }),
     getAllProducts: builder.query({
@@ -223,6 +223,35 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
         body: patch,
       }),
     }),
+    getCompareList: builder.query({
+      query: (id) => ({
+        url: `/api/compare/${id}`,
+      }),
+    }),
+    addCompareList: builder.mutation({
+      query: (patch) => ({
+        url: `/api/compare/${patch?.user}`,
+        method: "Post",
+        body: patch,
+      }),
+    }),
+    removeCompareList: builder.mutation({
+      query: (patch) => ({
+        url: `/api/compare/${patch?.user}`,
+        method: "Delete",
+        body: patch,
+      }),
+    }),
+    getRecentViewProducts: builder.query({
+      query: (data) => ({
+        url: `/api/latestview/${data}`,
+      }),
+    }),
+    getRelatedProducts: builder.query({
+      query: (data) => ({
+        url: `/api/relatedproduct/${data}`,
+      }),
+    }),
   }),
 });
 
@@ -264,4 +293,9 @@ export const {
   useRemoveUserMutation,
   useApplycouponMutation,
   useCreateRatingReviewsMutation,
+  useGetCompareListQuery,
+  useAddCompareListMutation,
+  useRemoveCompareListMutation,
+  useGetRecentViewProductsQuery,
+  useGetRelatedProductsQuery,
 } = authCouponApi;

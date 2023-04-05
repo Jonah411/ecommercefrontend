@@ -236,6 +236,9 @@ body {
 .alert-ecommerce-success {
   background-color: #0d4901 !important;
 }
+.alert-ecommerce-danger {
+  background-color: #df2c38 !important;
+}
 .danger-alert-ecommerce {
   margin-bottom: 2.617924em;
   margin-left: 0;
@@ -247,6 +250,23 @@ body {
   padding: 1em 2em 1em 3.5em;
   position: relative;
   list-style: none outside;
+}
+.popupalert {
+  position: fixed;
+  top: 40px;
+  right: 0;
+  background: #454648;
+  padding: 10px;
+  color: #f8f8f8;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  border-radius: 5px;
+  z-index: 1000;
+  opacity: 0; /* start with opacity set to 0 */
+  transition: opacity 6s ease-in-out; /* add a 2-second transition effect */
+}
+.popupalert.show {
+  opacity: 1; /* change opacity to 1 when show class is added */
 }
 .alert-ecommerce-logo {
   display: inline-block;
@@ -399,6 +419,32 @@ body {
 }
 .footer-about {
   padding: 30px;
+}
+.bottom-right-sticky {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: #454648;
+  padding: 10px;
+  color: #f8f8f8;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  border-radius: 5px;
+}
+.table-vertical th {
+  width: 20%;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.table-vertical td {
+  vertical-align: middle;
+}
+.table-row-height {
+  height: 100px;
+}
+.table-bordered {
+  border-color: #b3b5b7;
 }
 @media only screen and (min-width: 1200px) {
 }

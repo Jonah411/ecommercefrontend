@@ -16,6 +16,7 @@ import {
 } from "../../feature/profileReducer/authProfile";
 import JoditEditor from "jodit-react";
 import { useNavigate } from "react-router-dom";
+import RelatedProduct from "./relatedProducts/RelatedProduct";
 
 const AddProduct = () => {
   const [createProduct, { data, error, isSuccess, isError }] =
@@ -50,6 +51,7 @@ const AddProduct = () => {
     pack_size: "",
     categories: "",
     brand: "",
+    related_products: [],
   };
   const [formValues, setFormValues] = useState(init);
   const [productImage, setProductImage] = useState();
@@ -162,10 +164,11 @@ const AddProduct = () => {
       });
       setTimeout(() => {
         setIsSubmit(false);
-        navigate("/profile/product");
+        // navigate("/profile/product");
       }, 2001);
     }
     if (isError) {
+      setIsSubmit(false);
       toast.error(error?.data?.msg, {
         position: "top-center",
         autoClose: 5000,
@@ -184,6 +187,16 @@ const AddProduct = () => {
       listCategories.push(data);
     }
   });
+  const productName = (id) => {
+    const e = {
+      target: {
+        name: "related_products",
+        value: id,
+      },
+    };
+    handleChange(e);
+  };
+  console.log(formValues);
   return (
     <div className="form-product ">
       <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -329,7 +342,9 @@ const AddProduct = () => {
           })}
         </Select>
       </FormControl>
-
+      <div className="mt-3 mb-3">
+        <RelatedProduct productName={productName} />
+      </div>
       <Stack
         spacing={2}
         direction="row"

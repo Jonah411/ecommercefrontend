@@ -8,6 +8,8 @@ import { getLoginDetails } from "../feature/loginReducer/loginReducer";
 import SliderBrand from "../components/design/SliderBrand";
 import BannerDesign from "../components/design/BannerDesign";
 import ProductPagination from "../components/design/ProductPagination";
+import CompareProduct from "../components/design/CompareProduct";
+import SliderRecentView from "../components/design/SliderRecentView";
 
 const Home = () => {
   const user = useSelector(getLoginDetails);
@@ -86,6 +88,10 @@ const Home = () => {
           />
         </div> */}
       </div>
+      <div className="container mt-3 mb-3">
+        <SliderRecentView />
+      </div>
+      <CompareProduct />
     </div>
   );
 };

@@ -16,6 +16,7 @@ import Navbar from "./components/header/Navbar";
 import Footer from "./components/footer/Footer";
 import AddRatingReviews from "./components/rating-and-reviews/AddRatingReviews";
 import HomeDashboard from "./pages/HomeDashboard";
+import CompareDashboard from "./pages/CompareDashboard";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/category/:name" element={<ListProduct />} />
         <Route path="/search_products" element={<SearchProducts />} />
         <Route path="/products" element={<HomeDashboard />} />
+        <Route path="/compare-products" element={<CompareDashboard />} />
         <Route path="/product_details/:id" element={<ProductDetail />} />
         <Route
           path="/product_details/:id/create-review"

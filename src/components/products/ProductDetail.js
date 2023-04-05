@@ -13,6 +13,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import RatingAndReviewsForm from "./RatingAndReviewsForm";
 import ProductDescription from "./ProductDescription";
+import SliderRelativeView from "../design/SliderRelativeView";
 
 const ProductDetail = () => {
   const user = useSelector(getLoginDetails);
@@ -20,13 +21,14 @@ const ProductDetail = () => {
   let list = {
     id: id,
     type: "product",
+    user: user && user?.id,
   };
   const { data: productData } = useGetProductsQuery(list, {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(productData?.data[0]);
   useEffect(() => {
     if (productData) {
       setProducts(productData?.data[0]);
@@ -105,6 +107,15 @@ const ProductDetail = () => {
             jonah
           </Tab> */}
         </Tabs>
+      </div>
+      <div className="container mt-3 mb-2 ">
+        {products?.related_products && (
+          <SliderRelativeView
+            relatedViewData={
+              products?.related_products && products?.related_products
+            }
+          />
+        )}
       </div>
     </div>
   );
