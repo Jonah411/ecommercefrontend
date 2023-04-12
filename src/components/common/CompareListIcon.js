@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import Stack from "@mui/material/Stack";
 import { getLoginDetails } from "../../feature/loginReducer/loginReducer";
 import { useAddCompareListMutation } from "../../feature/profileReducer/authProfile";
-import { toast } from "react-toastify";
 import AlertToast from "./AlertToast";
 
 const ImageLeft = styled("span")(({ theme }) => ({
