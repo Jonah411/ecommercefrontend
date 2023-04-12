@@ -70,7 +70,7 @@ const Product = () => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              navigate("brand");
+              navigate(`/profile/update-product/${row._id}`);
             }}
           >
             <FiEdit2 />

@@ -252,6 +252,36 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
         url: `/api/relatedproduct/${data}`,
       }),
     }),
+    getProductTypes: builder.query({
+      query: () => ({
+        url: `/api/productdetails/product_types`,
+      }),
+    }),
+    createProductDetails: builder.mutation({
+      query: (patch) => ({
+        url: `/api/productdetails/create_product`,
+        method: "Post",
+        body: patch,
+      }),
+    }),
+    getAllProductDetails: builder.query({
+      query: () => ({
+        url: `/api/productdetails/product`,
+      }),
+    }),
+    updateProductDetails: builder.mutation({
+      query: (patch) => ({
+        url: `/api/productdetails/update_product`,
+        method: "Put",
+        body: patch,
+      }),
+    }),
+    dropProductDetails: builder.mutation({
+      query: (patch) => ({
+        url: `/api/productdetails/drop_product/${patch}`,
+        method: "Delete",
+      }),
+    }),
   }),
 });
 
@@ -298,4 +328,9 @@ export const {
   useRemoveCompareListMutation,
   useGetRecentViewProductsQuery,
   useGetRelatedProductsQuery,
+  useGetProductTypesQuery,
+  useCreateProductDetailsMutation,
+  useGetAllProductDetailsQuery,
+  useUpdateProductDetailsMutation,
+  useDropProductDetailsMutation,
 } = authCouponApi;

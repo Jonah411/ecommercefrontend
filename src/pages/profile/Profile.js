@@ -33,7 +33,9 @@ import OrderHistory from "../OrderHistory";
 import Brand from "../Brand";
 import Categories from "../Categories";
 import Product from "../Product";
-import AddProduct from "../../components/products/AddProduct";
+//import AddProduct from "../../components/products/AddProduct";
+import ProductAddPage from "../../components/products/ProductAddPage";
+import ProductUpdatePage from "../../components/products/ProductUpdatePage";
 
 const drawerWidth = 240;
 
@@ -111,7 +113,7 @@ export default function Profile() {
     skip: false,
   });
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -227,7 +229,8 @@ export default function Profile() {
           <Route path="wish_list" element={<WishList />} />
           <Route path="categories" element={<Categories />} />
           <Route path="product" element={<Product />} />
-          <Route path="add-product" element={<AddProduct />} />
+          <Route path="add-product" element={<ProductAddPage />} />
+          <Route path="update-product/:id" element={<ProductUpdatePage />} />
           <Route path="user" element={<User />} />
           <Route path="address" element={<Address />} />
           <Route path="add_address" element={<CreateAddress />} />

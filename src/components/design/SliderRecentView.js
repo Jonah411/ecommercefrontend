@@ -45,9 +45,10 @@ const SliderRecentView = () => {
   const [recentView, setRecentView] = useState([]);
   useEffect(() => {
     if (recentViewData) {
-      setRecentView(recentViewData?.data?.products);
+      setRecentView(recentViewData?.data);
     }
   }, [recentViewData]);
+  console.log(recentViewData);
   return (
     <div className="mt-3 mb-3">
       <div className="home-section">

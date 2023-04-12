@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useAddCartListMutation } from "../../feature/profileReducer/authProfile";
 import AlertToast from "./AlertToast";
 
-const AddCart = ({ productId }) => {
+const AddCart = ({ productId, productQuandity }) => {
   const user = useSelector(getLoginDetails);
   const [addCartList, { data, isSuccess }] = useAddCartListMutation();
   const dispatch = useDispatch();
@@ -18,12 +18,13 @@ const AddCart = ({ productId }) => {
     items: [
       {
         product: { _id: productId },
-        quantity: 1,
+        quantity: productQuandity ? productQuandity : 1,
       },
     ],
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     if (user) {
       addCartList(cartList);
     } else {
@@ -62,7 +63,11 @@ const AddCart = ({ productId }) => {
   }, [isSuccess, data]);
   return (
     <>
-      <Button variant="contained" onClick={() => handleClick()} key={productId}>
+      <Button
+        variant="contained"
+        onClick={(e) => handleClick(e)}
+        key={productId}
+      >
         <span className="product-font">Add Cart</span>
       </Button>
       <AlertToast />

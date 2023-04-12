@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  useGetAllProductsQuery,
+  useGetAllProductDetailsQuery,
   useGetWishListQuery,
 } from "../feature/profileReducer/authProfile";
 import { useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import SliderRecentView from "../components/design/SliderRecentView";
 
 const Home = () => {
   const user = useSelector(getLoginDetails);
-  const { data: productData } = useGetAllProductsQuery(undefined, {
+  const { data: productData } = useGetAllProductDetailsQuery(undefined, {
     refetchOnMountOrArgChange: true,
     skip: false,
   });

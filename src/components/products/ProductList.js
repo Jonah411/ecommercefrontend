@@ -25,6 +25,7 @@ const ProductList = ({
   useEffect(() => {
     setList(listView);
   }, [listView]);
+  console.log(products);
   return (
     <div>
       <div className="">
@@ -32,7 +33,7 @@ const ProductList = ({
       </div>
 
       <div className="row">
-        {products?.map((data, index) => {
+        {products?.map((data) => {
           return (
             <div
               className={
@@ -70,10 +71,36 @@ const ProductList = ({
                       <div className="container-fluid ">
                         <div className="card-body">
                           <div className="">
-                            <h5>{data.name}</h5>
+                            <h5>{data?.name}</h5>
                           </div>
                           <div className="d-flex justify-content-between">
-                            <h6>Price: {data.price}</h6>
+                            {data?.simple_product && (
+                              <div className="product-price">
+                                {data?.simple_product?.sale_price ? (
+                                  <p className="m-0">
+                                    Price:{" "}
+                                    <span className="offer-price">
+                                      {data?.price}
+                                    </span>
+                                  </p>
+                                ) : (
+                                  <p>
+                                    Price:{" "}
+                                    <span className="price">{data?.price}</span>
+                                  </p>
+                                )}
+                                {data?.simple_product?.sale_price && (
+                                  <p>
+                                    Sale Price:{" "}
+                                    <span className="price">
+                                      {data?.simple_product?.sale_price}
+                                    </span>
+                                  </p>
+                                )}
+                              </div>
+                              // <h6>Price: {data?.price}</h6>
+                            )}
+
                             <Rating
                               name="read-only"
                               value={parseInt(data?.rating_star?.rating_radio)}
@@ -83,13 +110,21 @@ const ProductList = ({
                               // }}
                             />
                           </div>
+                          <div className="">
+                            <p className="text-muted">
+                              {data?.short_description}
+                            </p>
+                          </div>
                         </div>
                         <div className="card-footer">
                           <div className=" ">
-                            <div className="d-flex justify-content-between gap-2">
-                              <AddCart productId={data._id} />
-                              <BuyCart product={data} />
-                            </div>
+                            {data?.simple_product && (
+                              <div className="d-flex justify-content-between gap-2">
+                                <AddCart productId={data._id} />
+                                <BuyCart product={data} />
+                              </div>
+                            )}
+
                             <div className="d-grid gap-2 mt-2">
                               <button
                                 className="btn btn-secondary"

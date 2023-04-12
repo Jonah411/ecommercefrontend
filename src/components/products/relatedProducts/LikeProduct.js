@@ -5,7 +5,7 @@ import { BrandsFilter, categoriesFilter } from "../../filter/Alphabetically";
 import { CollectProducts } from "../../common/CollectProducts";
 import MultiselectProducts from "../../common/MultiselectProducts";
 
-const RelatedProduct = ({ productName, relatedName }) => {
+const LikeProduct = ({ productName, likeName }) => {
   const brandsList = CollectBrands();
   const categoriesList = CollectCategories();
   const products = CollectProducts();
@@ -136,7 +136,7 @@ const RelatedProduct = ({ productName, relatedName }) => {
               <MultiselectProducts
                 products={productList}
                 handleChange={handleChange}
-                selectProducts={relatedName}
+                selectProducts={likeName}
               />
             </div>
           </div>
@@ -146,4 +146,4 @@ const RelatedProduct = ({ productName, relatedName }) => {
   );
 };
 
-export default RelatedProduct;
+export default LikeProduct;

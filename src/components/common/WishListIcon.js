@@ -11,27 +11,7 @@ import { useAddWishListMutation } from "../../feature/profileReducer/authProfile
 import { toast } from "react-toastify";
 import CompareListIcon from "./CompareListIcon";
 import AlertToast from "./AlertToast";
-
-const ImageButton = styled(ButtonBase)(({ theme }) => ({
-  position: "relative",
-  height: 200,
-  [theme.breakpoints.down("sm")]: {
-    width: "100% !important", // Overrides inline-style
-    height: 100,
-  },
-  "&:hover, &.Mui-focusVisible": {
-    zIndex: 1,
-    "& .MuiImageBackdrop-root": {
-      opacity: 0.15,
-    },
-    "& .MuiImageMarked-root": {
-      opacity: 0,
-    },
-    "& .MuiTypography-root": {
-      border: "4px solid currentColor",
-    },
-  },
-}));
+import { useLocation } from "react-router-dom";
 
 const ImageSrc = styled("span")({
   position: "absolute",
@@ -75,6 +55,29 @@ const ImageMarked = styled("span")(({ theme }) => ({
 }));
 
 const WishListIcon = ({ image, productId, wishListData, routeList }) => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const extractedPath = pathname.split("/")[1];
+  const ImageButton = styled(ButtonBase)(({ theme }) => ({
+    position: "relative",
+    height: extractedPath === "product_details" ? 550 : 200,
+    [theme.breakpoints.down("sm")]: {
+      width: "100% !important", // Overrides inline-style
+      height: 100,
+    },
+    "&:hover, &.Mui-focusVisible": {
+      zIndex: 1,
+      "& .MuiImageBackdrop-root": {
+        opacity: 0.15,
+      },
+      "& .MuiImageMarked-root": {
+        opacity: 0,
+      },
+      "& .MuiTypography-root": {
+        border: "4px solid currentColor",
+      },
+    },
+  }));
   const [images, setImages] = useState();
   const user = useSelector(getLoginDetails);
   const [
@@ -138,20 +141,26 @@ const WishListIcon = ({ image, productId, wishListData, routeList }) => {
         style={{
           width: "100%",
         }}
+        className="image-gallery-design"
         // onClick={(e) => {
         //   e.preventDefault();
         //   navigate(`/brand/${data?.brand?._id}`);
         // }}
       >
-        <ImageSrc
-          style={{
-            backgroundImage: `url(${BASE_URL}categories/product_image/image/${images})`,
-          }}
-        />
+        <div class="image-container">
+          <div class="image-zoom">
+            <ImageSrc
+              className="image-src"
+              style={{
+                backgroundImage: `url(${BASE_URL}categories/product_image/image/${images})`,
+              }}
+            />
+          </div>
+        </div>
+        {/* <div className="image-container"></div> */}
         <ImageBackdrop className="MuiImageBackdrop-root" />
         {user && (
           <>
-            {" "}
             <Image>
               <Stack spacing={2}>
                 {iconWishList ? (
@@ -190,7 +199,7 @@ const WishListIcon = ({ image, productId, wishListData, routeList }) => {
                   )
                 ) : wishList?.find(
                     (icon) =>
-                      icon.product._id === productId && icon.wishlist === 1
+                      icon?.product?._id === productId && icon?.wishlist === 1
                   ) ? (
                   <button
                     className="btn btn-secondary"

@@ -25,12 +25,10 @@ const ImageGalleryDetails = ({ images, wishListData, productId }) => {
             src={`${BASE_URL}categories/product_image/image/${image}`}
             className={
               sliderData === image
-                ? "img-thumbnail clicked-image"
-                : "img-thumbnail"
+                ? "image-thumbnil clicked-image img-thumbnail"
+                : "image-thumbnil img-thumbnail"
             }
             alt={`Thumbnail for ${image} Gallery`}
-            height={70}
-            width="20%"
             onClick={() => {
               hendleClick(i);
             }}

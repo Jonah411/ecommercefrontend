@@ -27,14 +27,16 @@ const ProductDetail = () => {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
-
-  const [products, setProducts] = useState(productData?.data[0]);
+  const [products, setProducts] = useState(productData?.data);
+  const [groupGroducts, setGroupProducts] = useState(
+    productData?.GroupProductDetails
+  );
   useEffect(() => {
     if (productData) {
-      setProducts(productData?.data[0]);
+      setProducts(productData?.data);
+      setGroupProducts(productData?.GroupProductDetails);
     }
   }, [productData]);
-
   const listData = {
     user_id: user?.id,
     product_id: id,
@@ -57,15 +59,15 @@ const ProductDetail = () => {
       </div>
       <div className="mb-3">
         <div className="row">
-          <div className="col-12 col-sm-6">
+          <div className="col-12 col-sm-4">
             <ImageGalleryDetails
               images={products?.product_gallery}
               wishListData={wishList}
               productId={id}
             />
           </div>
-          <div className="col-12 col-sm-6">
-            <Details details={products} />
+          <div className="col-12 col-sm-8">
+            <Details details={products} groupGroducts={groupGroducts} />
           </div>
         </div>
       </div>

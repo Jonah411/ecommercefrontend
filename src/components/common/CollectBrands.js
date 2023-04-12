@@ -22,3 +22,24 @@ export const CollectBrands = () => {
     .filter((item) => item !== null && item !== undefined);
   return joinedArray;
 };
+export const CollectBrandsList = () => {
+  const { data: brandData } = useGetAllBrandsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    skip: false,
+  });
+
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    if (brandData) {
+      setBrands(brandData?.data);
+    }
+  }, [brandData]);
+
+  const brandName = brands?.map((data) => {
+    return data;
+  });
+  const joinedArray = brandName
+    .flat()
+    .filter((item) => item !== null && item !== undefined);
+  return joinedArray;
+};
