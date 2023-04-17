@@ -13,13 +13,13 @@ import {
 import CouponCart from "../cart/CouponCart";
 import ProductCheckout from "./ProductCheckout";
 import { useLocation } from "react-router-dom";
-import StripeCheckout from "react-stripe-checkout";
-import Modal from "react-bootstrap/Modal";
+// import StripeCheckout from "react-stripe-checkout";
+// import Modal from "react-bootstrap/Modal";
 import AlertCoupon from "../design/AlertCoupon";
 import CheckoutDetails from "./CheckoutDetails";
 
-const STRIPE_PUBLISHABLE =
-  "pk_test_51LDlCzSJVnTGa9XXqnB5DaHKrB7FgaXDTKnM0cGXo6cEVoCovGFjPOzL7DdqI9oYhMZ9LOLU8t1y5f44IHtVHnjv00DYLJzAf6";
+// const STRIPE_PUBLISHABLE =
+//   "pk_test_51LDlCzSJVnTGa9XXqnB5DaHKrB7FgaXDTKnM0cGXo6cEVoCovGFjPOzL7DdqI9oYhMZ9LOLU8t1y5f44IHtVHnjv00DYLJzAf6";
 
 const CheckoutDashboard = () => {
   const auth = useSelector(getLoginDetails);
@@ -65,9 +65,9 @@ const CheckoutDashboard = () => {
   const [billingForm, setBillingForm] = useState(init);
   const [billingSubmit, setBillingSubmit] = useState(false);
   const [billingError, setBillingError] = useState(null);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
   const handleChandeBilling = (e) => {
     const { name, value } = e.target;
     setBillingForm({ ...billingForm, [name]: value });
@@ -172,6 +172,7 @@ const CheckoutDashboard = () => {
     auth,
     shippingError,
     shippingSubmit,
+    addOrder,
   ]);
   // const checkoutOrder = (token) => {
   //   let patch = {
