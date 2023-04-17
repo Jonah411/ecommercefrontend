@@ -32,6 +32,7 @@ const ImageGalleryDetails = ({ images, wishListData, productId }) => {
             onClick={() => {
               hendleClick(i);
             }}
+            key={i}
           />
         ))}
       </div>

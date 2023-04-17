@@ -13,25 +13,28 @@ const Details = ({ details, groupGroducts }) => {
   const [cart, setCart] = useState();
   useEffect(() => {
     if (groupGroducts) {
-      let datacart = []; // Move datacart outside the loop
+      let datacart = [];
       for (let i = 0; i < groupGroducts.length; i++) {
-        // Update loop condition
-        datacart.push({ quantity: 1 }); // Push new cart item into datacart
+        datacart.push({ quantity: 1 });
       }
-      setCart(datacart); // Update cart state after the loop
+      setCart(datacart);
     }
   }, [groupGroducts]);
   const handleQuantityChange = (newQuantity, index) => {
     setCart((prevCart) => {
-      const newCart = [...prevCart]; // create a shallow copy of the previous cart
+      const newCart = [...prevCart];
       newCart[index] = {
-        ...newCart[index], // create a shallow copy of the cart item at the specified index
-        quantity: newQuantity, // update the quantity property with the new value
+        ...newCart[index],
+        quantity: newQuantity,
       };
-      return newCart; // return the updated cart
+      return newCart;
     });
   };
-  console.log(cart);
+  const [quantity, setQuantity] = useState(1);
+  const handleStockQuantityChange = (newQuantity) => {
+    setQuantity(newQuantity);
+  };
+  console.log(productDetails);
   return (
     <div className="image-app p-2">
       <div className="card">
@@ -89,14 +92,69 @@ const Details = ({ details, groupGroducts }) => {
                     {productDetails?.simple_product?.pack_size}
                   </div>
                 </div>
-                <div className="d-flex justify-content-between">
-                  <div className="product-price">
-                    <p> Pack Stock: </p>
+                {productDetails?.simple_product?.manage_stock ? (
+                  <div>
+                    {productDetails?.simple_product?.stock_quantity ? (
+                      <div>
+                        <div className="d-flex justify-content-between">
+                          <div className="product-price">
+                            <p> Stock Quantity: </p>
+                          </div>
+                          <div className="">
+                            {productDetails?.simple_product?.stock_quantity}
+                          </div>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                          <div className="product-price">
+                            <p> Quantity: </p>
+                          </div>
+                          <div className="">
+                            <Quantity
+                              onQuantityChange={(newQuantity) =>
+                                handleStockQuantityChange(newQuantity)
+                              }
+                              quantityValue={1}
+                              soldIndividually={
+                                productDetails?.simple_product
+                                  ?.sold_individually
+                              }
+                              maxValue={
+                                productDetails?.simple_product
+                                  ?.backorders_status === "Do Not Allow" &&
+                                productDetails?.simple_product?.stock_quantity
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="d-flex justify-content-between">
+                        <div className="product-price">
+                          <p> Stock Quantity: </p>
+                        </div>
+                        <div className="text-danger">Out of Stock</div>
+                      </div>
+                    )}
                   </div>
-                  <div className="">
-                    {productDetails?.simple_product?.stock_status}
+                ) : (
+                  <div>
+                    <div className="d-flex justify-content-between">
+                      <div className="product-price">
+                        <p> Pack Stock: </p>
+                      </div>
+                      <div
+                        className={
+                          productDetails?.simple_product?.stock_status ===
+                          "Out of stock"
+                            ? "text-danger"
+                            : ""
+                        }
+                      >
+                        {productDetails?.simple_product?.stock_status}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             )}
             {productDetails?.group_product && (
@@ -150,6 +208,7 @@ const Details = ({ details, groupGroducts }) => {
                                   handleQuantityChange(newQuantity, index)
                                 }
                                 quantityValue={cart[index]?.quantity}
+                                maxValue={data?.simple_product?.stock_quantity}
                               />
                             </td>
                             <td className="table-light p-4 table-child">
@@ -159,6 +218,7 @@ const Details = ({ details, groupGroducts }) => {
                               <AddCart
                                 productId={data?._id}
                                 productQuandity={cart[index]?.quantity}
+                                productStockQuantity={quantity && quantity}
                               />
                               <BuyCart product={data} />
                             </td>
@@ -198,10 +258,35 @@ const Details = ({ details, groupGroducts }) => {
           ""
         ) : (
           <div className="card-footer">
-            <div className="d-grid gap-2">
-              <AddCart productId={productDetails?._id} />
-              <BuyCart product={productDetails} />
-            </div>
+            {productDetails?.simple_product?.manage_stock ? (
+              <div>
+                {productDetails?.simple_product?.stock_quantity ? (
+                  <div className="d-grid gap-2">
+                    <AddCart
+                      productId={productDetails?._id}
+                      productStockQuantity={quantity && quantity}
+                    />
+                    <BuyCart product={productDetails} />
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
+            ) : (
+              <div>
+                {productDetails?.simple_product?.stock_status === "In Stock" ? (
+                  <div className="d-grid gap-2">
+                    <AddCart
+                      productId={productDetails?._id}
+                      productStockQuantity={quantity && quantity}
+                    />
+                    <BuyCart product={productDetails} />
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -43,6 +43,16 @@ const InitialForm = ({ handleChange, formValues }) => {
               }}
             />
           </div>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              value={formValue?.email}
+              onChange={handleChange}
+            />
+          </div>
         </form>
       </div>
     </div>

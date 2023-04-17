@@ -92,6 +92,19 @@ const CheckoutDashboard = () => {
     setBillingError(validate(billingForm));
     setShippingSubmit(true);
     setShippingError(shippingValidate(shippingDetails));
+    let patch = {
+      //  token,
+      user: auth?.id,
+      items: cartData?.carts?.items,
+      billingaddress: [billingForm],
+      subtotalPrice: cartData?.totalPrice,
+      totalPrice: totalValue
+        ? totalValue
+        : totalPrice
+        ? totalPrice
+        : cartData?.totalPrice,
+    };
+    addOrder(patch);
   };
   const shippingValidate = (value) => {
     const error = {};
@@ -126,7 +139,6 @@ const CheckoutDashboard = () => {
     return error;
   };
   useEffect(() => {
-    console.log(billingError);
     if (
       billingError &&
       Object.keys(billingError).length === 0 &&
@@ -135,7 +147,20 @@ const CheckoutDashboard = () => {
       Object.keys(shippingError).length === 0 &&
       shippingSubmit
     ) {
-      handleShow();
+      //handleShow();
+      let patch = {
+        //  token,
+        user: auth?.id,
+        items: cartData?.carts?.items,
+        billingaddress: [billingForm],
+        subtotalPrice: cartData?.totalPrice,
+        totalPrice: totalValue
+          ? totalValue
+          : totalPrice
+          ? totalPrice
+          : cartData?.totalPrice,
+      };
+      addOrder(patch);
     }
   }, [
     billingError,
@@ -148,21 +173,21 @@ const CheckoutDashboard = () => {
     shippingError,
     shippingSubmit,
   ]);
-  const checkoutOrder = (token) => {
-    let patch = {
-      token,
-      user: auth?.id,
-      items: cartData?.carts?.items,
-      billingaddress: [billingForm],
-      subtotalPrice: cartData?.totalPrice,
-      totalPrice: totalValue
-        ? totalValue
-        : totalPrice
-        ? totalPrice
-        : cartData?.totalPrice,
-    };
-    addOrder(patch);
-  };
+  // const checkoutOrder = (token) => {
+  //   let patch = {
+  //     token,
+  //     user: auth?.id,
+  //     items: cartData?.carts?.items,
+  //     billingaddress: [billingForm],
+  //     subtotalPrice: cartData?.totalPrice,
+  //     totalPrice: totalValue
+  //       ? totalValue
+  //       : totalPrice
+  //       ? totalPrice
+  //       : cartData?.totalPrice,
+  //   };
+  //   addOrder(patch);
+  // };
   const couponChange = (data) => {
     setCoupon(data);
   };
@@ -302,14 +327,13 @@ const CheckoutDashboard = () => {
           </div>
         </div>
       </div>
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {" "}
           <StripeCheckout
-            token={checkoutOrder} // callback function to handle successful payment
+            token={checkoutOrder}
             amount={
               totalValue
                 ? totalValue
@@ -321,7 +345,7 @@ const CheckoutDashboard = () => {
             stripeKey={STRIPE_PUBLISHABLE} // your Stripe API publishable key
           />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };

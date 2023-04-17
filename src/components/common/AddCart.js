@@ -9,16 +9,21 @@ import { toast } from "react-toastify";
 import { useAddCartListMutation } from "../../feature/profileReducer/authProfile";
 import AlertToast from "./AlertToast";
 
-const AddCart = ({ productId, productQuandity }) => {
+const AddCart = ({ productId, productQuandity, productStockQuantity }) => {
   const user = useSelector(getLoginDetails);
-  const [addCartList, { data, isSuccess }] = useAddCartListMutation();
+  const [addCartList, { data, isSuccess, error, isError }] =
+    useAddCartListMutation();
   const dispatch = useDispatch();
   const cartList = {
     user: user ? user?.id : null,
     items: [
       {
         product: { _id: productId },
-        quantity: productQuandity ? productQuandity : 1,
+        quantity: productQuandity
+          ? productQuandity
+          : productStockQuantity
+          ? productStockQuantity
+          : 1,
       },
     ],
   };
@@ -32,9 +37,10 @@ const AddCart = ({ productId, productQuandity }) => {
     }
   };
   useEffect(() => {
+    console.log(error);
     if (isSuccess) {
       if (data?.status === true) {
-        toast.success(`${data?.message}`, {
+        toast.success(`${data?.msg}`, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -48,7 +54,23 @@ const AddCart = ({ productId, productQuandity }) => {
           window.location.reload();
         }, 1000);
       } else {
-        toast.error(`${data?.message}`, {
+        if (isError) {
+          toast.error(`${error?.data?.msg}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      }
+    } else {
+      if (isError) {
+        console.log("johnnnnn");
+        toast.error(`${error?.data?.msg}`, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -60,7 +82,7 @@ const AddCart = ({ productId, productQuandity }) => {
         });
       }
     }
-  }, [isSuccess, data]);
+  }, [isSuccess, data, isError, error]);
   return (
     <>
       <Button

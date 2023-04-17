@@ -8,6 +8,7 @@ const CartProduct = ({ cartList, cartIndex, handleQuantityChange }) => {
   useEffect(() => {
     setCart(cartList);
   }, [cartList]);
+  console.log(cart);
   return (
     <>
       <td className="table-light p-4 table-child">
@@ -34,6 +35,11 @@ const CartProduct = ({ cartList, cartIndex, handleQuantityChange }) => {
             handleQuantityChange(newQuantity, cartIndex)
           }
           quantityValue={cart?.quantity}
+          soldIndividually={cart?.product?.simple_product?.sold_individually}
+          maxValue={
+            cart?.product?.simple_product?.backorders_status ===
+              "Do Not Allow" && cart?.product?.simple_product?.stock_quantity
+          }
         />
       </td>
       <td className="table-light p-4 table-child">

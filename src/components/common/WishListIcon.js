@@ -147,8 +147,8 @@ const WishListIcon = ({ image, productId, wishListData, routeList }) => {
         //   navigate(`/brand/${data?.brand?._id}`);
         // }}
       >
-        <div class="image-container">
-          <div class="image-zoom">
+        <div className="image-container">
+          <div className="image-zoom">
             <ImageSrc
               className="image-src"
               style={{

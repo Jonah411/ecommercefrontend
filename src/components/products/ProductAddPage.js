@@ -13,6 +13,7 @@ const ProductAddPage = () => {
     useCreateProductDetailsMutation();
   const init = {
     name: "",
+    email: "",
     description: "",
     short_description: "",
     categorie: "",
@@ -78,7 +79,12 @@ const ProductAddPage = () => {
     strength: "",
     pack_size: "",
     sku: "",
-    stock_status: "",
+    stock_status: "In Stock",
+    stock_quantity: "",
+    backorders_status: "",
+    stock_threshold: "",
+    sold_individually: "",
+    manage_stock: false,
     related_products: [],
     like_products: [],
   };
@@ -86,8 +92,13 @@ const ProductAddPage = () => {
   const [simpleIsSubmit, setSimpleIsSubmit] = useState(false);
   const [simpleError, setSimpleError] = useState();
   const handleSimpleProductChange = (e) => {
-    const { name, value } = e.target;
-    setSimpleProductValues({ ...simpleProductValues, [name]: value });
+    const { name, value, checked } = e.target;
+    if (name === "manage_stock" || name === "sold_individually") {
+      console.log(checked, value);
+      setSimpleProductValues({ ...simpleProductValues, [name]: checked });
+    } else {
+      setSimpleProductValues({ ...simpleProductValues, [name]: value });
+    }
   };
   const groupinit = {
     sku: "",
@@ -160,7 +171,6 @@ const ProductAddPage = () => {
           formData.append("product_gallery", item);
         });
       }
-      console.log(productValues);
       createProductDetails(formData);
     };
     if (

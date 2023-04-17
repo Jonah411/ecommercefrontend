@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
@@ -59,12 +59,7 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
     simpleProductValues?.sale_price_start
   );
   const formattedSalePriceEnd = dateRange(simpleProductValues?.sale_price_end);
-
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
+  console.log(simpleProductValues);
   return (
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
       <Row>
@@ -174,10 +169,12 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      value=""
-                      id="flexCheckChecked"
-                      checked={isChecked}
-                      onChange={handleCheckboxChange}
+                      value={simpleProductValues?.manage_stock}
+                      checked={
+                        simpleProductValues && simpleProductValues?.manage_stock
+                      }
+                      name="manage_stock"
+                      onChange={handleChange}
                     />
                     <label
                       className="form-check-label"
@@ -187,7 +184,7 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                     </label>
                   </div>
                 </div>
-                {isChecked ? (
+                {simpleProductValues && simpleProductValues?.manage_stock ? (
                   <>
                     <div className="mb-3">
                       <label className="form-label text-muted">
@@ -198,39 +195,87 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                           className="form-control"
                           type="number"
                           placeholder="quantity"
+                          name="stock_quantity"
+                          onChange={handleChange}
+                          value={simpleProductValues?.stock_quantity}
                         />
-                        <TooltipMsg />
+                        <TooltipMsg
+                          text={
+                            "Stock quantity. If this is a variable Product this value will be used to control stock for all variations. Unless you define stock at variation level."
+                          }
+                        />
                       </div>
                     </div>
                     <div className="mb-3">
                       <label className="form-label text-muted">
                         Allow Backorders
                       </label>
-                      <select
-                        className="form-select"
-                        value={simpleProductValues.stock_status}
-                        name="stock_status"
-                        onChange={handleChange}
-                      >
-                        <option value="default">
-                          Open this select backorders status
-                        </option>
-                        <option value="Do Not Allowed">Do Not Allow</option>
-                        <option value="Allow, but notify customers">
-                          Allow, but notify customers
-                        </option>
-                        <option value="Allow">Allow</option>
-                      </select>
+                      <div className="d-flex gap-2">
+                        <select
+                          className="form-select"
+                          value={simpleProductValues.backorders_status}
+                          name="backorders_status"
+                          onChange={handleChange}
+                        >
+                          <option value="default">
+                            Open this select backorders status
+                          </option>
+                          <option value="Do Not Allow">Do Not Allow</option>
+                          <option value="Allow, but notify customers">
+                            Allow, but notify customers
+                          </option>
+                          <option value="Allow">Allow</option>
+                        </select>
+                        <TooltipMsg
+                          text={
+                            "If managing stock, If controls whethere or not backorders are allowed, If enabled stock quantity can go below 0"
+                          }
+                        />
+                      </div>
                     </div>
                     <div className="mb-3">
                       <label className="form-label text-muted">
                         Low stock threshold
                       </label>
-                      <input
-                        className="form-control"
-                        type="number"
-                        placeholder="quantity"
-                      />
+                      <div className="d-flex gap-2">
+                        <input
+                          className="form-control"
+                          type="number"
+                          name="stock_threshold"
+                          placeholder="quantity"
+                          onChange={handleChange}
+                          value={simpleProductValues?.stock_threshold}
+                        />
+                        <TooltipMsg
+                          text={
+                            "When product stoct reaches this amount you will be notified by email"
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label text-muted">
+                        Sold individually
+                      </label>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value={simpleProductValues?.sold_individually}
+                          checked={
+                            simpleProductValues &&
+                            simpleProductValues?.sold_individually
+                          }
+                          name="sold_individually"
+                          onChange={handleChange}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="flexCheckChecked"
+                        >
+                          Limit purchases to 1 item per order
+                        </label>
+                      </div>
                     </div>
                   </>
                 ) : (

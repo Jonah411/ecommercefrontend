@@ -99,6 +99,14 @@ const BuyCart = ({ product }) => {
                   handleQuantityChange(newQuantity)
                 }
                 quantityValue={1}
+                soldIndividually={
+                  productData?.simple_product?.sold_individually
+                }
+                maxValue={
+                  productData?.simple_product?.backorders_status ===
+                    "Do Not Allow" &&
+                  productData?.simple_product?.stock_quantity
+                }
               />
             </p>
             <p>

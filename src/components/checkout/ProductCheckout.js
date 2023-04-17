@@ -73,10 +73,10 @@ const ProductCheckout = ({ cartData, totalValue, totalPrice, coupon }) => {
                       <span className="Price-amount amount">
                         <bdi>
                           {totalPrice
-                            ? totalPrice.toFixed(1)
+                            ? totalPrice?.toFixed(1)
                             : totalValue
-                            ? totalValue.toFixed(1)
-                            : cartData?.totalPrice.toFixed(1)}
+                            ? totalValue?.toFixed(1)
+                            : cartData?.totalPrice?.toFixed(1)}
                         </bdi>
                       </span>
                     </strong>

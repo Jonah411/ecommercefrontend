@@ -45,6 +45,7 @@ const ProductUpdatePage = () => {
   const init = {
     productId: products ? products && products?._id : "",
     name: products ? products && products?.name : "",
+    email: products ? products && products?.email : "",
     description: products ? products && products?.description : "",
     short_description: products ? products && products?.short_description : "",
     categorie: products ? products && products?.categorie?._id : "",
@@ -113,6 +114,19 @@ const ProductUpdatePage = () => {
     stock_status: products
       ? products && products?.simple_product?.stock_status
       : "",
+    manage_stock: products ? products?.simple_product?.manage_stock : false,
+    stock_quantity: products
+      ? products && products?.simple_product?.stock_quantity
+      : "",
+    backorders_status: products
+      ? products && products?.simple_product?.backorders_status
+      : "",
+    stock_threshold: products
+      ? products && products?.simple_product?.stock_threshold
+      : "",
+    sold_individually: products
+      ? products && products?.simple_product?.sold_individually
+      : "",
     related_products: products
       ? products && products?.simple_product?.related_products
       : [],
@@ -124,8 +138,13 @@ const ProductUpdatePage = () => {
   const [simpleIsSubmit, setSimpleIsSubmit] = useState(false);
   const [simpleError, setSimpleError] = useState();
   const handleSimpleProductChange = (e) => {
-    const { name, value } = e.target;
-    setSimpleProductValues({ ...simpleProductValues, [name]: value });
+    const { name, value, checked } = e.target;
+    if (name === "manage_stock" || name === "sold_individually") {
+      console.log(checked, value);
+      setSimpleProductValues({ ...simpleProductValues, [name]: checked });
+    } else {
+      setSimpleProductValues({ ...simpleProductValues, [name]: value });
+    }
   };
   const groupinit = {
     sku: products ? products && products?.group_product?.sku : "",
@@ -204,6 +223,7 @@ const ProductUpdatePage = () => {
           formData.append("product_gallery", item);
         });
       }
+      console.log(productValues);
       updateProductDetails(formData);
     };
     if (
@@ -263,6 +283,7 @@ const ProductUpdatePage = () => {
 
   const formattedDate = dateFilter(products?.date);
   const updatedDate = dateFilter(products?.update_date);
+  console.log(products?.simple_product?.manage_stock);
   return (
     <div className="container">
       <div className="mb-3">
