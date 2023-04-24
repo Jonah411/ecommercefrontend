@@ -33,7 +33,7 @@ const VariantsForm = () => {
   const [productImage, setProductImage] = useState();
   const [productGallery, setProductGallery] = useState();
   const handleVariantChange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     if (e.target.type === "file" && name === "product_image") {
       if (e.target.files) {
         let bannerImg = [];
@@ -97,7 +97,7 @@ const VariantsForm = () => {
       setShow(true);
     }
   }, [checkedForms?.inventory]);
-  console.log(variantFormValues);
+  //console.log(variantFormValues);
   return (
     <div>
       <div className="border-bottom mb-3">

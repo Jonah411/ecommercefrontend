@@ -8,7 +8,7 @@ const Variants = ({ ProductValues }) => {
   });
   const [variantValue, setVariantValue] = useState(ProductValues?.attributes);
   const [defaultFormShow, setDefaultFormShow] = useState(false);
-  const [variantForm, setVariantForm] = useState([]);
+  // const [variantForm, setVariantForm] = useState([]);
   useEffect(() => {
     setVariantValue(ProductValues?.attributes);
   }, [ProductValues]);
@@ -23,7 +23,7 @@ const Variants = ({ ProductValues }) => {
     if (variantState?.variationFunction === "Add Variation") {
       setDefaultFormShow(true);
       setMyArray([...myArray, "new element"]);
-      setVariantForm((prevState) => [...prevState, { name: "" }]);
+      //  setVariantForm((prevState) => [...prevState, { name: "" }]);
     }
   };
   return (
