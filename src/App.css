@@ -378,6 +378,12 @@ body {
   border-radius: 25px;
   padding: 10px;
 }
+.product_list_body {
+  height: 42vh;
+}
+.product_list_short_text p {
+  text-align: justify;
+}
 /* Define the container element for the image */
 /* .image-container {
   overflow: hidden;

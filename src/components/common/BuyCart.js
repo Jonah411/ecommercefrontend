@@ -22,7 +22,14 @@ const BuyCart = ({ product }) => {
   // const quantityChange = (data) => {
   //   setQuantity(data);
   // };
-  const [quantity, setQuantity] = useState(1);
+
+  const minStockQuantity = productData?.simple_product?.min_stock_quantity;
+  const [quantity, setQuantity] = useState(
+    minStockQuantity ? minStockQuantity : 1
+  );
+  useEffect(() => {
+    setQuantity(minStockQuantity ? minStockQuantity : 1);
+  }, [minStockQuantity]);
   const [totalPrice, setToatalPrice] = useState(0);
   const [totalValue, setTotalValue] = useState();
   const [coupon, setCoupon] = useState();
@@ -100,14 +107,27 @@ const BuyCart = ({ product }) => {
                 }
                 quantityValue={1}
                 soldIndividually={
-                  productData?.simple_product?.sold_individually
+                  productData?.simple_product?.quantity_status ===
+                  "sold_individually"
+                    ? true
+                    : false
                 }
                 maxValue={
                   productData?.simple_product?.backorders_status ===
                     "Do Not Allow" &&
                   productData?.simple_product?.stock_quantity
                 }
+                minValue={productData?.simple_product?.min_stock_quantity}
+                backordersstatus={
+                  productData?.simple_product?.backorders_status
+                }
               />
+              <div className="product-price">
+                {productData?.simple_product?.quantity_status ===
+                  "sold_individually" && (
+                  <p className="fs-6">Limit purchases to 1 item per order</p>
+                )}
+              </div>
             </p>
             <p>
               <CouponCart

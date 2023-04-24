@@ -9,17 +9,27 @@ import { toast } from "react-toastify";
 import { useAddCartListMutation } from "../../feature/profileReducer/authProfile";
 import AlertToast from "./AlertToast";
 
-const AddCart = ({ productId, productQuandity, productStockQuantity }) => {
+const AddCart = ({
+  productId,
+  productQuandity,
+  productStockQuantity,
+  product,
+}) => {
   const user = useSelector(getLoginDetails);
   const [addCartList, { data, isSuccess, error, isError }] =
     useAddCartListMutation();
   const dispatch = useDispatch();
+  const minQuantity =
+    product?.simple_product?.min_stock_quantity &&
+    product?.simple_product?.min_stock_quantity;
   const cartList = {
     user: user ? user?.id : null,
     items: [
       {
         product: { _id: productId },
-        quantity: productQuandity
+        quantity: minQuantity
+          ? minQuantity
+          : productQuandity
           ? productQuandity
           : productStockQuantity
           ? productStockQuantity

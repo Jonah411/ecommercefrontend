@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SimpleProduct from "./SimpleProduct";
 import GroupedProduct from "./GroupedProduct";
 import { useGetProductTypesQuery } from "../../../feature/profileReducer/authProfile";
+import VariableProduct from "./VariableProduct";
 
 const ProductTypes = ({
   handleChange,
@@ -10,6 +11,7 @@ const ProductTypes = ({
   simpleProductValues,
   handleGroupProductChange,
   groupProductValues,
+  formValues,
 }) => {
   const { data: productsTypesData } = useGetProductTypesQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -39,6 +41,21 @@ const ProductTypes = ({
               );
             })}
           </select>
+          <div className="mb-3">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value={formValues?.virtual}
+                checked={formValues && formValues?.virtual}
+                name="virtual"
+                onChange={handleChange}
+              />
+              <label className="form-check-label" htmlFor="flexCheckChecked">
+                Virtual
+              </label>
+            </div>
+          </div>
         </div>
       </div>
       <div className="card-body">
@@ -58,6 +75,13 @@ const ProductTypes = ({
                   key={selectedOption}
                   handleChange={handleGroupProductChange}
                   groupProductValues={groupProductValues}
+                />
+              );
+            } else if (data?.name === "Variable Product") {
+              return (
+                <VariableProduct
+                  key={selectedOption}
+                  variantName={data?.name}
                 />
               );
             }

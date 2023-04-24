@@ -282,6 +282,25 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
         method: "Delete",
       }),
     }),
+    getAttributes: builder.query({
+      query: (ids) => ({
+        url: `api/attribute/${ids.join(",")}`,
+      }),
+    }),
+    createAttributes: builder.mutation({
+      query: (patch) => ({
+        url: `/api/attribute/${patch.simpleId}`,
+        method: "Post",
+        body: patch.data,
+      }),
+    }),
+    deleteAttributes: builder.mutation({
+      query: (patch) => ({
+        url: `/api/attribute/${patch}`,
+        method: "Delete",
+        body: patch,
+      }),
+    }),
   }),
 });
 
@@ -333,4 +352,7 @@ export const {
   useGetAllProductDetailsQuery,
   useUpdateProductDetailsMutation,
   useDropProductDetailsMutation,
+  useGetAttributesQuery,
+  useCreateAttributesMutation,
+  useDeleteAttributesMutation,
 } = authCouponApi;

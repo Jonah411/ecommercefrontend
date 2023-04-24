@@ -19,12 +19,13 @@ const ProductAddPage = () => {
     categorie: "",
     brand: "",
     product_types: "",
+    virtual: false,
   };
   const [formValues, setFormValues] = useState(init);
   const [productImage, setProductImage] = useState();
   const [productGallery, setProductGallery] = useState();
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, checked } = e.target;
     if (e.target.type === "file" && name === "product_image") {
       if (e.target.files) {
         let bannerImg = [];
@@ -67,12 +68,14 @@ const ProductAddPage = () => {
           }
         }
       }
+    } else if (name === "virtual") {
+      setFormValues({ ...formValues, [name]: checked });
     } else {
       setFormValues({ ...formValues, [name]: value });
     }
   };
   const simpleinit = {
-    price: "",
+    regular_price: "",
     sale_price: "",
     sale_price_start: "",
     sale_price_end: "",
@@ -83,18 +86,26 @@ const ProductAddPage = () => {
     stock_quantity: "",
     backorders_status: "",
     stock_threshold: "",
-    sold_individually: "",
     manage_stock: false,
+    quantity_status: "",
+    min_stock_quantity: "",
+    sold_individually: false,
+    attributes: "",
     related_products: [],
     like_products: [],
   };
+
   const [simpleProductValues, setSimpleProductValues] = useState(simpleinit);
   const [simpleIsSubmit, setSimpleIsSubmit] = useState(false);
   const [simpleError, setSimpleError] = useState();
   const handleSimpleProductChange = (e) => {
     const { name, value, checked } = e.target;
+    if (name === "quantity_status") {
+      if (value === "sold_individually") {
+        setSimpleProductValues({ ...simpleProductValues, [name]: value });
+      }
+    }
     if (name === "manage_stock" || name === "sold_individually") {
-      console.log(checked, value);
       setSimpleProductValues({ ...simpleProductValues, [name]: checked });
     } else {
       setSimpleProductValues({ ...simpleProductValues, [name]: value });
@@ -294,6 +305,7 @@ const ProductAddPage = () => {
             simpleProductValues={simpleProductValues}
             handleGroupProductChange={handleGroupProductChange}
             groupProductValues={groupProductValues}
+            formValues={formValues}
           />
           <div className="card mb-3">
             <div className="card-body">

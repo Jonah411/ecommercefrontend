@@ -77,7 +77,7 @@ export const CategorieFilter = (value, categorie) => {
 
 export const categoriesFilter = (value, products) => {
   const sortedItems = products?.filter((product) => {
-    return product?.categories?.name === value;
+    return product?.categorie?.name === value;
   });
   return sortedItems;
 };

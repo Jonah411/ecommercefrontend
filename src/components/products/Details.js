@@ -30,11 +30,16 @@ const Details = ({ details, groupGroducts }) => {
       return newCart;
     });
   };
-  const [quantity, setQuantity] = useState(1);
+  const minStockQuantity = productDetails?.simple_product?.min_stock_quantity;
+  const [quantity, setQuantity] = useState(
+    minStockQuantity ? minStockQuantity : 1
+  );
+  useEffect(() => {
+    setQuantity(minStockQuantity ? minStockQuantity : 1);
+  }, [minStockQuantity]);
   const handleStockQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
-  console.log(productDetails);
   return (
     <div className="image-app p-2">
       <div className="card">
@@ -106,7 +111,13 @@ const Details = ({ details, groupGroducts }) => {
                         </div>
                         <div className="d-flex justify-content-between">
                           <div className="product-price">
-                            <p> Quantity: </p>
+                            <p className="m-0"> Quantity: </p>
+                            {productDetails?.simple_product?.quantity_status ===
+                              "sold_individually" && (
+                              <p className="fs-6">
+                                Limit purchases to 1 item per order
+                              </p>
+                            )}
                           </div>
                           <div className="">
                             <Quantity
@@ -116,12 +127,22 @@ const Details = ({ details, groupGroducts }) => {
                               quantityValue={1}
                               soldIndividually={
                                 productDetails?.simple_product
-                                  ?.sold_individually
+                                  ?.quantity_status === "sold_individually"
+                                  ? true
+                                  : false
                               }
                               maxValue={
                                 productDetails?.simple_product
                                   ?.backorders_status === "Do Not Allow" &&
                                 productDetails?.simple_product?.stock_quantity
+                              }
+                              minValue={
+                                productDetails?.simple_product
+                                  ?.min_stock_quantity
+                              }
+                              backordersstatus={
+                                productDetails?.simple_product
+                                  ?.backorders_status
                               }
                             />
                           </div>

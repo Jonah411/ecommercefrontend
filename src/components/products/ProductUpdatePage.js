@@ -104,7 +104,7 @@ const ProductUpdatePage = () => {
     }
   };
   const simpleinit = {
-    price: products ? products && products?.price : "",
+    regular_price: products ? products && products?.regular_price : "",
     sale_price: products ? products && products?.sale_price : "",
     sale_price_start: products ? products && products?.sale_price_start : "",
     sale_price_end: products ? products && products?.sale_price_end : "",
@@ -126,6 +126,12 @@ const ProductUpdatePage = () => {
       : "",
     sold_individually: products
       ? products && products?.simple_product?.sold_individually
+      : false,
+    quantity_status: products
+      ? products && products?.simple_product?.quantity_status
+      : "",
+    min_stock_quantity: products
+      ? products && products?.simple_product?.min_stock_quantity
       : "",
     related_products: products
       ? products && products?.simple_product?.related_products
@@ -133,6 +139,10 @@ const ProductUpdatePage = () => {
     like_products: products
       ? products && products?.simple_product?.like_products
       : [],
+    attributes: products
+      ? products && products?.simple_product?.attributes
+      : [],
+    simpleId: products ? products && products?.simple_product?._id : [],
   };
   const [simpleProductValues, setSimpleProductValues] = useState(simpleinit);
   const [simpleIsSubmit, setSimpleIsSubmit] = useState(false);
@@ -140,7 +150,6 @@ const ProductUpdatePage = () => {
   const handleSimpleProductChange = (e) => {
     const { name, value, checked } = e.target;
     if (name === "manage_stock" || name === "sold_individually") {
-      console.log(checked, value);
       setSimpleProductValues({ ...simpleProductValues, [name]: checked });
     } else {
       setSimpleProductValues({ ...simpleProductValues, [name]: value });
@@ -223,7 +232,6 @@ const ProductUpdatePage = () => {
           formData.append("product_gallery", item);
         });
       }
-      console.log(productValues);
       updateProductDetails(formData);
     };
     if (
@@ -283,7 +291,6 @@ const ProductUpdatePage = () => {
 
   const formattedDate = dateFilter(products?.date);
   const updatedDate = dateFilter(products?.update_date);
-  console.log(products?.simple_product?.manage_stock);
   return (
     <div className="container">
       <div className="mb-3">

@@ -25,7 +25,7 @@ const ProductList = ({
   useEffect(() => {
     setList(listView);
   }, [listView]);
-  console.log(products);
+  const currentDate = new Date();
   return (
     <div>
       <div className="">
@@ -34,6 +34,7 @@ const ProductList = ({
 
       <div className="row">
         {products?.map((data) => {
+          console.log(data);
           return (
             <div
               className={
@@ -69,50 +70,58 @@ const ProductList = ({
                       }
                     >
                       <div className="container-fluid ">
-                        <div className="card-body">
+                        <div className="card-body product_list_body">
                           <div className="">
                             <h5>{data?.name}</h5>
                           </div>
                           <div className="d-flex justify-content-between">
+                            {data?.simple_product && data?.sale_price && (
+                              <p>
+                                Price:{" "}
+                                <span className="price fw-bold">
+                                  {data?.price}
+                                </span>
+                              </p>
+                            )}
+
                             {data?.simple_product && (
                               <div className="product-price">
-                                {data?.simple_product?.sale_price ? (
-                                  <p className="m-0">
-                                    Price:{" "}
-                                    <span className="offer-price">
-                                      {data?.price}
-                                    </span>
-                                  </p>
-                                ) : (
-                                  <p>
-                                    Price:{" "}
-                                    <span className="price">{data?.price}</span>
-                                  </p>
-                                )}
-                                {data?.simple_product?.sale_price && (
-                                  <p>
-                                    Sale Price:{" "}
-                                    <span className="price">
-                                      {data?.simple_product?.sale_price}
-                                    </span>
-                                  </p>
-                                )}
+                                {data?.sale_price_start &&
+                                  data?.sale_price_end &&
+                                  data?.sale_price && (
+                                    <p className="m-0">
+                                      {currentDate?.getTime() >=
+                                        new Date(
+                                          data?.sale_price_start
+                                        )?.getTime() &&
+                                        currentDate?.getTime() <=
+                                          new Date(
+                                            data?.sale_price_end
+                                          )?.getTime() && (
+                                          <>
+                                            Regular Price:{" "}
+                                            <span className="offer-price">
+                                              {data?.regular_price}
+                                            </span>
+                                          </>
+                                        )}
+                                    </p>
+                                  )}
                               </div>
                               // <h6>Price: {data?.price}</h6>
                             )}
-
+                          </div>
+                          <div className="d-flex justify-content-end mb-3">
                             <Rating
                               name="read-only"
                               value={parseInt(data?.rating_star?.rating_radio)}
                               readOnly
-                              // onChange={(event, newValue) => {
-                              //   setValue(newValue);
-                              // }}
                             />
                           </div>
-                          <div className="">
+                          <hr />
+                          <div className="product_list_short_text mb-3">
                             <p className="text-muted">
-                              {data?.short_description}
+                              {data?.short_description}...
                             </p>
                           </div>
                         </div>
@@ -120,7 +129,7 @@ const ProductList = ({
                           <div className=" ">
                             {data?.simple_product && (
                               <div className="d-flex justify-content-between gap-2">
-                                <AddCart productId={data._id} />
+                                <AddCart productId={data._id} product={data} />
                                 <BuyCart product={data} />
                               </div>
                             )}

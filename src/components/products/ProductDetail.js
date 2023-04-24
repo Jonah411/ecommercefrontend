@@ -14,6 +14,7 @@ import Tabs from "react-bootstrap/Tabs";
 import RatingAndReviewsForm from "./RatingAndReviewsForm";
 import ProductDescription from "./ProductDescription";
 import SliderRelativeView from "../design/SliderRelativeView";
+import AdditionalInformation from "./AdditionalInformation";
 
 const ProductDetail = () => {
   const user = useSelector(getLoginDetails);
@@ -84,6 +85,13 @@ const ProductDetail = () => {
             className="product-feedback"
           >
             <ProductDescription details={products} />
+          </Tab>
+          <Tab
+            eventKey="additional_information"
+            title="Additional Information"
+            className="product-feedback"
+          >
+            <AdditionalInformation productDetails={products} />
           </Tab>
           <Tab
             eventKey="profile"

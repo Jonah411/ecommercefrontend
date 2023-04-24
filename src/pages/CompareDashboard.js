@@ -88,6 +88,7 @@ const CompareDashboard = () => {
   const dataList = ["", "", "", ""];
   const subCategories = CollectCategories();
   const products = CollectProducts();
+  console.log(products);
   const init = {
     categorie: "",
     product: "",
@@ -260,7 +261,7 @@ const CompareDashboard = () => {
                 if (compareList[index]?.name) {
                   return (
                     <td key={index} className="text-center text-muted fw-bold">
-                      {compareList[index]?.product_strength}
+                      {compareList[index]?.productId?.simple_product?.strength}
                     </td>
                   );
                 } else {
@@ -280,7 +281,7 @@ const CompareDashboard = () => {
                 if (compareList[index]?.name) {
                   return (
                     <td key={index} className="text-center text-muted fw-bold">
-                      {compareList[index]?.pack_size}
+                      {compareList[index]?.productId?.simple_product?.pack_size}
                     </td>
                   );
                 } else {

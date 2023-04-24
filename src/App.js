@@ -17,6 +17,7 @@ import Footer from "./components/footer/Footer";
 import AddRatingReviews from "./components/rating-and-reviews/AddRatingReviews";
 import HomeDashboard from "./pages/HomeDashboard";
 import CompareDashboard from "./pages/CompareDashboard";
+import AlertToast from "./components/common/AlertToast";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/profile/*" element={<Profile />}></Route>
       </Routes>
       <Footer />
+      <AlertToast />
     </Router>
   );
 };

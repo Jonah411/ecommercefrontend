@@ -102,6 +102,16 @@ const CartDashboard = () => {
   const couponChange = (data) => {
     setCoupon(data);
   };
+  useEffect(() => {
+    setCart((prevCart) => {
+      return prevCart.map((data) => ({
+        ...data,
+        quantity: data?.product?.simple_product?.min_stock_quantity
+          ? data?.product?.simple_product?.min_stock_quantity
+          : 1,
+      }));
+    });
+  }, []);
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">

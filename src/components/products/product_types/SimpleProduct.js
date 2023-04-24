@@ -7,6 +7,7 @@ import RelatedProduct from "../relatedProducts/RelatedProduct";
 import LikeProduct from "../relatedProducts/LikeProduct";
 import { CollectProducts } from "../../common/CollectProducts";
 import TooltipMsg from "../../design/TooltipMsg";
+import AttributesDetails from "./AttributesDetails";
 
 const SimpleProduct = ({ handleChange, simpleProductValues }) => {
   const productsData = CollectProducts();
@@ -59,7 +60,7 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
     simpleProductValues?.sale_price_start
   );
   const formattedSalePriceEnd = dateRange(simpleProductValues?.sale_price_end);
-  console.log(simpleProductValues);
+
   return (
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
       <Row>
@@ -80,6 +81,11 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                 Linked Product
               </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="four" className="text-light">
+                Attributes
+              </Nav.Link>
+            </Nav.Item>
           </Nav>
         </Col>
         <Col sm={9}>
@@ -91,8 +97,8 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                   <input
                     type="number"
                     className="form-control p-2"
-                    name="price"
-                    value={simpleProductValues?.price}
+                    name="regular_price"
+                    value={simpleProductValues?.regular_price}
                     onChange={handleChange}
                   />
                 </div>
@@ -253,7 +259,8 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                         />
                       </div>
                     </div>
-                    <div className="mb-3">
+                    <hr />
+                    {/* <div className="mb-3">
                       <label className="form-label text-muted">
                         Sold individually
                       </label>
@@ -276,7 +283,58 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                           Limit purchases to 1 item per order
                         </label>
                       </div>
+                    </div> */}
+                    <div className="mb-3">
+                      <label>
+                        <input
+                          type="radio"
+                          name="quantity_status"
+                          value="min_quantity"
+                          onChange={handleChange}
+                          checked={
+                            simpleProductValues?.quantity_status ===
+                            "min_quantity"
+                          }
+                        />
+                        Min Quantity
+                      </label>
+                      <label className="ms-2">
+                        <input
+                          type="radio"
+                          name="quantity_status"
+                          value="sold_individually"
+                          onChange={handleChange}
+                          checked={
+                            simpleProductValues?.quantity_status ===
+                            "sold_individually"
+                          }
+                        />
+                        Limit purchases to 1 item per order
+                      </label>
                     </div>
+                    {simpleProductValues?.quantity_status ===
+                      "min_quantity" && (
+                      <div className="mb-3">
+                        <label className="form-label text-muted">
+                          Minimum Stock Quantity
+                        </label>
+                        <div className="d-flex gap-2">
+                          <input
+                            className="form-control"
+                            type="number"
+                            placeholder="minimum stock quantity"
+                            name="min_stock_quantity"
+                            onChange={handleChange}
+                            value={simpleProductValues?.min_stock_quantity}
+                          />
+                          <TooltipMsg
+                            text={
+                              "Stock quantity. If this is a variable Product this value will be used to control stock for all variations. Unless you define stock at variation level."
+                            }
+                          />
+                        </div>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <div className="mb-3">
@@ -322,6 +380,14 @@ const SimpleProduct = ({ handleChange, simpleProductValues }) => {
                     likeName={likeProduct}
                   />
                 </div>
+              </div>
+            </Tab.Pane>
+            <Tab.Pane eventKey="four">
+              <div className="container p-2 border">
+                <AttributesDetails
+                  handleChange={handleChange}
+                  ProductValues={simpleProductValues}
+                />
               </div>
             </Tab.Pane>
           </Tab.Content>
