@@ -18,18 +18,21 @@ const AddRatingReviews = () => {
   let list = {
     id: id,
     type: "product",
+    user: user?.id,
   };
   const { data: productData } = useGetProductsQuery(list, {
     refetchOnMountOrArgChange: true,
     skip: false,
   });
+
   const navigate = useNavigate();
   const [createRatingReviews, { data, error, isSuccess, isError }] =
     useCreateRatingReviewsMutation();
-  const [product, setProduct] = useState(productData && productData?.data[0]);
+  const [product, setProduct] = useState(productData && productData?.data);
   useEffect(() => {
-    setProduct(productData && productData?.data[0]);
+    setProduct(productData && productData?.data);
   }, [productData]);
+
   const product_init = {
     productId: product?._id,
     rate_product: "",
@@ -95,6 +98,7 @@ const AddRatingReviews = () => {
           formData.append("review_image", item);
         });
       }
+      console.log(rateReviews);
       createRatingReviews(formData);
     }
   }, [
