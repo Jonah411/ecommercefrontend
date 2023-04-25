@@ -54,7 +54,7 @@ export const BrandFilter = (value, brand) => {
   const sortedItems =
     value &&
     value?.filter((product) => {
-      return product.brands?.name === brand?.name;
+      return product.brand?.name === brand?.name;
     });
   return sortedItems;
 };
@@ -62,7 +62,7 @@ export const BrandsFilter = (value, brand) => {
   const sortedItems =
     value &&
     value?.filter((product) => {
-      return product.brands?.name === brand;
+      return product.brand?.name === brand;
     });
   return sortedItems;
 };
@@ -70,7 +70,7 @@ export const CategorieFilter = (value, categorie) => {
   const sortedItems =
     value &&
     value?.filter((product) => {
-      return product.categories?.name === categorie?.name;
+      return product.categorie?.name === categorie?.name;
     });
   return sortedItems;
 };
