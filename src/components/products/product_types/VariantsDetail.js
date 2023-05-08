@@ -30,7 +30,7 @@ const VariantsDetail = ({
       };
       handleVariantChange(dataId);
     }
-  }, [defaultValueVariant]);
+  }, [defaultValueVariant, handleVariantChange]);
   return (
     <Accordion defaultActiveKey="0">
       <Accordion.Item eventKey={variantIndex}>
