@@ -34,7 +34,6 @@ const ProductList = ({
 
       <div className="row">
         {products?.map((data) => {
-          console.log(data);
           return (
             <div
               className={

@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import VariantsForm from "./VariantsForm";
 
-const VariantsDetail = ({ variantValue, variantIndex }) => {
+const VariantsDetail = ({
+  variantValue,
+  variantIndex,
+  variantFormValues,
+  handleVariantChange,
+  productImage,
+  productGallery,
+  variantData,
+}) => {
+  const [defaultValueVariant, setDefaultValueVariant] = useState([
+    { default_value_variant: "" },
+  ]);
+  const handleValueVariantChange = (e, index) => {
+    const { name, value } = e.target;
+    const newList = [...defaultValueVariant];
+    newList[index] = { ...newList[index], [name]: value };
+    setDefaultValueVariant(newList);
+  };
+  useEffect(() => {
+    if (defaultValueVariant) {
+      const dataId = {
+        target: {
+          name: "default_value_variant",
+          value: defaultValueVariant,
+        },
+      };
+      handleVariantChange(dataId);
+    }
+  }, [defaultValueVariant]);
   return (
     <Accordion defaultActiveKey="0">
       <Accordion.Item eventKey={variantIndex}>
@@ -15,15 +43,15 @@ const VariantsDetail = ({ variantValue, variantIndex }) => {
                     <select
                       className="form-select"
                       //   value={productValues.backorders_status}
-                      name="backorders_status"
-                      // onChange={handleChange}
+                      name="default_value_variant"
+                      onChange={(e) => handleValueVariantChange(e, index)}
                     >
                       <option value="default">
                         No default {variableproduct?.attr_name}
                       </option>
                       {variableproduct?.attr_values?.map((data, index) => {
                         return (
-                          <option value="Do Not Allow" key={index}>
+                          <option value={data} key={index}>
                             {data}
                           </option>
                         );
@@ -40,7 +68,14 @@ const VariantsDetail = ({ variantValue, variantIndex }) => {
           )}
         </Accordion.Header>
         <Accordion.Body>
-          <VariantsForm />
+          <VariantsForm
+            handleVariantChange={handleVariantChange}
+            productImage={productImage}
+            productGallery={productGallery}
+            variantFormValues={variantFormValues}
+            variantIndex={variantIndex}
+            variantData={variantData}
+          />
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

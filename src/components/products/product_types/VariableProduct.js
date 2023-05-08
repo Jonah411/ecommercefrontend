@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
@@ -10,7 +10,7 @@ import LikeProduct from "../relatedProducts/LikeProduct";
 import AttributesDetails from "./AttributesDetails";
 import Variants from "./Variants";
 
-const VariableProduct = ({ variantName, variableProduct }) => {
+const VariableProduct = ({ variantName, variableProduct, handleChange }) => {
   const productsData = CollectProducts();
   const variantInt = {
     sku: "",
@@ -24,6 +24,8 @@ const VariableProduct = ({ variantName, variableProduct }) => {
     related_products: [],
     like_products: [],
     attributes: "",
+    variantId: "",
+    defaultform: "",
   };
   const [variableProductValues, setVariableProductValues] =
     useState(variantInt);
@@ -72,6 +74,9 @@ const VariableProduct = ({ variantName, variableProduct }) => {
     };
     handleVariableChange(data);
   };
+  useEffect(() => {
+    handleChange(variableProductValues);
+  }, [variableProductValues, handleChange]);
   return (
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
       <Row>
@@ -142,7 +147,10 @@ const VariableProduct = ({ variantName, variableProduct }) => {
             </Tab.Pane>
             <Tab.Pane eventKey="four">
               <div className="container p-2 border">
-                <Variants ProductValues={variableProductValues} />
+                <Variants
+                  ProductValues={variableProductValues}
+                  handleChange={handleVariableChange}
+                />
               </div>
             </Tab.Pane>
           </Tab.Content>

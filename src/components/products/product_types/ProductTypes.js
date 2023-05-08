@@ -12,6 +12,7 @@ const ProductTypes = ({
   handleGroupProductChange,
   groupProductValues,
   formValues,
+  handleVariableProductChange,
 }) => {
   const { data: productsTypesData } = useGetProductTypesQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -82,6 +83,7 @@ const ProductTypes = ({
                 <VariableProduct
                   key={selectedOption}
                   variantName={data?.name}
+                  handleChange={handleVariableProductChange}
                 />
               );
             }

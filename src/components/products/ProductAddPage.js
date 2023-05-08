@@ -122,18 +122,27 @@ const ProductAddPage = () => {
     const { name, value } = e.target;
     setGroupProductValues({ ...groupProductValues, [name]: value });
   };
+
+  const [variableProductValues, setVariableProductValues] = useState({});
   const [productValues, setProductValues] = useState({
     ...formValues,
-    ...simpleProductValues,
+    ...(simpleProductValues && simpleProductValues),
     ...groupProductValues,
+    ...variableProductValues,
   });
   useEffect(() => {
     setProductValues({
       ...formValues,
       ...simpleProductValues,
       ...groupProductValues,
+      ...variableProductValues,
     });
-  }, [formValues, simpleProductValues, groupProductValues]);
+  }, [
+    formValues,
+    simpleProductValues,
+    groupProductValues,
+    variableProductValues,
+  ]);
   const handlePublish = (e) => {
     e.preventDefault();
     setSimpleIsSubmit(true);
@@ -170,6 +179,7 @@ const ProductAddPage = () => {
   useEffect(() => {
     const onFieldChange = () => {
       const formData = new FormData();
+      console.log(productValues);
       formData.append("json_data", JSON.stringify(productValues));
       formData.append(
         "product_image",
@@ -241,6 +251,17 @@ const ProductAddPage = () => {
 
   // Format the date in "dd-mm-yyyy" format
   const formattedDate = `${day}-${month}-${year}`;
+
+  const handleVariableProductChange = (data) => {
+    // const variable = {
+    //   target: {
+    //     data,
+    //   },
+    // };
+
+    setVariableProductValues(data);
+  };
+
   return (
     <div className="container">
       <div className="mb-3">
@@ -306,6 +327,7 @@ const ProductAddPage = () => {
             handleGroupProductChange={handleGroupProductChange}
             groupProductValues={groupProductValues}
             formValues={formValues}
+            handleVariableProductChange={handleVariableProductChange}
           />
           <div className="card mb-3">
             <div className="card-body">

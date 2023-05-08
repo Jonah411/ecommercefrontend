@@ -4,8 +4,9 @@ import AddCart from "../common/AddCart";
 import BuyCart from "../common/BuyCart";
 import Quantity from "../cart/Quantity";
 import { BASE_URL } from "../../constants/ConstaltsVariables";
+import VariableDetails from "./VariableDetails";
 
-const Details = ({ details, groupGroducts }) => {
+const Details = ({ details, groupGroducts, handleChangeProductDetails }) => {
   const [productDetails, setProductDetails] = useState();
   useEffect(() => {
     setProductDetails(details);
@@ -30,7 +31,13 @@ const Details = ({ details, groupGroducts }) => {
       return newCart;
     });
   };
-  const minStockQuantity = productDetails?.simple_product?.min_stock_quantity;
+  let minStockQuantity;
+  if (productDetails?.simple_product) {
+    minStockQuantity = productDetails?.simple_product?.min_stock_quantity;
+  } else if (productDetails?.variable_product) {
+    minStockQuantity = productDetails?.variable_product?.min_stock_quantity;
+  }
+
   const [quantity, setQuantity] = useState(
     minStockQuantity ? minStockQuantity : 1
   );
@@ -40,6 +47,7 @@ const Details = ({ details, groupGroducts }) => {
   const handleStockQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
+
   return (
     <div className="image-app p-2">
       <div className="card">
@@ -251,6 +259,17 @@ const Details = ({ details, groupGroducts }) => {
                 </div>
               </div>
             )}
+            {productDetails?.variable_product && (
+              <div>
+                <VariableDetails
+                  VariableProduct={productDetails?.variable_product?._id}
+                  VariantproductDetails={productDetails}
+                  handleStockQuantityChange={handleStockQuantityChange}
+                  quantity={quantity}
+                  handleChangeProductDetails={handleChangeProductDetails}
+                />
+              </div>
+            )}
             <div className="product-field">
               <div className="d-flex justify-content-between">
                 <div className="product-price">
@@ -310,6 +329,15 @@ const Details = ({ details, groupGroducts }) => {
             )}
           </div>
         )}
+        {/* {productDetails?.variable_product && (
+          <div className="card-footer">
+            <AddCart
+              productId={productDetails?._id}
+              productStockQuantity={quantity && quantity}
+            />
+            <BuyCart product={productDetails} />
+          </div>
+        )} */}
       </div>
     </div>
   );

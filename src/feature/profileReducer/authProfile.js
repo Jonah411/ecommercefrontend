@@ -301,6 +301,30 @@ export const authCouponApi = baseLoginApi.injectEndpoints({
         body: patch,
       }),
     }),
+    createVariants: builder.mutation({
+      query: (patch) => ({
+        url: `/api/productdetails/create_variable`,
+        method: "Post",
+        body: patch,
+      }),
+    }),
+    getVariantsDetails: builder.query({
+      query: (ids) => ({
+        url: `api/productdetails/get_variable/${ids}`,
+      }),
+    }),
+    getVariantsProduct: builder.query({
+      query: (ids) => ({
+        url: `api/productdetails/get_variants/${ids.join(",")}`,
+      }),
+    }),
+    updateProductVariants: builder.mutation({
+      query: (patch) => ({
+        url: `/api/productdetails/update_product/${patch.id}`,
+        method: "Post",
+        body: patch,
+      }),
+    }),
   }),
 });
 
@@ -355,4 +379,8 @@ export const {
   useGetAttributesQuery,
   useCreateAttributesMutation,
   useDeleteAttributesMutation,
+  useCreateVariantsMutation,
+  useGetVariantsDetailsQuery,
+  useGetVariantsProductQuery,
+  useUpdateProductVariantsMutation,
 } = authCouponApi;

@@ -7,7 +7,6 @@ import {
 } from "../../feature/loginReducer/loginReducer";
 import { toast } from "react-toastify";
 import { useAddCartListMutation } from "../../feature/profileReducer/authProfile";
-import AlertToast from "./AlertToast";
 
 const AddCart = ({
   productId,
@@ -19,9 +18,15 @@ const AddCart = ({
   const [addCartList, { data, isSuccess, error, isError }] =
     useAddCartListMutation();
   const dispatch = useDispatch();
-  const minQuantity =
-    product?.simple_product?.min_stock_quantity &&
-    product?.simple_product?.min_stock_quantity;
+  let minQuantity;
+  if (product?.simple_product) {
+    minQuantity = product?.simple_product?.min_stock_quantity;
+  } else if (product?.variable_product) {
+    minQuantity = product?.variable_product?.min_stock_quantity;
+  }
+  // const minQuantity =
+  //   product?.simple_product?.min_stock_quantity &&
+  //   product?.simple_product?.min_stock_quantity;
   const cartList = {
     user: user ? user?.id : null,
     items: [
@@ -79,7 +84,6 @@ const AddCart = ({
       }
     } else {
       if (isError) {
-        console.log("johnnnnn");
         toast.error(`${error?.data?.msg}`, {
           position: "top-center",
           autoClose: 5000,
@@ -102,7 +106,6 @@ const AddCart = ({
       >
         <span className="product-font">Add Cart</span>
       </Button>
-      <AlertToast />
     </>
   );
 };

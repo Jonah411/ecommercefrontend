@@ -1,85 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import NoImage from "../../../assets/noimage.png";
-import { toast } from "react-toastify";
+
 import JoditEditor from "jodit-react";
-import Inventory from "./Inventory";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import InventoryArray from "./InventoryArray";
 
-const VariantsForm = () => {
-  const instVariant = {
-    name: "",
-    email: "",
-    description: "",
-    regular_price: "",
-    sale_price: "",
-    sale_price_start: "",
-    sale_price_end: "",
-    strength: "",
-    pack_size: "",
-    sku: "",
-    stock_status: "In Stock",
-    stock_quantity: "",
-    backorders_status: "",
-    stock_threshold: "",
-    manage_stock: false,
-    quantity_status: "",
-    min_stock_quantity: "",
-    sold_individually: false,
-  };
+const VariantsForm = ({
+  handleVariantChange,
+  productImage,
+  productGallery,
+  variantFormValues,
+  variantIndex,
+}) => {
   const editor = useRef(null);
   const [dateRangeShow, setDateRangeShow] = useState(true);
-  const [variantFormValues, setVariantFormValues] = useState(instVariant);
-  const [productImage, setProductImage] = useState();
-  const [productGallery, setProductGallery] = useState();
-  const handleVariantChange = (e) => {
-    const { name, value } = e.target;
-    if (e.target.type === "file" && name === "product_image") {
-      if (e.target.files) {
-        let bannerImg = [];
-        for (let i = 0; i < e.target.files.length; i++) {
-          if (e.target.files[i].size <= 2000000) {
-            bannerImg.push(e.target.files[i]);
-            setProductImage({ ...productImage, [name]: bannerImg });
-          } else {
-            toast.error("Image size Big", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }
-        }
-      }
-    } else if (e.target.type === "file" && name === "product_gallery") {
-      if (e.target.files) {
-        let bannerImg = [];
-        for (let i = 0; i < e.target.files.length; i++) {
-          if (e.target.files[i].size <= 2000000) {
-            bannerImg.push(e.target.files[i]);
-            setProductGallery({ ...productGallery, [name]: bannerImg });
-          } else {
-            toast.error("Image size Big", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }
-        }
-      }
-    } else {
-      setVariantFormValues({ ...variantFormValues, [name]: value });
-    }
-  };
+
   const init = {
     basic: false,
     inventory: false,
@@ -97,7 +33,7 @@ const VariantsForm = () => {
       setShow(true);
     }
   }, [checkedForms?.inventory]);
-  //console.log(variantFormValues);
+
   return (
     <div>
       <div className="border-bottom mb-3">
@@ -131,11 +67,14 @@ const VariantsForm = () => {
           <label htmlFor="">Product Image</label>
           <button className="btn btn-link">
             <label htmlFor="fileInput">
-              {productImage ? (
+              {productImage[variantIndex]?.product_image.length !== 0 ? (
                 <img
                   src={
                     productImage &&
-                    URL.createObjectURL(productImage?.product_image[0])
+                    URL.createObjectURL(
+                      productImage[variantIndex]?.product_image.length !== 0 &&
+                        productImage[variantIndex]?.product_image[0]
+                    )
                   }
                   alt="image_product_added"
                   width={100}
@@ -148,8 +87,6 @@ const VariantsForm = () => {
           </button>
           <input
             type="file"
-            id="fileInput"
-            style={{ display: "none" }}
             name="product_image"
             onChange={handleVariantChange}
           />
@@ -160,18 +97,20 @@ const VariantsForm = () => {
             <label htmlFor="fileInput">
               {productGallery && (
                 <>
-                  {productGallery &&
-                    productGallery?.product_gallery?.map((image, index) => {
-                      const url = URL.createObjectURL(image);
-                      return (
-                        <img
-                          key={index}
-                          src={url}
-                          alt={`Product_Image_${index}`}
-                          width={100}
-                        />
-                      );
-                    })}
+                  {productGallery[variantIndex]?.product_gallery.length !== 0 &&
+                    productGallery[variantIndex]?.product_gallery?.map(
+                      (image, index) => {
+                        const url = URL.createObjectURL(image);
+                        return (
+                          <img
+                            key={index}
+                            src={url}
+                            alt={`Product_Image_${index}`}
+                            width={100}
+                          />
+                        );
+                      }
+                    )}
                 </>
               )}
             </label>
@@ -327,8 +266,9 @@ const VariantsForm = () => {
           <Modal.Title>Inventory</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Inventory
+          <InventoryArray
             productValues={variantFormValues}
+            variantIndex={variantIndex}
             handleChange={handleVariantChange}
           />
         </Modal.Body>

@@ -6,7 +6,7 @@ const AdditionalInformation = ({ productDetails }) => {
   useEffect(() => {
     setDetails(productDetails);
   }, [productDetails]);
-  console.log(details?.simple_product?.attributes);
+
   const { data: attributesData } = useGetAttributesQuery(
     details?.simple_product?.attributes,
     {
@@ -14,12 +14,12 @@ const AdditionalInformation = ({ productDetails }) => {
       skip: false,
     }
   );
-  console.log(attributesData);
+
   return (
     <div>
       <h5>Attribute Values</h5>
       <div className="table-responsive">
-        <table class="table table-success table-striped">
+        <table className="table table-success table-striped">
           <thead>
             <tr>
               <th>Name</th>

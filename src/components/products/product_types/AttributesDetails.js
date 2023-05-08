@@ -102,7 +102,7 @@ const AttributesDetails = ({ handleChange, ProductValues, variantName }) => {
   };
   useEffect(() => {
     if (Object.keys(attrError && attrError).length === 0 && attrIsSubmit) {
-      if (attributesData) {
+      if (attributesData && attrIsSubmit) {
         const patch = {
           simpleId: ProductValues?.simpleId,
           data: attrForms,

@@ -102,16 +102,20 @@ const CartDashboard = () => {
   const couponChange = (data) => {
     setCoupon(data);
   };
+  let quantityno;
+  if (data?.product?.simple_product) {
+    quantityno = data?.product?.simple_product?.min_stock_quantity;
+  } else if (data?.product?.variable_product) {
+    quantityno = data?.product?.variable_product?.min_stock_quantity;
+  }
   useEffect(() => {
     setCart((prevCart) => {
       return prevCart.map((data) => ({
         ...data,
-        quantity: data?.product?.simple_product?.min_stock_quantity
-          ? data?.product?.simple_product?.min_stock_quantity
-          : 1,
+        quantity: quantityno ? quantityno : 1,
       }));
     });
-  }, []);
+  }, [quantityno]);
   return (
     <div className="p-3 container">
       <div className="mt-2 mb-3">

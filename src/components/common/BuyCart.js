@@ -99,36 +99,70 @@ const BuyCart = ({ product }) => {
         <Modal.Body>
           <div>
             <p> Price: {productData?.price}</p>
-            <p>
-              Quantity:
-              <Quantity
-                onQuantityChange={(newQuantity) =>
-                  handleQuantityChange(newQuantity)
-                }
-                quantityValue={1}
-                soldIndividually={
-                  productData?.simple_product?.quantity_status ===
-                  "sold_individually"
-                    ? true
-                    : false
-                }
-                maxValue={
-                  productData?.simple_product?.backorders_status ===
-                    "Do Not Allow" &&
-                  productData?.simple_product?.stock_quantity
-                }
-                minValue={productData?.simple_product?.min_stock_quantity}
-                backordersstatus={
-                  productData?.simple_product?.backorders_status
-                }
-              />
-              <div className="product-price">
-                {productData?.simple_product?.quantity_status ===
-                  "sold_individually" && (
-                  <p className="fs-6">Limit purchases to 1 item per order</p>
-                )}
-              </div>
-            </p>
+            {productData?.simple_product && (
+              <p>
+                Quantity:
+                <Quantity
+                  onQuantityChange={(newQuantity) =>
+                    handleQuantityChange(newQuantity)
+                  }
+                  quantityValue={1}
+                  soldIndividually={
+                    productData?.simple_product?.quantity_status ===
+                    "sold_individually"
+                      ? true
+                      : false
+                  }
+                  maxValue={
+                    productData?.simple_product?.backorders_status ===
+                      "Do Not Allow" &&
+                    productData?.simple_product?.stock_quantity
+                  }
+                  minValue={productData?.simple_product?.min_stock_quantity}
+                  backordersstatus={
+                    productData?.simple_product?.backorders_status
+                  }
+                />
+                <div className="product-price">
+                  {productData?.simple_product?.quantity_status ===
+                    "sold_individually" && (
+                    <p className="fs-6">Limit purchases to 1 item per order</p>
+                  )}
+                </div>
+              </p>
+            )}
+            {productData?.variable_product && (
+              <p>
+                Quantity:
+                <Quantity
+                  onQuantityChange={(newQuantity) =>
+                    handleQuantityChange(newQuantity)
+                  }
+                  quantityValue={1}
+                  soldIndividually={
+                    productData?.variable_product?.quantity_status ===
+                    "sold_individually"
+                      ? true
+                      : false
+                  }
+                  maxValue={
+                    productData?.variable_product?.backorders_status ===
+                      "Do Not Allow" &&
+                    productData?.variable_product?.stock_quantity
+                  }
+                  minValue={productData?.variable_product?.min_stock_quantity}
+                  backordersstatus={
+                    productData?.variable_product?.backorders_status
+                  }
+                />
+                <div className="product-price">
+                  {productData?.variable_product?.quantity_status ===
+                    "sold_individually" && (
+                    <p className="fs-6">Limit purchases to 1 item per order</p>
+                  )}
+                </div>
+              </p>
+            )}
             <p>
               <CouponCart
                 cartId={null}

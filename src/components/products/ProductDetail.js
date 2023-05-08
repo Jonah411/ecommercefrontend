@@ -53,6 +53,9 @@ const ProductDetail = () => {
     }
   }, [wishListDatas]);
   const path = ["Home", "Products", products?.name];
+  const handleChangeProductDetails = (product) => {
+    setProducts(product);
+  };
   return (
     <div className="container">
       <div className="p-3 mb-3 mb-3">
@@ -68,7 +71,11 @@ const ProductDetail = () => {
             />
           </div>
           <div className="col-12 col-sm-8">
-            <Details details={products} groupGroducts={groupGroducts} />
+            <Details
+              details={products}
+              groupGroducts={groupGroducts}
+              handleChangeProductDetails={handleChangeProductDetails}
+            />
           </div>
         </div>
       </div>
